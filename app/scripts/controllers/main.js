@@ -8,19 +8,17 @@
  * Controller of the angryTaxiApp
  */
 angular.module('angryTaxiApp')
-  .controller('MainCtrl', function ($scope, requestApi) {
+  .controller('MainCtrl', function ($scope, requestApi, ngProgressFactory) {
+
+    // Cria instância da barra de progresso
+    $scope.progressbar = ngProgressFactory.createInstance();
+    $scope.progressbar.setColor('#ffd300');
+    $scope.progressbar.setHeight('4px');
 
     // ====
     $scope.complaint = {};
 
     $scope.newComplaint = function() {
-      // data: {
-      //   title: 'Boquearam um Uber',
-      //   date: '2016-04-25T03:00:00.000Z',
-      //   obs: 'algum filho da puta fudeu tudo',
-      //   position: [ '-8.0464433', '-35.0025289' ]
-      // }
-
       var params = $scope.complaint;
 
       // ====
@@ -42,7 +40,7 @@ angular.module('angryTaxiApp')
           // console.log(data);
           _getData();
         } else {
-          console.log('HEY!')
+          console.log('Tivemos algum problema, tente novamente em instantes.');
         }
       });
     };
@@ -61,8 +59,15 @@ angular.module('angryTaxiApp')
     function _getData() {
       requestApi.getList(function(data) {
         if (data.status == 200) {
-          console.log(data.data.data);
-          $scope.markers = data.data.data;
+          $scope.result = data.data.data;
+
+          // show markers into map
+          $scope.$on('map_ok', function() {
+            addToArray(data.data.data);
+            $scope.progressbar.complete();
+          })
+        } else {
+          console.log('Tivemos algum problema, tente novamente em instantes.');
         }
       });
     }
@@ -79,6 +84,8 @@ angular.module('angryTaxiApp')
 
     // ====
     function getLocation() {
+      $scope.progressbar.start();
+
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(savePosition, error);
       } else {
@@ -101,13 +108,15 @@ angular.module('angryTaxiApp')
       }));
     }
 
+    var map;
+
     function initialize(position) {
       var userPosition = {
         lat: position.coords.latitude,
         lng: position.coords.longitude
       };
 
-      var map = new google.maps.Map(document.getElementById('map'), {
+      $scope.map = new google.maps.Map(document.getElementById('map'), {
         center: userPosition,
         zoom: 15,
         panControl: false,
@@ -125,13 +134,13 @@ angular.module('angryTaxiApp')
 
       var marker = new google.maps.Marker({
         position: userPosition,
-        map: map,
+        map: $scope.map,
         icon: '../../images/user-icon.png',
         animation: google.maps.Animation.DROP
       });
 
       var userRadius = new google.maps.Circle({
-        map: map,
+        map: $scope.map,
         radius: 500,
         fillColor: '#FED300',
         fillOpacity: 0.15,
@@ -315,8 +324,10 @@ angular.module('angryTaxiApp')
       });
 
       // Aplicando as configurações do mapa
-      map.mapTypes.set('angry_map', styledMap);
-      map.setMapTypeId('angry_map');
+      $scope.map.mapTypes.set('angry_map', styledMap);
+      $scope.map.setMapTypeId('angry_map');
+
+      $scope.$emit('map_ok');
     }
 
     function _geocoder(latlng) {
@@ -335,7 +346,35 @@ angular.module('angryTaxiApp')
       });
     }
 
-    getLocation();
+    function addToArray(markers) {
+      var infoWindow = new google.maps.InfoWindow();
+
+      for(var i = 0; i < markers.length; i++ ) {
+        if (!markers[i].position) {
+          // console.warn('Não tem');
+        } else {
+        var position = new google.maps.LatLng(markers[i].position);
+
+        var marker = new google.maps.Marker({
+          position: position,
+          map: $scope.map,
+          title: markers[i].title,
+          icon: '../../images/complaint-icon.png',
+          zIndex: 100
+        });
+
+        console.log('marker -> ', marker);
+
+        google.maps.event.addListener(marker, 'click', (function(marker, i) {
+          infoWindow.setContent(markers[i].obs);
+          infoWindow.open($scope.map, marker);
+        })(marker, i));
+        }
+
+      }
+    }
+
+    $scope.getLocation = getLocation();
     // ====
 
   });

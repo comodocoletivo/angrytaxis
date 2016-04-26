@@ -3,7 +3,7 @@
   <section class="col-xs-12 box">
     <h3>últimas denúncias</h3>
 
-    <aside ng-repeat="m in markers.slice().reverse() | limitTo: 4" class="complaint-list">
+    <aside ng-repeat="m in result.slice().reverse() | limitTo: 4" class="complaint-list">
       <h5>{{m.title}}</h5>
 
       <p class="address" title="Endereço">{{m.position}}</p>
@@ -19,6 +19,7 @@
 </div>
 
 <!-- Mapa -->
+<div ng-hide="map" class="load-map"></div>
 <section class="col-xs-12 map" id="map"></section>
 
 <!-- Modal -->

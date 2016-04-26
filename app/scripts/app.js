@@ -18,7 +18,8 @@ angular
     'ngTouch',
     'angularMoment',
     'backand',
-    'ngMask'
+    'ngMask',
+    'ngProgress'
   ])
   .config(function ($routeProvider, BackandProvider) {
       BackandProvider.setAppName('angrytaxi');
