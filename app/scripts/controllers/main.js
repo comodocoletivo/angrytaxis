@@ -42,6 +42,7 @@ angular.module('angryTaxiApp')
     };
     // ====
 
+    // ====
     function socket() {
       requestApi.socket(function(data) {
         console.warn('From socket -> ', data);
@@ -49,7 +50,7 @@ angular.module('angryTaxiApp')
     }
 
     socket();
-
+    // ====
 
     // ====
     function _getData() {
@@ -380,6 +381,23 @@ angular.module('angryTaxiApp')
     }
 
     $scope.getLocation = getLocation();
+    // ====
+
+    // ====
+    $scope.feedback = {};
+
+    $scope.submitFeedback = function() {
+      var params = $scope.feedback;
+
+      requestApi.sendFeedback(params, function(data) {
+        if (data.status == 200) {
+          Notification.show('Mensagem enviada', 'Obrigado pelo seu feedback.');
+        } else {
+          console.warn('Tivemos um problema no envio do feedback, tente novamente em alguns instantes.')
+          Notification.show('Atenção', 'Tivemos um problema no envio do feedback, tente novamente em alguns instantes.');
+        }
+      })
+    };
     // ====
 
   });

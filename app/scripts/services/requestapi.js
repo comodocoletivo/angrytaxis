@@ -51,7 +51,14 @@ angular.module('angryTaxiApp')
         //Get the 'items' object that have changed
         callback(data);
       });
-    }
+    };
+
+    obj.sendFeedback = function(data, callback) {
+      $http.post('https://formspree.io/taxisangry@gmail.com', data, {headers: {'Accept': 'application/json'}}).then(
+        function(data) { callback(data) },
+        function(error) { callback(error) }
+      );
+    };
 
     return obj;
   });
