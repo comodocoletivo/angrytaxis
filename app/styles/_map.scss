@@ -150,9 +150,8 @@
 .footer-primary {
   width: 100%;
   display: inline-block;
-  // height: 110px;
-  bottom: 0;
-  position: relative;
+  bottom: 10px;
+  position: absolute;
   z-index: 2;
   left: 0;
   text-align: center;

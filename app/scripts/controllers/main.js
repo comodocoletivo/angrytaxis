@@ -119,6 +119,9 @@ angular.module('angryTaxiApp')
         zoomControl: true,
         scrollwheel: false,
         draggable: true,
+        zIndex: 100,
+        clickable: true,
+        title: 'Você está aqui',
         zoomControlOptions: {
           style: google.maps.ZoomControlStyle.SMALL
         },
@@ -136,7 +139,7 @@ angular.module('angryTaxiApp')
 
       var userRadius = new google.maps.Circle({
         map: $scope.map,
-        radius: 300,
+        radius: 200,
         fillColor: '#FED300',
         fillOpacity: 0.15,
         strokeOpacity: 0.51,
@@ -354,7 +357,8 @@ angular.module('angryTaxiApp')
           position: new google.maps.LatLng(markers[i].position[0], markers[i].position[1]),
           map: $scope.map,
           icon: '../../images/complaint-icon.png',
-          clickable: true
+          clickable: true,
+          zIndex: 90
         });
 
         // google.maps.event.addListener(marker, 'click', (function (marker, i) {
