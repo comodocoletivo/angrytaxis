@@ -28,7 +28,6 @@ angular.module('angryTaxiApp')
         params.date = new Date().getTime();
       }
 
-
       return console.warn('params', params);
 
       // ====
@@ -344,14 +343,12 @@ angular.module('angryTaxiApp')
           if (results[1]) {
             $scope.full_address = results[1].formatted_address;
 
-            // map.setZoom(11);
-            // marker = new google.maps.Marker({
+            // var marker = new google.maps.Marker({
             //   position: latlng,
-            //   map: map
+            //   map: $scope.map,
+            //   icon: '../../images/complaint-icon.png'
             // });
 
-            // infowindow.setContent(results[1].formatted_address);
-            // infowindow.open(map, marker);
           } else {
             alert('Sem resultados..');
           }
