@@ -357,8 +357,6 @@ angular.module('angryTaxiApp')
     };
 
     function addMarkers(markers) {
-      console.log('Carregando marcadores...');
-
       var infoWindow = new google.maps.InfoWindow();
 
       for(var i = 0; i < markers.length; i++ ) {
