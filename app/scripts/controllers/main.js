@@ -21,6 +21,8 @@ angular.module('angryTaxiApp')
     $scope.newComplaint = function() {
       var params = $scope.complaint;
 
+      return console.warn('params', params);
+
       // ====
       var userStorage = JSON.parse(localStorage.getItem('userPosition_AT'));
 
@@ -33,7 +35,7 @@ angular.module('angryTaxiApp')
         params.position = $scope.userPosition;
       }
 
-      // return console.warn(params);
+      return console.warn(params);
 
       requestApi.createData(params, function(data) {
         if (data.status == 200) {

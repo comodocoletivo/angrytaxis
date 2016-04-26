@@ -13,11 +13,19 @@
           </fieldset>
 
           <fieldset class="form-group col-xs-12 col-sm-6">
-            <input type="tel" id="cp-date" placeholder="Data da ocorrência dd/mm/aaaa" ng-model="complaint.date" class="form-control icon date">
+            <input type="tel" id="cp-date" placeholder="Data da ocorrência dd/mm/aaaa" ng-model="complaint.date" class="form-control icon date" mask="39/19/9999">
           </fieldset>
 
           <fieldset class="form-group col-xs-12 col-sm-6">
             <input type="tel" id="cp-hora" ng-model="complaint.hour" placeholder="Hora da ocorrência HH:mm" class="form-control icon hour">
+          </fieldset>
+
+          <fieldset class="form-group col-xs-12">
+            <input type="tel" id="cp-placa" ng-model="complaint.license_plate" placeholder="Placa ou Número de identificação do veículo" class="form-control">
+          </fieldset>
+
+          <fieldset class="form-group col-xs-12">
+            <input type="tel" id="cp-cpf" ng-model="complaint.cpf" placeholder="Insira o número do seu CPF" class="form-control" mask="999.999.999-99">
           </fieldset>
 
           <fieldset class="form-group col-xs-12">

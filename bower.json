@@ -13,7 +13,7 @@
     "angular-moment": "^0.10.3",
     "angularbknd-sdk": "1.8.2",
     "moment": "^2.13.0",
-    "ngMask": "angular-mask#~3.0.16",
+    "ngMask": "angular-mask#^3.0.16",
     "ngprogress": "^1.1.3"
   },
   "devDependencies": {
