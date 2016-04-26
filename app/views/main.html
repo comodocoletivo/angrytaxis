@@ -1,7 +1,7 @@
 <section class="col-xs-12 box">
   <h3>últimas denúncias</h3>
 
-  <aside ng-repeat="m in markers" class="complaint-list">
+  <aside ng-repeat="m in markers.slice().reverse() | limitTo: 4" class="complaint-list">
     <h5>{{m.title}}</h5>
 
     <p class="address">{{m.position}}</p>
