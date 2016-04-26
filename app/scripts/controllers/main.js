@@ -58,9 +58,11 @@ angular.module('angryTaxiApp')
         if (data.status == 200) {
           $scope.result = data.data.data;
 
+          console.warn($scope.result);
+
           // show markers into map
           $scope.$on('map_ok', function() {
-            addToArray(data.data.data);
+            addMarkers(data.data.data);
             $scope.progressbar.complete();
           })
         } else {
@@ -100,8 +102,6 @@ angular.module('angryTaxiApp')
         lng: position.coords.longitude
       }));
     }
-
-    var map;
 
     function initialize(position) {
       getFullAddress(position);
@@ -331,15 +331,8 @@ angular.module('angryTaxiApp')
 
       geocoder.geocode({'latLng': latlng}, function(results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
-          if (results[1]) {
-            $scope.full_address = results[1].formatted_address;
-
-            // var marker = new google.maps.Marker({
-            //   position: latlng,
-            //   map: $scope.map,
-            //   icon: '../../images/complaint-icon.png'
-            // });
-
+          if (results[0]) {
+            $scope.full_address = results[0].formatted_address;
           } else {
             console.warn('Não conseguimos localizar o seu endereço.');
             Notification.show('Atenção', 'Não conseguimos localizar o seu endereço.');
@@ -351,32 +344,25 @@ angular.module('angryTaxiApp')
       });
     };
 
-    function addToArray(markers) {
+    function addMarkers(markers) {
+      console.log('Carregando marcadores...');
+
       var infoWindow = new google.maps.InfoWindow();
 
       for(var i = 0; i < markers.length; i++ ) {
-        if (!markers[i].position) {
-          console.warn('Não existe')
-          // console.warn('Ainda não temos nenhuma ocorrência.');
-        } else {
-        var position = new google.maps.LatLng(markers[i].position);
-
         var marker = new google.maps.Marker({
-          position: position,
+          position: new google.maps.LatLng(markers[i].position[0], markers[i].position[1]),
           map: $scope.map,
-          title: markers[i].title,
           icon: '../../images/complaint-icon.png',
-          zIndex: 100
+          clickable: true
         });
 
-        console.warn('marker ', marker);
+        // console.warn('marker ', marker);
 
-        google.maps.event.addListener(marker, 'click', (function(marker, i) {
-          infoWindow.setContent(markers[i].obs);
+        // google.maps.event.addListener(marker, 'click', (function (marker, i) {
+          infoWindow.setContent(markers[i].title);
           infoWindow.open($scope.map, marker);
-        })(marker, i));
-        }
-
+        // })(marker, i));
       }
     }
 
