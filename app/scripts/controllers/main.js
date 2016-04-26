@@ -25,11 +25,11 @@ angular.module('angryTaxiApp')
       params.position = $scope.userPosition;
 
       if (params.now == true) {
-        params.date = new Date().getTime().toString();
+        params.date = new Date().getTime();
         delete params.now;
       }
 
-      return console.warn('Params que estão sendo enviados', params);
+      // return console.warn('Params que estão sendo enviados', params);
 
       requestApi.createData(params, function(data) {
         if (data.status == 200) {

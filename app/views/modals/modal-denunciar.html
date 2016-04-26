@@ -7,9 +7,9 @@
       </div>
 
       <div class="row modal-body">
-        <form>
+        <form name="form">
           <fieldset class="form-group col-xs-12">
-            <input type="text" id="cp-title" placeholder="Dê um título à occorência" ng-model="complaint.title" class="form-control">
+            <input type="text" id="cp-title" placeholder="Dê um título à occorência" ng-model="complaint.title" class="form-control" required>
           </fieldset>
 
           <fieldset class="form-group col-xs-12 col-sm-6">
@@ -21,11 +21,11 @@
           </fieldset>
 
           <fieldset class="form-group col-xs-12 col-sm-6">
-            <input type="tel" id="cp-placa" ng-model="complaint.license_plate" placeholder="Placa ou Nº de ident. do veículo" class="form-control">
+            <input type="tel" id="cp-placa" ng-model="complaint.license_plate" placeholder="Placa ou Nº de ident. do veículo" class="form-control" required>
           </fieldset>
 
           <fieldset class="form-group col-xs-12 col-sm-6">
-            <input type="tel" id="cp-cpf" ng-model="complaint.cpf" placeholder="Insira o número do seu CPF" class="form-control" mask="999.999.999-99">
+            <input type="tel" id="cp-cpf" ng-model="complaint.cpf" placeholder="Insira o número do seu CPF" class="form-control" mask="999.999.999-99" required>
           </fieldset>
 
           <fieldset class="form-group col-xs-12 checkbox-wrapper">
