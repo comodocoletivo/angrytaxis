@@ -1,0 +1,19 @@
+<section class="col-xs-12 box">
+  <h3>últimas denúncias</h3>
+
+  <aside ng-repeat="m in markers" class="complaint-list">
+    <h5>{{m.title}}</h5>
+
+    <p class="address">{{m.position}}</p>
+    <p class="date">{{m.date | amDateFormat: 'DD/MM/YYYY'}}</p>
+    <p class="hour">{{m.date | amDateFormat: 'HH:mm'}}</p>
+  </aside>
+
+</section>
+
+<section class="col-xs-12 map" id="map"></section>
+
+
+<!-- Modal -->
+<div ng-include src="'views/modals/modal-denunciar.html'"></div>
+<div ng-include src="'views/modals/modal-feedback.html'"></div>

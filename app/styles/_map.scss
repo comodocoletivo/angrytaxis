@@ -1,0 +1,140 @@
+.header-primary {
+  nav {
+    z-index: 100;
+    position: relative;
+    margin-top: 20px;
+    right: 20px;
+
+    li {
+      display: inline-block;
+      list-style-type: none;
+
+      a {
+        display: block;
+        font-size: 16px;
+        color: #ffffff;
+      }
+
+      // &:first-child {
+      //   a {
+      //     font-family: HelveticaNeue-Bold;
+      //     font-size: 16px;
+      //     color: #ffffff;
+      //   }
+      // }
+
+      // &:last-child {
+      //   a {
+      //     width: 100px;
+      //     height: 43px;
+      //     border-radius: 5px;
+      //     background-color: #ffd300;
+      //   }
+      // }
+    }
+  }
+}
+
+.logo {
+  width: 220px;
+  height: 180px;
+  position: absolute;
+  z-index: 11;
+  text-indent: -9999px;
+
+  margin-top: 40px;
+  margin-left: 30px;
+
+  background-image: url('../images/logo.png');
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+
+// Custom style
+.container-fluid {
+  // background-color: orange;
+  height: 100%;
+  position: relative;
+}
+
+.box {
+  background-color: #2b2b2b;
+  height: 800px;
+  width: 280px;
+  z-index: 10;
+  position: relative;
+
+  h3 {
+    width: 177px;
+    height: 17px;
+    font-family: AGBook-Stencil;
+    font-size: 20px;
+    color: #ffffff;
+
+    margin-top: 330px;
+    margin-bottom: 20px;
+  }
+}
+
+.complaint-list {
+  width: 220px;
+  border-radius: 8px;
+  background-color: #1d1d1d;
+  margin-bottom: 10px;
+  padding: 5px 12px;
+
+  h5 {
+    font-size: 14px;
+    color: #ffffff;
+    font-family: HelveticaNeue-Bold;
+  }
+
+  p {
+    font-family: HelveticaNeue-Light;
+    font-size: 10px;
+    color: #9b9b9b;
+    margin-bottom: 0;
+    margin-left: -5px;
+
+    &::before {
+      content: '';
+      display: inline-block;
+      position: relative;
+      margin: 0 5px;
+      border-radius: 100%;
+      background-repeat: no-repeat;
+      width: 10px;
+      height: 10px;
+    }
+
+    &.address {
+      display: block;
+      &::before { background-image: url('../images/address-icon.svg'); }
+    }
+
+    &.date {
+      display: inline-block;
+      &::before { background-image: url('../images/date-icon.svg'); }
+    }
+
+    &.hour {
+      display: inline-block;
+      &::before { background-image: url('../images/hour-icon.svg'); }
+    }
+  }
+}
+
+.map {
+  background-color: pink;
+  height: 800px;
+  width: 100%;
+  position: absolute;
+  // top: 0;
+  // left: 0;
+  // position: fixed;
+  // width: 100%;
+}
+
+.btn-denunciar {
+  margin-top: 10px;
+}
