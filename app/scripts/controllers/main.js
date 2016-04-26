@@ -357,8 +357,6 @@ angular.module('angryTaxiApp')
           clickable: true
         });
 
-        // console.warn('marker ', marker);
-
         // google.maps.event.addListener(marker, 'click', (function (marker, i) {
           infoWindow.setContent(markers[i].title);
           infoWindow.open($scope.map, marker);
