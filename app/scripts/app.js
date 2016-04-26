@@ -17,7 +17,8 @@ angular
     'ngSanitize',
     'ngTouch',
     'angularMoment',
-    'backand'
+    'backand',
+    'ngMask'
   ])
   .config(function ($routeProvider, BackandProvider) {
       BackandProvider.setAppName('angrytaxi');

@@ -1,0 +1,116 @@
+%btn-primary {
+  width: auto;
+  height: 43px;
+  border-radius: 5px;
+  background-color: #ffd300;
+  border-color: transparent;
+  font-family: HelveticaNeue-Bold;
+  font-size: 16px;
+  color: #2b2b2b;
+  margin-top: 30px;
+  margin-right: 10px;
+}
+
+.modal-title {
+  font-family: $ff-title;
+  font-size: 30px;
+  color: #2b2b2b;
+}
+
+button {
+  &.close {
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    background-color: #ffd300;
+    opacity: 1;
+    color: #ffffff;
+    font-weight: lighter;
+  }
+}
+
+.modal-body {
+  .form-group {
+    margin-bottom: 0;
+  }
+
+  input {
+    border-radius: 5px;
+    background-color: #ffffff;
+    border: solid 1px #d6d6d6;
+    margin-bottom: 20px;
+    padding: 13px 14px;
+    font-family: HelveticaNeue-Light;
+    font-size: 14px;
+    color: #4a4a4a;
+    height: 43px;
+
+    &:focus {
+      border-color: #ffffff;
+      outline: 0;
+      box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(43, 43, 43, 0.6);
+    }
+
+    &.icon {
+      padding-left: 40px;
+      background-repeat: no-repeat;
+      background-position: left top;
+      background-position: 12px 13px;
+      background-size: 16px 16px;
+
+      &.date {
+        background-image: url('../images/date-icon-placeholder.png');
+      }
+
+      &.hour {
+        background-image: url('../images/hour-icon-placeholder.png');
+      }
+    }
+  }
+
+  textarea {
+    width: 100%;
+    height: 88px;
+    border-radius: 5px;
+    background-color: #ffffff;
+    border: solid 1px #d6d6d6;
+    resize: none;
+
+    &:focus {
+      border-color: #ffffff;
+      outline: 0;
+      box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(43, 43, 43, 0.6);
+    }
+  }
+}
+
+.modal-footer {
+  .btn-primary {
+    @extend %btn-primary;
+  }
+
+  .modal-address {
+    margin: 30px auto auto 20px;
+    font-family: HelveticaNeue-Light;
+    font-size: 14px;
+    color: #4a4a4a;
+
+    &:before {
+      content: '';
+      width: 14px;
+      height: 17px;
+      display: inline-block;
+      position: relative;
+      margin-right: 10px;
+      background-size: 100%;
+      vertical-align: top;
+      background-repeat: no-repeat;
+      background-image: url('../images/address-icon-placeholder.png');
+    }
+  }
+}
+
+.btn-location {
+  @extend %btn-primary;
+  margin: 0 0 20px 0;
+}

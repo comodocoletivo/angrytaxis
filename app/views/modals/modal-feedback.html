@@ -2,37 +2,28 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <button type="button" title="Fechar" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title">Feedback</h4>
       </div>
 
       <div class="modal-body">
         <form>
-          <fieldset class="form-group">
-            <label for="cp-title">Título da denúncia</label>
-            <input type="text" id="cp-title" ng-model="complaint.title" class="form-control">
+          <fieldset class="form-group col-xs-12 col-sm-6">
+            <input type="text" placeholder="Seu Nome" ng-model="feedback.name" class="form-control">
           </fieldset>
 
-          <fieldset class="form-group">
-            <label for="cp-date">Data</label>
-            <input type="date" id="cp-date" ng-model="complaint.date" class="form-control">
+          <fieldset class="form-group col-xs-12 col-sm-6">
+            <input type="email" ng-model="feedback.email" placeholder="Seu e-mail" class="form-control">
           </fieldset>
 
-          <fieldset class="form-group">
-            <label for="cp-hour">Hora</label>
-            <input type="tel" id="cp-hora" ng-model="complaint.hour" class="form-control">
-          </fieldset>
-
-          <fieldset class="form-group">
-            <label for="cp-resume">Observação</label>
-            <textarea id="cp-resume" cols="30" rows="10" ng-model="complaint.obs" class="form-control"></textarea>
+          <fieldset class="form-group col-xs-12">
+            <textarea placeholder="Digite sua mensagem" cols="30" rows="10" ng-model="feedback.msg" class="form-control"></textarea>
           </fieldset>
         </form>
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary" type="submit" ng-click="newComplaint()" data-dismiss="modal">Criar denúncia</button>
+        <button type="button" class="btn btn-primary" type="submit" ng-click="sendFeedback()" data-dismiss="modal">Enviar</button>
       </div>
     </div>
   </div>

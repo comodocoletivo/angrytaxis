@@ -3,7 +3,14 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 @import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
 // endbower
 
+$ff-general: 'Open Sans Condensed', sans-serif;
+$ff-title: 'Allerta Stencil', sans-serif;
+
+// mapa
 @import '_map';
+
+// modais
+@import '_modal';
 
 .browsehappy {
   margin: 0.2em 0;
@@ -15,6 +22,7 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 body {
   padding: 0;
   height: 100%;
+  font-family: $ff-general;
 }
 
 html {
