@@ -9,6 +9,36 @@
       display: inline-block;
       list-style-type: none;
 
+      button {
+        -webkit-apperarance: none;
+        outline: none;
+        border: none;
+        background-color: transparent;
+
+        &.btn-default {
+          font-family: HelveticaNeue-Bold;
+          font-size: 16px;
+          color: #ffffff;
+          transition: all .25s linear;
+          text-decoration: underline;
+
+          &:hover {
+            color: #ffd300;
+            background-color: transparent;
+          }
+        }
+
+        &.btn-denunciar {
+          border-radius: 5px;
+          background-color: #ffd300;
+          font-family: HelveticaNeue-Bold;
+          font-size: 16px;
+          color: #2b2b2b;
+          width: 100px;
+          height: 43px;
+        }
+      }
+
       a {
         display: block;
         font-size: 16px;
@@ -52,27 +82,28 @@
 
 // Custom style
 .container-fluid {
-  // background-color: orange;
   height: 100%;
   position: relative;
 }
 
-.box {
+.wrapper-section {
   background-color: #2b2b2b;
   height: 100%;
   width: 280px;
   z-index: 10;
   position: absolute;
+}
+
+.box {
+  position: relative;
+  margin-top: 330px;
 
   h3 {
-    width: 177px;
-    height: 17px;
     font-family: AGBook-Stencil;
     font-size: 20px;
     color: #ffffff;
-
-    margin-top: 330px;
     margin-bottom: 20px;
+    text-align: center;
   }
 }
 
@@ -82,6 +113,7 @@
   background-color: #1d1d1d;
   margin-bottom: 10px;
   padding: 5px 12px;
+  z-index: 3;
 
   h5 {
     font-size: 14px;
@@ -124,8 +156,33 @@
   }
 }
 
+.footer-primary {
+  width: 100%;
+  display: inline-block;
+  height: 110px;
+  bottom: 0;
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  text-align: center;
+
+  span {
+    font-family: AGBook-Stencil;
+    font-size: 10px;
+    line-height: 1.3;
+    color: #ffd300;
+  }
+
+  p {
+    font-family: AGBook-Stencil;
+    font-size: 10px;
+    line-height: 1.3;
+    color: #ffffff;
+  }
+}
+
 .map {
-  background-color: pink;
+  background-color: #2b2b2b;
   height: 100%;
   width: 100%;
   position: absolute;
