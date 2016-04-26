@@ -29,8 +29,6 @@ angular.module('angryTaxiApp')
         delete params.now;
       }
 
-      // return console.warn('Params que estão sendo enviados', params);
-
       requestApi.createData(params, function(data) {
         if (data.status == 200) {
           _getData();
@@ -45,7 +43,16 @@ angular.module('angryTaxiApp')
     // ====
     function socket() {
       requestApi.socket(function(data) {
-        console.warn('From socket -> ', data);
+          var reformattedArray = data.map(function(obj){
+           var rObj = {
+            [obj.Key]: obj.Value
+           };
+
+           return rObj;
+         });
+
+         // addMarkers(reformattedArray);
+         console.warn('reformattedArray', reformattedArray);
       })
     }
 
@@ -58,13 +65,15 @@ angular.module('angryTaxiApp')
         if (data.status == 200) {
           $scope.result = data.data.data;
 
-          console.warn($scope.result);
-
-          // show markers into map
-          $scope.$on('map_ok', function() {
+          if ($scope.map) {
             addMarkers(data.data.data);
-            $scope.progressbar.complete();
-          })
+          } else {
+            $scope.$on('map_ok', function() {
+              addMarkers(data.data.data);
+              $scope.progressbar.complete();
+            })
+          }
+
         } else {
           console.warn('Tivemos um problema para listar as denúncias. Por favor, tente novamente em instantes.');
           Notification.show('Atenção', 'Tivemos um problema para listar as denúncias. Por favor, tente novamente em instantes.');
@@ -348,8 +357,6 @@ angular.module('angryTaxiApp')
     };
 
     function addMarkers(markers) {
-      console.log('Carregando marcadores...');
-
       var infoWindow = new google.maps.InfoWindow();
 
       for(var i = 0; i < markers.length; i++ ) {

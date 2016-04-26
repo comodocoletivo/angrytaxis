@@ -136,3 +136,17 @@ button {
   @extend %btn-primary;
   margin: 0 0 20px 0;
 }
+
+
+//
+// Media queries
+//
+
+// iPads
+@media screen and (min-width: 768px) {}
+
+// Desktops
+@media screen and (min-width: 992px) {}
+
+// Large Desktops
+@media screen and (min-width: 1200px) {}
