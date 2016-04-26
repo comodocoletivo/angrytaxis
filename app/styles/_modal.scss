@@ -11,6 +11,10 @@
   margin-right: 10px;
 }
 
+.modal-header {
+  border-bottom: 0;
+}
+
 .modal-title {
   font-family: $ff-title;
   font-size: 30px;
@@ -86,6 +90,9 @@ button {
 }
 
 .modal-footer {
+  border-top: 0;
+  margin-top: -15px;
+
   .btn-primary {
     @extend %btn-primary;
   }

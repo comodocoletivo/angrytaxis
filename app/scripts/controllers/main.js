@@ -21,6 +21,14 @@ angular.module('angryTaxiApp')
     $scope.newComplaint = function() {
       var params = $scope.complaint;
 
+      params.full_address = $scope.full_address;
+      params.position = $scope.userPosition;
+
+      if (!params.date) {
+        params.date = new Date().getTime();
+      }
+
+
       return console.warn('params', params);
 
       // ====
@@ -78,13 +86,6 @@ angular.module('angryTaxiApp')
     // ====
 
     // ====
-    $scope.getMyLocation = function() {
-      getLocation();
-    }
-    // ====
-
-
-    // ====
     function getLocation() {
       $scope.progressbar.start();
 
@@ -113,6 +114,8 @@ angular.module('angryTaxiApp')
     var map;
 
     function initialize(position) {
+      getFullAddress(position);
+
       var userPosition = {
         lat: position.coords.latitude,
         lng: position.coords.longitude
@@ -331,6 +334,32 @@ angular.module('angryTaxiApp')
 
       $scope.$emit('map_ok');
     }
+
+    function getFullAddress(position) {
+      var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+      var geocoder = new google.maps.Geocoder();
+
+      geocoder.geocode({'latLng': latlng}, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+          if (results[1]) {
+            $scope.full_address = results[1].formatted_address;
+
+            // map.setZoom(11);
+            // marker = new google.maps.Marker({
+            //   position: latlng,
+            //   map: map
+            // });
+
+            // infowindow.setContent(results[1].formatted_address);
+            // infowindow.open(map, marker);
+          } else {
+            alert('Sem resultados..');
+          }
+        } else {
+          alert('Geocoder falhou por conta de: ' + status);
+        }
+      });
+    };
 
     function _geocoder(latlng) {
       var geocoder = new google.maps.Geocoder;
