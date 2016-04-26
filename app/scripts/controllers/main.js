@@ -8,7 +8,7 @@
  * Controller of the angryTaxiApp
  */
 angular.module('angryTaxiApp')
-  .controller('MainCtrl', function ($scope, requestApi, ngProgressFactory) {
+  .controller('MainCtrl', function ($scope, requestApi, ngProgressFactory, Notification) {
 
     // Cria instância da barra de progresso
     $scope.progressbar = ngProgressFactory.createInstance();
@@ -24,32 +24,19 @@ angular.module('angryTaxiApp')
       params.full_address = $scope.full_address;
       params.position = $scope.userPosition;
 
-      if (!params.date) {
-        params.date = new Date().getTime();
+      if (params.now == true) {
+        params.date = new Date().getTime().toString();
+        delete params.now;
       }
 
-      return console.warn('params', params);
-
-      // ====
-      var userStorage = JSON.parse(localStorage.getItem('userPosition_AT'));
-
-      if (userStorage) {
-        var latlng = new google.maps.LatLng(userStorage.lat, userStorage.lng);
-        _geocoder(latlng);
-
-        params.full_address = $scope.geoCode;
-      } else {
-        params.position = $scope.userPosition;
-      }
-
-      return console.warn(params);
+      return console.warn('Params que estão sendo enviados', params);
 
       requestApi.createData(params, function(data) {
         if (data.status == 200) {
-          // console.log(data);
           _getData();
         } else {
-          console.log('Tivemos algum problema, tente novamente em instantes.');
+          console.warn('Tivemos um problema para criar a sua denúncia. Por favor, tente novamente em instantes.');
+          Notification.show('Atenção', 'Tivemos um problema para criar a sua denúncia. Por favor, tente novamente em instantes.');
         }
       });
     };
@@ -76,7 +63,8 @@ angular.module('angryTaxiApp')
             $scope.progressbar.complete();
           })
         } else {
-          console.log('Tivemos algum problema, tente novamente em instantes.');
+          console.warn('Tivemos um problema para listar as denúncias. Por favor, tente novamente em instantes.');
+          Notification.show('Atenção', 'Tivemos um problema para listar as denúncias. Por favor, tente novamente em instantes.');
         }
       });
     }
@@ -91,12 +79,14 @@ angular.module('angryTaxiApp')
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(savePosition, error);
       } else {
-        window.alert('Geolocation is not supported.');
+        console.warn('Geolocalização não é suportado pelo seu navegador.')
+        Notification.show('Atenção', 'Geolocalização não é suportado pelo seu navegador.');
       }
     }
 
     function error(error) {
-      console.warn('Error: ', error)
+      console.warn('Error', error);
+      Notification.show('Atenção', error);
     }
 
     function savePosition(position) {
@@ -145,7 +135,7 @@ angular.module('angryTaxiApp')
 
       var userRadius = new google.maps.Circle({
         map: $scope.map,
-        radius: 500,
+        radius: 300,
         fillColor: '#FED300',
         fillOpacity: 0.15,
         strokeOpacity: 0.51,
@@ -350,36 +340,23 @@ angular.module('angryTaxiApp')
             // });
 
           } else {
-            alert('Sem resultados..');
+            console.warn('Não conseguimos localizar o seu endereço.');
+            Notification.show('Atenção', 'Não conseguimos localizar o seu endereço.');
           }
         } else {
-          alert('Geocoder falhou por conta de: ' + status);
+          console.warn('Tivemos um problema para localização o seu endereço', status);
+          Notification.show('Atenção', 'Tivemos um problema para localização o seu endereço ' + status);
         }
       });
     };
-
-    function _geocoder(latlng) {
-      var geocoder = new google.maps.Geocoder;
-
-      geocoder.geocode({'location': latlng}, function(results, status) {
-        if (status === google.maps.GeocoderStatus.OK) {
-          if (results[1]) {
-            return $scope.geoCode = results[1].formatted_address;
-          } else {
-            window.alert('No results found');
-          }
-        } else {
-          window.alert('Geocoder failed due to: ' + status);
-        }
-      });
-    }
 
     function addToArray(markers) {
       var infoWindow = new google.maps.InfoWindow();
 
       for(var i = 0; i < markers.length; i++ ) {
         if (!markers[i].position) {
-          // console.warn('Não tem');
+          console.warn('Não existe')
+          // console.warn('Ainda não temos nenhuma ocorrência.');
         } else {
         var position = new google.maps.LatLng(markers[i].position);
 
@@ -391,7 +368,7 @@ angular.module('angryTaxiApp')
           zIndex: 100
         });
 
-        console.log('marker -> ', marker);
+        console.warn('marker ', marker);
 
         google.maps.event.addListener(marker, 'click', (function(marker, i) {
           infoWindow.setContent(markers[i].obs);

@@ -28,9 +28,10 @@
             <input type="tel" id="cp-cpf" ng-model="complaint.cpf" placeholder="Insira o número do seu CPF" class="form-control" mask="999.999.999-99">
           </fieldset>
 
-          <!-- <fieldset class="form-group col-xs-12">
-            <button class="btn-location" ng-click="getMyLocation()">Estou no local</button>
-          </fieldset> -->
+          <fieldset class="form-group col-xs-12 checkbox-wrapper">
+            <input id="cp-now" type="checkbox" ng-model="complaint.now">
+            <label for="cp-now">Aconteceu agora</label>
+          </fieldset>
 
           <fieldset class="form-group col-xs-12">
             <textarea id="cp-resume" placeholder="Observações sobre a ocorrência" cols="30" rows="10" ng-model="complaint.obs" class="form-control"></textarea>
