@@ -33,7 +33,7 @@ angular.module('angryTaxiApp')
         params.position = $scope.userPosition;
       }
 
-      return console.warn(params);
+      // return console.warn(params);
 
       requestApi.createData(params, function(data) {
         if (data.status == 200) {
