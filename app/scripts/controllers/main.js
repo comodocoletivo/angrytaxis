@@ -8,7 +8,7 @@
  * Controller of the angryTaxiApp
  */
 angular.module('angryTaxiApp')
-  .controller('MainCtrl', function ($scope, requestApi, ngProgressFactory, Notification) {
+  .controller('MainCtrl', function ($scope, requestApi, ngProgressFactory, Notification, $rootScope) {
 
     // Cria instância da barra de progresso
     $scope.progressbar = ngProgressFactory.createInstance();
@@ -422,6 +422,14 @@ angular.module('angryTaxiApp')
           Notification.show('Atenção', 'Tivemos um problema no envio do feedback, tente novamente em alguns instantes.');
         }
       })
+    };
+    // ====
+
+    // ====
+    $rootScope.mobileMenuActive = false;
+
+    $scope.toggleMobileMenu = function() {
+      $rootScope.mobileMenuActive = $rootScope.mobileMenuActive === false ? true: false;
     };
     // ====
 
