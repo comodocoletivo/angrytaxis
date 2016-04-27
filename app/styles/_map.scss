@@ -26,7 +26,7 @@
     z-index: 100;
     position: relative;
     margin-top: 20px;
-    right: 20px;
+    right: 50px;
 
     li {
       display: inline-block;
@@ -86,7 +86,7 @@
 
 .box {
   position: relative;
-  margin: 250px auto 10px auto;
+  margin: 230px auto 10px auto;
 
   h3 {
     font-family: $ff-title;
@@ -145,6 +145,28 @@
       &::before { background-image: url('../images/hour-icon.svg'); }
     }
   }
+}
+
+.wrapper-visualization {
+  position: relative;
+  height: auto;
+  float: left;
+  margin-left: 30px;
+
+  button {
+    background-color: #ffd300;
+    font-family: HelveticaNeue-Light;
+  }
+
+  // label {
+
+  // }
+
+  // fieldset {
+  //   width: auto;
+  //   display: inline-block;
+  //   vertical-align: middle;
+  // }
 }
 
 .footer-primary {
