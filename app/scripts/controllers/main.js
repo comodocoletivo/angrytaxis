@@ -121,7 +121,7 @@ angular.module('angryTaxiApp')
         lng: position.coords.longitude
       };
 
-      $scope.map = new google.maps.Map(document.getElementById('map'), {
+      var map = new google.maps.Map(document.getElementById('map'), {
         center: userPosition,
         zoom: 15,
         panControl: false,
@@ -140,15 +140,17 @@ angular.module('angryTaxiApp')
         }
       });
 
+      $scope.map = map;
+
       var marker = new google.maps.Marker({
         position: userPosition,
-        map: $scope.map,
+        map: map,
         icon: '../../images/user-icon.png',
         animation: google.maps.Animation.DROP
       });
 
       var userRadius = new google.maps.Circle({
-        map: $scope.map,
+        map: map,
         radius: 200,
         fillColor: '#FED300',
         fillOpacity: 0.15,
@@ -373,7 +375,7 @@ angular.module('angryTaxiApp')
         });
 
         infoWindow.setContent(markers[i].title);
-        infoWindow.open($scope.map, $scope.markers);
+        // infoWindow.open($scope.map, $scope.markers);
 
         // var heatMarker = new google.maps.LatLng(markers[i].position[0], markers[i].position[1]);
         // arrayMarkers.push(heatMarker)
