@@ -17,8 +17,13 @@
           </fieldset>
 
           <fieldset class="form-group col-xs-12 col-sm-6">
-            <input type="tel" id="cp-hora" ng-model="complaint.hour" placeholder="Hora da ocorrência HH:mm" class="form-control icon hour">
+            <input type="tel" id="cp-hora" ng-model="complaint.hour" placeholder="Hora da ocorrência" class="form-control icon hour">
           </fieldset>
+
+          <!-- <fieldset class="form-group col-xs-12 checkbox-wrapper">
+            <input id="cp-now" type="checkbox" ng-model="complaint.now">
+            <label for="cp-now">Aconteceu agora</label>
+          </fieldset> -->
 
           <fieldset class="form-group col-xs-12 col-sm-6">
             <input type="tel" id="cp-placa" ng-model="complaint.license_plate" placeholder="Placa ou Nº de ident. do veículo" class="form-control" required>
@@ -26,11 +31,6 @@
 
           <fieldset class="form-group col-xs-12 col-sm-6">
             <input type="tel" id="cp-cpf" ng-model="complaint.cpf" placeholder="Insira o número do seu CPF" class="form-control" mask="999.999.999-99" required>
-          </fieldset>
-
-          <fieldset class="form-group col-xs-12 checkbox-wrapper">
-            <input id="cp-now" type="checkbox" ng-model="complaint.now">
-            <label for="cp-now">Aconteceu agora</label>
           </fieldset>
 
           <fieldset class="form-group col-xs-12">

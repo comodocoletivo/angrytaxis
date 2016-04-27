@@ -76,8 +76,8 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-    <!-- Add your site or application content here -->
-    <header class="header-primary">
+    <!-- Tablet and Desktop -->
+    <header class="hidden-xs header-primary">
       <h1 class="logo">Angrytaxi</h1>
 
       <nav class="pull-right">
@@ -89,6 +89,16 @@
             <button class="btn-denunciar" data-toggle="modal" data-target="#modal-denunciar">denunciar</button>
           </li>
         </ul>
+      </nav>
+    </header>
+
+    <!-- Mobile -->
+    <header class="hidden-sm hidden-md hidden-lg header-secondary" ng-controller="MainCtrl">
+      <h1 class="logo">Angrytaxi</h1>
+      <span class="mobile-menu" ng-click="toggleMobileMenu()">Últimas denuncias</span>
+
+      <nav>
+        <button class="btn-denunciar" data-toggle="modal" data-target="#modal-denunciar">denunciar</button>
       </nav>
     </header>
 
@@ -105,11 +115,11 @@
        r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
        }(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-       ga('create', 'UA-XXXXX-X');
+       ga('create', 'UA-73198047-2');
        ga('send', 'pageview');
     </script>
 
-    <script src="https://maps.googleapis.com/maps/api/js?signed_in=true&key=AIzaSyD5k9agXULIehDwRDJPCzcxrJlNga7YHac" async></script>
+    <script src="https://maps.googleapis.com/maps/api/js?signed_in=true&key=AIzaSyD5k9agXULIehDwRDJPCzcxrJlNga7YHac&libraries=visualization" async></script>
     <script src="https://api.backand.com:4000/socket.io/socket.io.js"></script>
 
     <!-- build:js(.) scripts/vendor.js -->

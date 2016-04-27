@@ -65,7 +65,7 @@ grunt serve # levanta um servidor local
 
 ## Como contribuir
 
-Para contribuir para o Hortalivre, clone este repositório localmente e commit seu código em uma branch separada, depois solicite um pull-request. 
+Para contribuir para o Angrytaxis, clone este repositório localmente e commit seu código em uma branch separada, depois solicite um pull-request. 
 
 Estamos utilizando o [Yeoman](https://github.com/yeoman/generator-angular) como generator e sua instalação será necessária para a criação de rotas, serviços, controladores, views, etc ...
 

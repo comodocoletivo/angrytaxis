@@ -8,7 +8,7 @@
  * Controller of the angryTaxiApp
  */
 angular.module('angryTaxiApp')
-  .controller('MainCtrl', function ($scope, requestApi, ngProgressFactory, Notification) {
+  .controller('MainCtrl', function ($scope, requestApi, ngProgressFactory, Notification, $rootScope) {
 
     // Cria instância da barra de progresso
     $scope.progressbar = ngProgressFactory.createInstance();
@@ -52,7 +52,7 @@ angular.module('angryTaxiApp')
          });
 
          // addMarkers(reformattedArray);
-         console.warn('reformattedArray', reformattedArray);
+         // console.warn('reformattedArray', reformattedArray);
       })
     }
 
@@ -67,6 +67,7 @@ angular.module('angryTaxiApp')
 
           if ($scope.map) {
             addMarkers(data.data.data);
+            $scope.progressbar.complete();
           } else {
             $scope.$on('map_ok', function() {
               addMarkers(data.data.data);
@@ -357,10 +358,13 @@ angular.module('angryTaxiApp')
     };
 
     function addMarkers(markers) {
+      // console.warn(markers);
+
+      var arrayMarkers = [];
       var infoWindow = new google.maps.InfoWindow();
 
       for(var i = 0; i < markers.length; i++ ) {
-        var marker = new google.maps.Marker({
+        $scope.markers = new google.maps.Marker({
           position: new google.maps.LatLng(markers[i].position[0], markers[i].position[1]),
           map: $scope.map,
           icon: '../../images/complaint-icon.png',
@@ -368,12 +372,38 @@ angular.module('angryTaxiApp')
           zIndex: 90
         });
 
-        // google.maps.event.addListener(marker, 'click', (function (marker, i) {
-          infoWindow.setContent(markers[i].title);
-          infoWindow.open($scope.map, marker);
-        // })(marker, i));
+        infoWindow.setContent(markers[i].title);
+        infoWindow.open($scope.map, $scope.markers);
+
+        // var heatMarker = new google.maps.LatLng(markers[i].position[0], markers[i].position[1]);
+        // arrayMarkers.push(heatMarker)
       }
+
+      // $scope.heatmap = new google.maps.visualization.HeatmapLayer({
+      //   data: arrayMarkers,
+      //   map: $scope.map
+      // });
     }
+
+    // $scope.screen = {};
+
+    // $scope.toggleHeatmap = function() {
+    //   $scope.heatmap.setMap($scope.heatmap.getMap() ? null : $scope.map);
+    // }
+
+    // $scope.toggleMarkers = function() {
+    //   console.log('marcadores');
+
+    //   if ($scope.markers) {
+    //     delete $scope.markers
+    //   } else {
+    //     addMarkers($scope.result)
+    //   }
+
+    //   // google.maps.event.addListener(marker, 'click', function() {
+    //     // $scope.markers.setVisible(false); // maps API hide call
+    //   // });
+    // }
 
     $scope.getLocation = getLocation();
     // ====
@@ -392,6 +422,14 @@ angular.module('angryTaxiApp')
           Notification.show('Atenção', 'Tivemos um problema no envio do feedback, tente novamente em alguns instantes.');
         }
       })
+    };
+    // ====
+
+    // ====
+    $rootScope.mobileMenuActive = false;
+
+    $scope.toggleMobileMenu = function() {
+      $rootScope.mobileMenuActive = $rootScope.mobileMenuActive === false ? true: false;
     };
     // ====
 
