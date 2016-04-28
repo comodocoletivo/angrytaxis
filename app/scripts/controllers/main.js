@@ -25,19 +25,19 @@ angular.module('angryTaxiApp')
     $scope.newComplaint = function() {
       var params = $scope.complaint;
 
-      params.position = $scope.userPosition;
-
       if (params.now == true) {
         params.date = new Date().getTime();
         delete params.now;
       }
 
       if (params.myLocation == true) {
-        params.full_address = $scope.full_address;
+        params.full_address = $scope.full_address; // envia o endereço de onde está o usuário
+        params.position = $scope.userPosition; // enviar o lat/lng do usuário
         delete params.myLocation;
         delete params.address;
       } else {
-        params.full_address = params.address;
+        params.full_address = params.address; // envia o endereço digitado
+        params.position = $scope.addressPosition; // envia o lat/lng do endereço digitado
         delete params.address;
         delete params.myLocation;
       }
@@ -162,7 +162,6 @@ angular.module('angryTaxiApp')
       $scope.map = map;
 
       var bounds = new google.maps.LatLngBounds();
-
       $scope.bounds = bounds;
 
       var marker = new google.maps.Marker({
@@ -372,12 +371,25 @@ angular.module('angryTaxiApp')
           if (results[0]) {
             $scope.full_address = results[0].formatted_address;
           } else {
-            console.warn('Não conseguimos localizar o seu endereço.');
+            console.warn('Não conseguimos localizar do seu endereço.');
             Notification.show('Atenção', 'Não conseguimos localizar o seu endereço.');
           }
         } else {
           console.warn('Tivemos um problema para localização o seu endereço', status);
-          Notification.show('Atenção', 'Tivemos um problema para localização o seu endereço ' + status);
+          Notification.show('Atenção', 'Tivemos um problema para localização do seu endereço ' + status);
+        }
+      });
+    };
+
+    function getLatLngByAddress(address) {
+      var geocoder = new google.maps.Geocoder();
+
+      geocoder.geocode({'address': address}, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+          $scope.addressPosition = [results[0].geometry.location.lat(), results[0].geometry.location.lng()]
+        } else {
+          // console.warn('Tivemos um problema para localização do seu endereço', status);
+          // Notification.show('Atenção', 'Tivemos um problema para localização do seu endereço ' + status);
         }
       });
     };
@@ -459,10 +471,16 @@ angular.module('angryTaxiApp')
         }
       }).then(function(response){
         return response.data.results.map(function(item){
+          $scope.formatted_address = item.formatted_address;
+          $scope.$emit('formatted_address');
           return item.formatted_address;
         });
       });
     };
+
+    $scope.$on('formatted_address', function() {
+      getLatLngByAddress($scope.formatted_address);
+    })
     // ====
 
 
