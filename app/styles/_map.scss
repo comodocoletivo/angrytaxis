@@ -252,7 +252,7 @@
 
 .map {
   background-color: #2b2b2b;
-  height: 100%;
+  height: calc(100% - 100px); // mostrar o zoom do mapa
   width: 100%;
   position: absolute;
 }
@@ -280,9 +280,11 @@
     background-image: url('../images/logo.png');
   }
 
-  .complaint-list {
-    width: 220px;
-  }
+  .complaint-list { width: 220px; .container-fluid}
+
+  .map { height: 100%; }
+
+  .container-fluid { overflow: visible; }
 }
 
 // Desktops

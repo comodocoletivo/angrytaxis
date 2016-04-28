@@ -10,12 +10,16 @@
 angular.module('angryTaxiApp')
   .controller('MainCtrl', function ($scope, requestApi, ngProgressFactory, Notification, $rootScope) {
 
+    // ====
     // Cria instância da barra de progresso
     $scope.progressbar = ngProgressFactory.createInstance();
     $scope.progressbar.setColor('#ffd300');
     $scope.progressbar.setHeight('4px');
+    // ====
+
 
     // ====
+    // Cria uma denúncia
     $scope.complaint = {};
 
     $scope.newComplaint = function() {
@@ -40,7 +44,9 @@ angular.module('angryTaxiApp')
     };
     // ====
 
+
     // ====
+    // Instância do socket para reports em realtime
     function socket() {
       requestApi.socket(function(data) {
          //  var reformattedArray = data.map(function(obj){
@@ -56,10 +62,12 @@ angular.module('angryTaxiApp')
       })
     }
 
-    socket();
+    // socket();
     // ====
 
+
     // ====
+    // Obtém todos os dados da api
     function _getData() {
       requestApi.getList(function(data) {
         if (data.status == 200) {
@@ -85,7 +93,9 @@ angular.module('angryTaxiApp')
     _getData();
     // ====
 
+
     // ====
+    // Monta o mapa com a localização do usuário e adiciona os marcadores
     function getLocation() {
       $scope.progressbar.start();
 
@@ -132,15 +142,17 @@ angular.module('angryTaxiApp')
         zIndex: 100,
         clickable: true,
         title: 'Você está aqui',
+        mapTypeControl: false,
         zoomControlOptions: {
           style: google.maps.ZoomControlStyle.SMALL
-        },
-        mapTypeControlOptions: {
-          mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'angry_map']
         }
       });
 
       $scope.map = map;
+
+      var bounds = new google.maps.LatLngBounds();
+
+      $scope.bounds = bounds;
 
       var marker = new google.maps.Marker({
         position: userPosition,
@@ -360,8 +372,6 @@ angular.module('angryTaxiApp')
     };
 
     function addMarkers(markers) {
-      // console.warn(markers);
-
       var arrayMarkers = [];
       var infoWindow = new google.maps.InfoWindow();
 
@@ -374,43 +384,42 @@ angular.module('angryTaxiApp')
           zIndex: 90
         });
 
+        // agrupa os marcadores na view
+        $scope.bounds.extend(new google.maps.LatLng(markers[i].position[0], markers[i].position[1]));
+        $scope.map.fitBounds($scope.bounds);
+
+        // infowindow com o título da denúncia
         infoWindow.setContent(markers[i].title);
         // infoWindow.open($scope.map, $scope.markers);
 
-        // var heatMarker = new google.maps.LatLng(markers[i].position[0], markers[i].position[1]);
-        // arrayMarkers.push(heatMarker)
+        // Heatmap mostrando as áreas perigosas
+        var heatMarker = new google.maps.LatLng(markers[i].position[0], markers[i].position[1]);
+        arrayMarkers.push(heatMarker)
       }
 
-      // $scope.heatmap = new google.maps.visualization.HeatmapLayer({
-      //   data: arrayMarkers,
-      //   map: $scope.map
-      // });
+      // Heatmap mostrando as áreas perigosas
+      $scope.heatmap = new google.maps.visualization.HeatmapLayer({
+        data: arrayMarkers,
+        map: $scope.map
+      });
+
+      // $scope.heatmap.set('radius', 20);
     }
-
-    // $scope.screen = {};
-
-    // $scope.toggleHeatmap = function() {
-    //   $scope.heatmap.setMap($scope.heatmap.getMap() ? null : $scope.map);
-    // }
-
-    // $scope.toggleMarkers = function() {
-    //   console.log('marcadores');
-
-    //   if ($scope.markers) {
-    //     delete $scope.markers
-    //   } else {
-    //     addMarkers($scope.result)
-    //   }
-
-    //   // google.maps.event.addListener(marker, 'click', function() {
-    //     // $scope.markers.setVisible(false); // maps API hide call
-    //   // });
-    // }
 
     $scope.getLocation = getLocation();
     // ====
 
+
     // ====
+    // Faz o toggle das áreas perigosas
+    $scope.toggleHeatmap = function() {
+      $scope.heatmap.setMap($scope.heatmap.getMap() ? null : $scope.map);
+    };
+    // ====
+
+
+    // ====
+    // Envia um feedback / desktop
     $scope.feedback = {};
 
     $scope.submitFeedback = function() {
@@ -427,12 +436,13 @@ angular.module('angryTaxiApp')
     };
     // ====
 
+
     // ====
+    // Ativa ou desativa o menu / mobile
     $rootScope.mobileMenuActive = false;
 
     $scope.toggleMobileMenu = function() {
       $rootScope.mobileMenuActive = $rootScope.mobileMenuActive === false ? true: false;
     };
     // ====
-
   });
