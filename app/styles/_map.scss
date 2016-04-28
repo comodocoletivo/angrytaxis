@@ -74,9 +74,7 @@
       &.btn-denunciar {
         @extend %btn-denunciar;
 
-        height: 60px;
         width: 100% !important;
-        display: block;
         outline: none;
         border: none;
         height: 60px;
@@ -119,6 +117,7 @@
 .container-fluid {
   height: 100%;
   position: relative;
+  overflow: hidden;
 }
 
 .wrapper-section {
@@ -133,7 +132,13 @@
   -o-transition: right .25s ease-in-out 0s;
   transition: right .25s ease-in-out 0s;
 
-  &.active { right: 0; }
+  &.active {
+    right: 0;
+
+    .box {
+      margin-top: 0;
+    }
+  }
 }
 
 .box {
