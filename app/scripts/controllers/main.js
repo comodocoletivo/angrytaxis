@@ -165,8 +165,7 @@ angular.module('angryTaxiApp')
       var marker = new google.maps.Marker({
         position: userPosition,
         map: map,
-        icon: '../../images/user-icon.png',
-        animation: google.maps.Animation.DROP
+        icon: '../../images/user-icon.png'
       });
 
       var userRadius = new google.maps.Circle({
@@ -402,12 +401,13 @@ angular.module('angryTaxiApp')
           map: $scope.map,
           icon: '../../images/complaint-icon.png',
           clickable: true,
-          zIndex: 90
+          zIndex: 90,
+          animation: google.maps.Animation.DROP
         });
 
         // agrupa os marcadores na view
-        $scope.bounds.extend(new google.maps.LatLng(markers[i].position[0], markers[i].position[1]));
-        $scope.map.fitBounds($scope.bounds);
+        // $scope.bounds.extend(new google.maps.LatLng(markers[i].position[0], markers[i].position[1]));
+        // $scope.map.fitBounds($scope.bounds);
 
         // infowindow com o título da denúncia
         infoWindow.setContent(markers[i].title);
