@@ -42,8 +42,6 @@ angular.module('angryTaxiApp')
         delete params.myLocation;
       }
 
-      return console.log(params);
-
       requestApi.createData(params, function(data) {
         if (data.status == 200) {
           _getData();
