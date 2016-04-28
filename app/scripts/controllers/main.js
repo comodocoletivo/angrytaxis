@@ -45,6 +45,7 @@ angular.module('angryTaxiApp')
       requestApi.createData(params, function(data) {
         if (data.status == 200) {
           _getData();
+          Notification.show('Denúncia realizada com sucesso!', 'Obrigado por contribuir.');
         } else {
           console.warn('Tivemos um problema para criar a sua denúncia. Por favor, tente novamente em instantes.');
           Notification.show('Atenção', 'Tivemos um problema para criar a sua denúncia. Por favor, tente novamente em instantes.');
