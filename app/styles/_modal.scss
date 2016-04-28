@@ -36,6 +36,13 @@ button {
 .modal-body {
   .form-group {
     margin-bottom: 0;
+
+    label {
+      font-family: HelveticaNeue-Light;
+      font-size: 14px;
+      color: #4a4a4a;
+      font-weight: 100;
+    }
   }
 
   .form-control {
@@ -74,7 +81,7 @@ button {
 
   textarea {
     width: 100%;
-    height: 88px;
+    height: 90px !important;
     border-radius: 5px;
     background-color: #ffffff;
     border: solid 1px #d6d6d6;
@@ -112,7 +119,6 @@ button {
   }
 
   .modal-address {
-    margin: 30px auto auto 20px;
     font-family: HelveticaNeue-Light;
     font-size: 14px;
     color: #4a4a4a;

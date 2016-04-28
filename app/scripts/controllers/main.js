@@ -8,7 +8,7 @@
  * Controller of the angryTaxiApp
  */
 angular.module('angryTaxiApp')
-  .controller('MainCtrl', function ($scope, requestApi, ngProgressFactory, Notification, $rootScope) {
+  .controller('MainCtrl', function ($scope, requestApi, ngProgressFactory, Notification, $rootScope, $http) {
 
     // ====
     // Cria instância da barra de progresso
@@ -25,13 +25,24 @@ angular.module('angryTaxiApp')
     $scope.newComplaint = function() {
       var params = $scope.complaint;
 
-      params.full_address = $scope.full_address;
       params.position = $scope.userPosition;
 
       if (params.now == true) {
         params.date = new Date().getTime();
         delete params.now;
       }
+
+      if (params.myLocation == true) {
+        params.full_address = $scope.full_address;
+        delete params.myLocation;
+        delete params.address;
+      } else {
+        params.full_address = params.address;
+        delete params.address;
+        delete params.myLocation;
+      }
+
+      return console.log(params);
 
       requestApi.createData(params, function(data) {
         if (data.status == 200) {
@@ -433,6 +444,24 @@ angular.module('angryTaxiApp')
           Notification.show('Atenção', 'Tivemos um problema no envio do feedback, tente novamente em alguns instantes.');
         }
       })
+    };
+    // ====
+
+
+    // ====
+    // Autocomplete do endereço
+    $scope.autoComplete = function(address) {
+      return $http.get('//maps.googleapis.com/maps/api/geocode/json', {
+        params: {
+          address: address,
+          sensor: false,
+          language: 'pt-BR'
+        }
+      }).then(function(response){
+        return response.data.results.map(function(item){
+          return item.formatted_address;
+        });
+      });
     };
     // ====
 

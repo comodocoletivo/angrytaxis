@@ -36,6 +36,7 @@ module.exports = function(config) {
       'bower_components/angularbknd-sdk/dist/backand.min.js',
       'bower_components/ngMask/dist/ngMask.js',
       'bower_components/ngprogress/build/ngprogress.min.js',
+      'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "app/scripts/**/*.js",
