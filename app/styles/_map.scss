@@ -232,6 +232,14 @@
     line-height: 1.3;
     color: #ffd300;
     cursor: pointer;
+
+    &.btn-active {
+      color: #ffd300;
+    }
+
+    &.btn-deactive {
+      color: #9b9b9b;
+    }
   }
 
   p {

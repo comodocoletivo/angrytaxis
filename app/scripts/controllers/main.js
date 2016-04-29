@@ -100,7 +100,7 @@ angular.module('angryTaxiApp')
       });
     }
 
-    // _getData();
+    _getData();
     // ====
 
 
@@ -154,8 +154,9 @@ angular.module('angryTaxiApp')
         title: 'Você está aqui',
         mapTypeControl: false,
         zoomControlOptions: {
-          style: google.maps.ZoomControlStyle.SMALL
-        }
+          style: google.maps.ZoomControlStyle.SMALL,
+          position: google.maps.ControlPosition.LEFT_CENTER
+        },
       });
 
       $scope.map = map;

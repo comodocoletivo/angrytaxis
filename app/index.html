@@ -84,18 +84,26 @@
 
     <!-- Tablet and Desktop -->
     <header class="hidden-xs header-primary" ng-controller="MainCtrl">
-      <h1 class="logo">Angrytaxi</h1>
+      <h1 class="logo">Angrytaxis</h1>
 
       <nav class="pull-right">
         <ul>
           <li>
-          <a ng-click="toggleSobre()" class="btn-default">sobre</a>
+            <a ng-click="toggleSobre()" class="btn-default">
+              {{ 'ABOUT' | translate }}
+            </a>
           </li>
+
           <li>
-          <button class="btn-default" data-toggle="modal" data-target="#modal-feedback">feedback</button>
+            <button class="btn-default" data-toggle="modal" data-target="#modal-feedback">
+              {{ 'FEEDBACK' | translate }}
+            </button>
           </li>
+
           <li>
-            <button class="btn-denunciar" data-toggle="modal" data-target="#modal-denunciar">denunciar</button>
+            <button class="btn-denunciar" data-toggle="modal" data-target="#modal-denunciar">
+              {{ 'DENOUNCE' | translate }}
+            </button>
           </li>
         </ul>
       </nav>
@@ -103,11 +111,16 @@
 
     <!-- Mobile -->
     <header class="hidden-sm hidden-md hidden-lg header-secondary" ng-controller="MainCtrl">
-      <h1 class="logo">Angrytaxi</h1>
-      <span class="mobile-menu" ng-click="toggleMobileMenu()">Últimas denuncias</span>
+      <h1 class="logo">Angrytaxis</h1>
+
+      <span class="mobile-menu" ng-click="toggleMobileMenu()">
+        {{ 'LAST_COMPLAINTS' | translate }}
+      </span>
 
       <nav>
-        <button class="btn-denunciar" data-toggle="modal" data-target="#modal-denunciar">denunciar</button>
+        <button class="btn-denunciar" data-toggle="modal" data-target="#modal-denunciar">
+          {{ 'DENOUNCE' | translate }}
+        </button>
       </nav>
     </header>
 
