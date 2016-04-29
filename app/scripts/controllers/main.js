@@ -498,4 +498,9 @@ angular.module('angryTaxiApp')
       $rootScope.sobreActive = $rootScope.sobreActive === false ? true: false;
     };
     // ====
+
+
+    // ====
+    // Internacionalização
+    // ====
   });
