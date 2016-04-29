@@ -8,7 +8,7 @@
  * Controller of the angryTaxiApp
  */
 angular.module('angryTaxiApp')
-  .controller('MainCtrl', function ($scope, requestApi, ngProgressFactory, Notification, $rootScope, $http) {
+  .controller('MainCtrl', function ($scope, requestApi, ngProgressFactory, Notification, $rootScope, $http, $translate) {
 
     // ====
     // Cria instância da barra de progresso
@@ -501,6 +501,14 @@ angular.module('angryTaxiApp')
 
 
     // ====
-    // Internacionalização
+    // Internationalization
+    $scope.setPortugueseLanguage = function() {
+      $translate.use('pt-BR');
+    }
+
+    $scope.setEnglishLanguage = function() {
+      $translate.use('en');
+    }
     // ====
+
   });

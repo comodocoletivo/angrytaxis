@@ -1,7 +1,6 @@
 <div class="wrapper-section" ng-class="{ 'active': mobileMenuActive == true }">
-  <!-- denuncias -->
   <section class="col-xs-12 box">
-    <h3>últimas denúncias</h3>
+    <h3>{{ 'LAST_COMPLAINTS' | translate }}</h3>
 
     <aside ng-repeat="m in result.slice().reverse() | limitTo: 3" class="complaint-list">
       <h5>{{m.title}}</h5>
@@ -13,7 +12,9 @@
   </section>
 
   <footer class="footer-primary">
-    <span>2016</span>
-    <p>todos os direitos reservados <br> aos passageiros.</p>
+    <span ng-click="setPortugueseLanguage()">{{ 'PORTUGUESE_BUTTON' | translate }}</span>
+    <span ng-click="setEnglishLanguage()">{{ 'ENGLISH_BUTTON' | translate }}</span>
+    <p>{{ 'ALL_RIGHTS_RESERVED' | translate }} <br>
+    {{ 'PASSENGERS' | translate}}.</p>
   </footer>
 </div>
