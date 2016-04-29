@@ -394,18 +394,22 @@ angular.module('angryTaxiApp')
     };
 
     function addMarkers(markers) {
+      var arrayHeatMarker = [];
       var arrayMarkers = [];
       var infoWindow = new google.maps.InfoWindow();
 
       for(var i = 0; i < markers.length; i++ ) {
         $scope.markers = new google.maps.Marker({
           position: new google.maps.LatLng(markers[i].position[0], markers[i].position[1]),
-          map: $scope.map,
           icon: '../../images/complaint-icon.png',
+          map: $scope.map,
           clickable: true,
           zIndex: 90,
           animation: google.maps.Animation.DROP
         });
+
+
+        $scope.arrayMarkers = arrayMarkers.push($scope.markers);
 
         // agrupa os marcadores na view
         $scope.bounds.extend(new google.maps.LatLng(markers[i].position[0], markers[i].position[1]));
@@ -417,12 +421,12 @@ angular.module('angryTaxiApp')
 
         // Heatmap mostrando as áreas perigosas
         var heatMarker = new google.maps.LatLng(markers[i].position[0], markers[i].position[1]);
-        arrayMarkers.push(heatMarker)
+        arrayHeatMarker.push(heatMarker)
       }
 
       // Heatmap mostrando as áreas perigosas
       $scope.heatmap = new google.maps.visualization.HeatmapLayer({
-        data: arrayMarkers,
+        data: arrayHeatMarker,
         map: $scope.map
       });
 
@@ -436,11 +440,13 @@ angular.module('angryTaxiApp')
     // ====
     // Faz o toggle das áreas perigosas
     $scope.toggleHeatmap = function() {
-      console.log($scope.heatmap.getMap());
-      console.log($scope.map);
-      console.log($scope.heatmap);
-
       $scope.heatmap.setMap($scope.heatmap.getMap() ? null : $scope.map);
+    };
+
+    // Botões do mapa
+    $scope.showMarkers = function() {
+      console.log($scope.markers);
+      // $scope.arrayMarkers.setMap($scope.arrayMarkers.setMap() ? null : $scope.map);
     };
     // ====
 
@@ -514,14 +520,6 @@ angular.module('angryTaxiApp')
     $scope.setEnglishLanguage = function() {
       $translate.use('en');
     }
-    // ====
-
-
-    // ====
-    // Botões do mapa
-    $scope.showMarkers = function() {};
-
-    $scope.showHeatMap = function() {};
     // ====
 
   });
