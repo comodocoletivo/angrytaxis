@@ -261,6 +261,51 @@
   margin-top: 10px;
 }
 
+.wrp-controls-map {
+  position: absolute;
+  right: 50px;
+  z-index: 100;
+  bottom: 20px;
+
+  button {
+    width: 60px;
+    height: 60px;
+    background-color: #4a4a4a;
+    border-radius: 100%;
+    outline: none;
+    border: none;
+    text-indent: -9999px;
+    background-repeat: no-repeat;
+    background-position: center center;
+
+    -webkit-transition: background .25s linear 0s;
+    -o-transition: background .25s linear 0s;
+    transition: background .25s linear 0s;
+
+    &:hover { background-color: #ffd300; }
+
+    &.markers {
+      margin-right: 20px;
+
+      background-size: 26px 30px;
+      background-image: url('../images/icon-marker.svg');
+
+      &:hover {
+        background-image: url('../images/icon-marker-hover.svg');
+      }
+    }
+
+    &.heatmap {
+      background-size: 14px 30px;
+      background-image: url('../images/icon-heatmap.svg');
+
+      &:hover {
+        background-image: url('../images/icon-heatmap-hover.svg');
+      }
+    }
+  }
+}
+
 
 //
 // Media queries

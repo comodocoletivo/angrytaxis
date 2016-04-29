@@ -3,6 +3,12 @@
 
 <!-- Mapa -->
 <div ng-hide="map" class="load-map"></div>
+
+<div ng-show="map" class="hidden-xs wrp-controls-map">
+  <button class="markers" ng-click="showMarkers()">Marcadores</button>
+  <button class="heatmap" ng-click="toggleHeatmap()">Heatmap</button>
+</div>
+
 <section class="col-xs-12 map" id="map"></section>
 
 <!-- Modal -->

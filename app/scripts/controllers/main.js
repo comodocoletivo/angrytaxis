@@ -155,7 +155,7 @@ angular.module('angryTaxiApp')
         mapTypeControl: false,
         zoomControlOptions: {
           style: google.maps.ZoomControlStyle.SMALL,
-          position: google.maps.ControlPosition.LEFT_CENTER
+          position: google.maps.ControlPosition.RIGHT_BOTTOM
         },
       });
 
@@ -408,8 +408,8 @@ angular.module('angryTaxiApp')
         });
 
         // agrupa os marcadores na view
-        // $scope.bounds.extend(new google.maps.LatLng(markers[i].position[0], markers[i].position[1]));
-        // $scope.map.fitBounds($scope.bounds);
+        $scope.bounds.extend(new google.maps.LatLng(markers[i].position[0], markers[i].position[1]));
+        $scope.map.fitBounds($scope.bounds);
 
         // infowindow com o título da denúncia
         infoWindow.setContent(markers[i].title);
@@ -436,6 +436,10 @@ angular.module('angryTaxiApp')
     // ====
     // Faz o toggle das áreas perigosas
     $scope.toggleHeatmap = function() {
+      console.log($scope.heatmap.getMap());
+      console.log($scope.map);
+      console.log($scope.heatmap);
+
       $scope.heatmap.setMap($scope.heatmap.getMap() ? null : $scope.map);
     };
     // ====
@@ -510,6 +514,14 @@ angular.module('angryTaxiApp')
     $scope.setEnglishLanguage = function() {
       $translate.use('en');
     }
+    // ====
+
+
+    // ====
+    // Botões do mapa
+    $scope.showMarkers = function() {};
+
+    $scope.showHeatMap = function() {};
     // ====
 
   });
