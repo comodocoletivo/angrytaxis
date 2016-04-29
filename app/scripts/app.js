@@ -20,7 +20,8 @@ angular
     'backand',
     'ngMask',
     'ngProgress',
-    'ui.bootstrap'
+    'ui.bootstrap',
+    'ngAnimate'
   ])
   .config(function ($routeProvider, BackandProvider, $locationProvider) {
       BackandProvider.setAppName('angrytaxi');

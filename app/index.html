@@ -83,11 +83,14 @@
     <![endif]-->
 
     <!-- Tablet and Desktop -->
-    <header class="hidden-xs header-primary">
+    <header class="hidden-xs header-primary" ng-controller="MainCtrl">
       <h1 class="logo">Angrytaxi</h1>
 
       <nav class="pull-right">
         <ul>
+          <li>
+          <a ng-click="toggleSobre()" class="btn-default">sobre</a>
+          </li>
           <li>
           <button class="btn-default" data-toggle="modal" data-target="#modal-feedback">feedback</button>
           </li>

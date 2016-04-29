@@ -8,10 +8,13 @@
  * Controller of the angryTaxiApp
  */
 angular.module('angryTaxiApp')
-  .controller('AboutCtrl', function () {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+  .controller('AboutCtrl', function ($scope) {
+
+    // seta uma clase para a transição das páginas.
+    // $scope.pageClass = 'page-about';
+
+    $scope.comeBack = function() {
+      window.history.back();
+    };
+
   });

@@ -32,10 +32,11 @@
       display: inline-block;
       list-style-type: none;
 
-      button {
+      button, a {
         -webkit-apperarance: none;
         outline: none;
         border: none;
+        cursor: pointer;
         background-color: transparent;
 
         &.btn-default {

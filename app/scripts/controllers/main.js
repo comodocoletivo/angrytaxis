@@ -100,7 +100,7 @@ angular.module('angryTaxiApp')
       });
     }
 
-    _getData();
+    // _getData();
     // ====
 
 
@@ -489,6 +489,13 @@ angular.module('angryTaxiApp')
 
     $scope.toggleMobileMenu = function() {
       $rootScope.mobileMenuActive = $rootScope.mobileMenuActive === false ? true: false;
+    };
+
+    // Ativa ou desativa o menu / sobre
+    $rootScope.sobreActive = false;
+
+    $scope.toggleSobre = function() {
+      $rootScope.sobreActive = $rootScope.sobreActive === false ? true: false;
     };
     // ====
   });

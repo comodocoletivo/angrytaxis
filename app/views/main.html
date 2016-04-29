@@ -1,22 +1,5 @@
-<div class="wrapper-section" ng-class="{ 'active': mobileMenuActive == true }">
-  <!-- denuncias -->
-  <section class="col-xs-12 box">
-    <h3>últimas denúncias</h3>
-
-    <aside ng-repeat="m in result.slice().reverse() | limitTo: 3" class="complaint-list">
-      <h5>{{m.title}}</h5>
-
-      <p class="address" title="Endereço">{{m.full_address}}</p>
-      <p class="date" title="Data">{{m.date}}</p>
-      <p class="hour" title="Hora">{{m.hour}}</p>
-    </aside>
-  </section>
-
-  <footer class="footer-primary">
-    <span>2016</span>
-    <p>todos os direitos reservados <br> aos passageiros.</p>
-  </footer>
-</div>
+<!-- Denúncias -->
+<div ng-include src="'views/partials/denuncias.html'"></div>
 
 <!-- Mapa -->
 <div ng-hide="map" class="load-map"></div>
@@ -25,3 +8,6 @@
 <!-- Modal -->
 <div ng-include src="'views/modals/modal-denunciar.html'"></div>
 <div ng-include src="'views/modals/modal-feedback.html'"></div>
+
+<!-- about section -->
+<div class="hidden-xs" ng-include src="'views/partials/about.html'"></div>
