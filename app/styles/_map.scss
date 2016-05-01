@@ -31,6 +31,9 @@
     li {
       display: inline-block;
       list-style-type: none;
+      margin-right: 10px;
+
+      &:last-child { margin-right: 0; }
 
       button, a {
         -webkit-apperarance: none;
@@ -239,6 +242,14 @@
 
     &.btn-deactive {
       color: #9b9b9b;
+    }
+
+    &.tr-bt {
+     color: #9b9b9b;
+    }
+
+    &.tr-bt-active {
+      color: #ffd300 !important;
     }
   }
 

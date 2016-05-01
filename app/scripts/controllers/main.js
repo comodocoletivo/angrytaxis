@@ -520,6 +520,21 @@ angular.module('angryTaxiApp')
     $scope.setEnglishLanguage = function() {
       $translate.use('en');
     }
+
+    // ativar botão
+    $scope.isEnActive = false;
+    $scope.isBrActive = false;
+
+    $scope.activeButton = function(args) {
+      console.log(args);
+      if (args === 'en') {
+        $scope.isEnActive = !$scope.isEnActive;
+        $scope.isBrActive = false;
+      } else {
+        $scope.isBrActive = !$scope.isBrActive;
+        $scope.isEnActive = false;
+      }
+    }
     // ====
 
   });

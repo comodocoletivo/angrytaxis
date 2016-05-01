@@ -12,15 +12,15 @@
   </section>
 
   <footer class="footer-primary">
-    <!-- <span ng-click="setPortugueseLanguage()">
+    <span ng-click="setPortugueseLanguage();activeButton('pt');" class="tr-bt" ng-class="{'tr-bt-active': isBrActive}">
       {{ 'PORTUGUESE_BUTTON' | translate }}
     </span>
 
-    <span ng-click="setEnglishLanguage()">
+    <span ng-click="setEnglishLanguage();activeButton('en');" class="tr-bt" ng-class="{'tr-bt-active': isEnActive}">
       {{ 'ENGLISH_BUTTON' | translate }}
-    </span> -->
+    </span>
 
-    <span class="btn-active">2016</span>
+    <!-- <span class="btn-active">2016</span> -->
 
     <p>{{ 'ALL_RIGHTS_RESERVED' | translate }} <br>
     {{ 'PASSENGERS' | translate}}.</p>

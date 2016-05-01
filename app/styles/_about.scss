@@ -42,7 +42,7 @@
 
 .sc-about {
   display: inline-block;
-  margin-top: 135px;
+  margin-top: 0;
   margin-left: 162px;
   position: relative;
 
@@ -160,4 +160,20 @@
     -o-webkit-animation: slideOutLeft 0.5s both ease-in; z-index: 9999;
     webkit-animation: slideOutLeft 0.5s both ease-in; z-index: 9999;
   }
+}
+
+//
+// Media queries
+//
+
+
+// iPads
+@media screen and (min-width: 768px) {}
+
+// Desktops
+@media screen and (min-width: 992px) {}
+
+// Large Desktops
+@media screen and (min-width: 1200px) {
+  // .sc-about{ margin-top: 135px; }
 }
