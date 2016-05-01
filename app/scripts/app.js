@@ -53,36 +53,12 @@ angular
 
     // ====
     // Internationalization
-
-    var translationsEN = {
-      "ABOUT": "about",
-      "FEEDBACK": "feedback",
-      "DENOUNCE": "denounce",
-      "LAST_COMPLAINTS": "last complaints",
-      "ALL_RIGHTS_RESERVED": "All rights reserved",
-      "PASSENGERS": "for passengers",
-      "ALL_RIGHTS_RESERVED_COMPLETE": "All rights reserved for passengers",
-      "ENGLISH_BUTTON": "English",
-      "PORTUGUESE_BUTTON": "Portuguese",
-      "SHARE": "Share"
-    };
-
-    var translationspt_BR = {
-      "ABOUT": "sobre",
-      "FEEDBACK": "feedback",
-      "DENOUNCE": "denunciar",
-      "LAST_COMPLAINTS": "últimas denúncias",
-      "ALL_RIGHTS_RESERVED": "Todos os direitos reservados",
-      "PASSENGERS": "para os passageiros",
-      "ALL_RIGHTS_RESERVED_COMPLETE": "Todos os direitos reservados para os passageiros",
-      "ENGLISH_BUTTON": "Inglês",
-      "PORTUGUESE_BUTTON": "Português",
-      "SHARE": "Compartilhe"
-    };
-
-
-    $translateProvider.translations('en', translationsEN);
-    $translateProvider.translations('pt-BR', translationspt_BR);
+    $translateProvider.useStaticFilesLoader({
+      files: [ {
+        prefix: 'translate/',
+        suffix: '.json'
+      }]
+    });
 
     // set preferred language
     $translateProvider.preferredLanguage('pt-BR');

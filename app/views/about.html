@@ -2,13 +2,13 @@
 <div ng-include src="'views/partials/denuncias.html'"></div>
 
 <!-- About -->
-<section class="col-xs-12 wrp-sc-about">
+<section class="col-xs-12 wrp-sc-about" ng-controller="MainCtrl">
   <article class="sc-about">
     <h2 class="comodo-logo">Cômodo Coletivo</h2>
 
     <span class="btn-close-about" ng-click="comeBack()">x</span>
 
-    <h3>{{ 'ALL_RIGHTS_RESERVED_COMPLETE' | translate }}!</h3>
+    <h3>{{ 'ALL_RIGHTS_RESERVED_COMPLETE' | translate }}</h3>
 
     <aside class="text">
       <p>Acreditamos no coletivo, acreditamos também que todos os passageiros tem o direito de receber um bom atendimento, por isso desenvolvemos o <b>Angrytaxis</b>.</p>
@@ -16,17 +16,17 @@
       <p>Este serviço tem o intuito de sensibilizar as pessoas, quantificar e localizar de forma segura pontos de denúncias mais frequentes a má conduta por meio dos taxistas.</p>
 
       <div>
-        <h5>{{ 'SHARE' | translate }}</h5>
+        <h5>{{'SHARE' | translate}}</h5>
 
         <div class="pull-left">
           <a href="#" class="btn btn-social" title="Compartilhe no Facebook">Facebook</a>
           <a href="#" class="btn btn-social" title="Compartilhe no Twitter">Twitter</a>
         </div>
 
-        <!-- <div class="pull-right">
+        <div class="pull-right">
           <span>App Store</span>
           <span>Google Play</span>
-        </div> -->
+        </div>
       </div>
     </aside>
   </article>
