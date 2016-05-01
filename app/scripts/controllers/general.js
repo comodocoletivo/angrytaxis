@@ -8,7 +8,7 @@
  * Controller of the angryTaxiApp
  */
 angular.module('angryTaxiApp')
-  .controller('GeneralCtrl', function ($rootScope, $scope, requestApi, Notification, LocalStorage) {
+  .controller('GeneralCtrl', function ($rootScope, $scope, requestApi, Notification, LocalStorage, $translate) {
 
     // ====
     // Ativa ou desativa o menu / mobile
@@ -103,6 +103,32 @@ angular.module('angryTaxiApp')
         }
       })
     };
+    // ====
+
+
+     // ====
+    // Internationalization
+    $scope.setPortugueseLanguage = function() {
+      $translate.use('pt-BR');
+    }
+
+    $scope.setEnglishLanguage = function() {
+      $translate.use('en');
+    }
+
+    // ativar botão
+    $scope.isEnActive = false;
+    $scope.isBrActive = false;
+
+    $scope.activeButton = function(args) {
+      if (args === 'en') {
+        $scope.isEnActive = !$scope.isEnActive;
+        $scope.isBrActive = false;
+      } else {
+        $scope.isBrActive = !$scope.isBrActive;
+        $scope.isEnActive = false;
+      }
+    }
     // ====
 
   });

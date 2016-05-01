@@ -1,5 +1,5 @@
 <!-- Denúncias -->
-<div ng-include src="'views/partials/denuncias.html'"></div>
+<div ng-controller="GeneralCtrl" ng-include src="'views/partials/denuncias.html'"></div>
 
 <!-- Mapa -->
 <div ng-hide="map" class="load-map"></div>
@@ -19,4 +19,4 @@
 <div ng-include ng-controller="GeneralCtrl" src="'views/modals/modal-feedback.html'"></div>
 
 <!-- about section -->
-<div class="hidden-xs" ng-include src="'views/partials/about.html'"></div>
+<div class="hidden-xs" ng-controller="GeneralCtrl" ng-include src="'views/partials/about.html'"></div>
