@@ -57,20 +57,20 @@ angular.module('angryTaxiApp')
 
     // ====
     // Instância do socket para reports em realtime
-    function socket() {
-      requestApi.socket(function(data) {
-         //  var reformattedArray = data.map(function(obj){
-         //   var rObj = {
-         //    [obj.Key]: obj.Value
-         //   };
+    // function socket() {
+    //   requestApi.socket(function(data) {
+    //      //  var reformattedArray = data.map(function(obj){
+    //      //   var rObj = {
+    //      //    [obj.Key]: obj.Value
+    //      //   };
 
-         //   return rObj;
-         // });
+    //      //   return rObj;
+    //      // });
 
-         // addMarkers(reformattedArray);
-         // console.warn('reformattedArray', reformattedArray);
-      })
-    }
+    //      // addMarkers(reformattedArray);
+    //      // console.warn('reformattedArray', reformattedArray);
+    //   })
+    // }
 
     // socket();
     // ====

@@ -46,12 +46,12 @@ angular.module('angryTaxiApp')
       });
     };
 
-    obj.socket = function(callback) {
-      Backand.on('items_updated', function (data) {
-        //Get the 'items' object that have changed
-        callback(data);
-      });
-    };
+    // obj.socket = function(callback) {
+    //   Backand.on('items_updated', function (data) {
+    //     //Get the 'items' object that have changed
+    //     callback(data);
+    //   });
+    // };
 
     obj.sendFeedback = function(data, callback) {
       $http.post('https://formspree.io/taxisangry@gmail.com', data, {headers: {'Accept': 'application/json'}}).then(
