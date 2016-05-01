@@ -56,27 +56,6 @@ angular.module('angryTaxiApp')
 
 
     // ====
-    // Instância do socket para reports em realtime
-    // function socket() {
-    //   requestApi.socket(function(data) {
-    //      //  var reformattedArray = data.map(function(obj){
-    //      //   var rObj = {
-    //      //    [obj.Key]: obj.Value
-    //      //   };
-
-    //      //   return rObj;
-    //      // });
-
-    //      // addMarkers(reformattedArray);
-    //      // console.warn('reformattedArray', reformattedArray);
-    //   })
-    // }
-
-    // socket();
-    // ====
-
-
-    // ====
     // Obtém todos os dados da api
     function _getData() {
       requestApi.getList(function(data) {
@@ -141,6 +120,8 @@ angular.module('angryTaxiApp')
         lng: position.coords.longitude
       };
 
+      $scope.userPositionObj = userPosition;
+
       var map = new google.maps.Map(document.getElementById('map'), {
         center: userPosition,
         zoom: 15,
@@ -169,6 +150,8 @@ angular.module('angryTaxiApp')
         map: map,
         icon: '../../images/user-icon.png'
       });
+
+      $scope.userMarker = marker;
 
       var userRadius = new google.maps.Circle({
         map: map,
@@ -433,21 +416,31 @@ angular.module('angryTaxiApp')
       // $scope.heatmap.set('radius', 20);
     }
 
+    function backMyLocation() {
+      $scope.map.setZoom(8);
+      $scope.map.setCenter($scope.userMarker.getPosition());
+    }
+
     $scope.getLocation = getLocation();
     // ====
 
 
     // ====
     // Faz o toggle das áreas perigosas
-    $scope.toggleHeatmap = function() {
-      $scope.heatmap.setMap($scope.heatmap.getMap() ? null : $scope.map);
-    };
+    // $scope.toggleHeatmap = function() {
+    //   $scope.heatmap.setMap($scope.heatmap.getMap() ? null : $scope.map);
+    // };
 
     // Botões do mapa
-    $scope.showMarkers = function() {
-      console.log($scope.markers);
-      // $scope.arrayMarkers.setMap($scope.arrayMarkers.setMap() ? null : $scope.map);
-    };
+    // $scope.showMarkers = function() {
+    //   console.log($scope.markers);
+    //   // $scope.arrayMarkers.setMap($scope.arrayMarkers.setMap() ? null : $scope.map);
+    // };
+
+    //
+    $scope.backMyLocation = function() {
+      backMyLocation()
+    }
     // ====
 
 
