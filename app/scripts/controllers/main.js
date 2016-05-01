@@ -25,6 +25,8 @@ angular.module('angryTaxiApp')
     $scope.newComplaint = function() {
       var params = $scope.complaint;
 
+      return console.warn('PARAMS -> ', params);
+
       if (params.now == true) {
         params.date = new Date().getTime();
         delete params.now;
@@ -42,15 +44,15 @@ angular.module('angryTaxiApp')
         delete params.myLocation;
       }
 
-      requestApi.createData(params, function(data) {
-        if (data.status == 200) {
-          _getData();
-          Notification.show('Denúncia realizada com sucesso!', 'Obrigado por contribuir.');
-        } else {
-          console.warn('Tivemos um problema para criar a sua denúncia. Por favor, tente novamente em instantes.');
-          Notification.show('Atenção', 'Tivemos um problema para criar a sua denúncia. Por favor, tente novamente em instantes.');
-        }
-      });
+      // requestApi.createData(params, function(data) {
+      //   if (data.status == 200) {
+      //     _getData();
+      //     Notification.show('Denúncia realizada com sucesso!', 'Obrigado por contribuir.');
+      //   } else {
+      //     console.warn('Tivemos um problema para criar a sua denúncia. Por favor, tente novamente em instantes.');
+      //     Notification.show('Atenção', 'Tivemos um problema para criar a sua denúncia. Por favor, tente novamente em instantes.');
+      //   }
+      // });
     };
     // ====
 
@@ -59,22 +61,15 @@ angular.module('angryTaxiApp')
     // Obtém todos os dados da api
     function _getData() {
       requestApi.getList(function(data) {
-        if (data.status == 200) {
-          $scope.result = data.data.data;
-
-          if ($scope.map) {
-            addMarkers(data.data.data);
-            $scope.progressbar.complete();
+        if (data.status === 200) {
+          if (data.data.length > 0) {
+            console.log('maior')
           } else {
-            $scope.$on('map_ok', function() {
-              addMarkers(data.data.data);
-              $scope.progressbar.complete();
-            })
+            Notification.show('Atenção', 'Ainda não temos nenhuma denúncia.');
           }
-
         } else {
-          console.warn('Tivemos um problema para listar as denúncias. Por favor, tente novamente em instantes.');
-          Notification.show('Atenção', 'Tivemos um problema para listar as denúncias. Por favor, tente novamente em instantes.');
+          console.warn('Problema no retorno dos dados.')
+          Notification.show('Atenção', 'Tivemos um problema no nosso servidor, tente em instantes.');
         }
       });
     }
@@ -489,17 +484,18 @@ angular.module('angryTaxiApp')
 
     // ====
     // Ativa ou desativa o menu / mobile
-    $rootScope.mobileMenuActive = false;
+    $scope.mobileMenuActive = false;
 
     $scope.toggleMobileMenu = function() {
-      $rootScope.mobileMenuActive = $rootScope.mobileMenuActive === false ? true: false;
+      $scope.mobileMenuActive = $scope.mobileMenuActive === false ? true: false;
     };
 
     // Ativa ou desativa o menu / sobre
-    $rootScope.sobreActive = false;
+    $scope.sobreActive = false;
 
-    $scope.toggleSobre = function() {
-      $rootScope.sobreActive = $rootScope.sobreActive === false ? true: false;
+    $scope.putaMerda = function(args) {
+      console.log('hey', argsputaMerda);
+      $scope.sobreActive = $scope.sobreActive === false ? true: false;
     };
     // ====
 

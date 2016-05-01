@@ -24,12 +24,7 @@ angular
     'ngAnimate',
     'pascalprecht.translate'
   ])
-  .config(function ($routeProvider, BackandProvider, $locationProvider, $translateProvider) {
-      // backand service
-      BackandProvider.setAppName('angrytaxi');
-      BackandProvider.setSignUpToken('2a1c2dcb-704b-4702-ba00-1aca118dede2');
-      BackandProvider.setAnonymousToken('502f185a-4fa3-4d8a-82cb-6c7dc35300ce');
-      // BackandProvider.runSocket(true);
+  .config(function ($routeProvider, $locationProvider, $translateProvider) {
 
     $routeProvider
       .when('/', {

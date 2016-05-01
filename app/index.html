@@ -83,15 +83,15 @@
     <![endif]-->
 
     <!-- Tablet and Desktop -->
-    <header class="hidden-xs header-primary" ng-controller="MainCtrl">
+    <header class="hidden-xs header-primary">
       <h1 class="logo">Angrytaxis</h1>
 
       <nav class="pull-right">
         <ul>
           <li>
-            <a ng-click="toggleSobre()" class="btn-default">
+            <button ng-click="toggleSobre()" class="btn-default">
               {{ 'ABOUT' | translate }}
-            </a>
+            </button>
           </li>
 
           <li>
@@ -110,7 +110,7 @@
     </header>
 
     <!-- Mobile -->
-    <header class="hidden-sm hidden-md hidden-lg header-secondary" ng-controller="MainCtrl">
+    <header class="hidden-sm hidden-md hidden-lg header-secondary">
       <h1 class="logo">Angrytaxis</h1>
 
       <span class="mobile-menu" ng-click="toggleMobileMenu()">
@@ -142,7 +142,6 @@
     </script>
 
     <script src="https://maps.googleapis.com/maps/api/js?signed_in=true&key=AIzaSyD5k9agXULIehDwRDJPCzcxrJlNga7YHac&libraries=visualization" async></script>
-    <!-- <script src="https://api.backand.com:4000/socket.io/socket.io.js"></script> -->
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
@@ -170,6 +169,7 @@
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
+        <script src="scripts/app.config.js"></script>
         <script src="scripts/controllers/main.js"></script>
         <script src="scripts/controllers/about.js"></script>
         <script src="scripts/services/requestapi.js"></script>
