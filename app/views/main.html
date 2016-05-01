@@ -5,11 +5,7 @@
 <div ng-hide="map" class="load-map"></div>
 
 <div ng-show="map" class="hidden-xs wrp-controls-map">
-  <button class="markers" ng-click="backMyLocation()" title="Voltar para minha localização"> Voltar para minha localização </button>
-
-  <!-- <button class="markers" ng-click="showMarkers()" title="Visualize marcadores"> Marcadores </button> -->
-
-  <!-- <button class="heatmap" ng-click="toggleHeatmap()" title="Visualize as áreas de ataque"> Heatmap </button> -->
+  <button class="" ng-click="backMyLocation()" title="Voltar para minha localização"> Voltar para minha localização </button>
 </div>
 
 <section class="col-xs-12 map" id="map"></section>
@@ -18,5 +14,33 @@
 <div ng-include ng-controller="GeneralCtrl" src="'views/modals/modal-denunciar.html'"></div>
 <div ng-include ng-controller="GeneralCtrl" src="'views/modals/modal-feedback.html'"></div>
 
-<!-- about section -->
-<div class="hidden-xs" ng-controller="GeneralCtrl" ng-include src="'views/partials/about.html'"></div>
+<!-- About -->
+<section ng-controller="GeneralCtrl" class="hidden-xs col-sm-12 wrp-sc-about" ng-class="{ 'active': sobreActive == true }">
+  <article class="sc-about">
+    <h2 class="comodo-logo">Cômodo Coletivo</h2>
+
+    <span class="btn-close-about" ng-click="toggleSobre()">x</span>
+
+    <h3>{{ 'ALL_RIGHTS_RESERVED_COMPLETE' | translate }}</h3>
+
+    <aside class="text">
+      <p>{{'ABOUT_TXT_01' | translate }} <b>{{'ANGRY_NAME' | translate }}</b>.</p>
+
+      <p>{{'ABOUT_TXT_02' | translate}}</p>
+
+      <div>
+        <h5>{{'PASSENGERS' | translate}}</h5>
+
+        <div class="pull-left">
+          <a href="#" class="btn btn-social" title="Compartilhe no Facebook">Facebook</a>
+          <a href="#" class="btn btn-social" title="Compartilhe no Twitter">Twitter</a>
+        </div>
+
+        <!-- <div class="pull-right">
+          <span>App Store</span> <span>Google Play</span>
+        </div> -->
+      </div>
+    </aside>
+  </article>
+</section>
+

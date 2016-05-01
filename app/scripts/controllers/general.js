@@ -14,14 +14,16 @@ angular.module('angryTaxiApp')
     // Ativa ou desativa o menu / mobile
     $rootScope.mobileMenuActive = false;
 
-    $rootScope.toggleMobileMenu = function() {
+    $scope.toggleMobileMenu = function() {
       $rootScope.mobileMenuActive = $rootScope.mobileMenuActive === false ? true: false;
     };
 
     // Ativa ou desativa o menu / sobre
     $rootScope.sobreActive = false;
 
-    $rootScope.toggleSobre = function() {
+    $scope.toggleSobre = function() {
+      console.log($rootScope.sobreActive);
+
       $rootScope.sobreActive = $rootScope.sobreActive === false ? true: false;
     };
     // ====

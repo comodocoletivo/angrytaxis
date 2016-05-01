@@ -62,6 +62,7 @@ angular
 
     // set preferred language
     $translateProvider.preferredLanguage('pt-BR');
+    $translateProvider.forceAsyncReload(true);
 
     // remember language
     $translateProvider.useLocalStorage();
