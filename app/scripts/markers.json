@@ -1,0 +1,201 @@
+{
+  "totalRows": 4,
+  "data": [
+    {
+      "__metadata": {
+        "id": "19",
+        "fields": {
+          "id": {
+            "type": "int",
+            "unique": true
+          },
+          "title": {
+            "type": "string"
+          },
+          "obs": {
+            "type": "text"
+          },
+          "position": {
+            "type": "point"
+          },
+          "cpf": {
+            "type": "string"
+          },
+          "license_plate": {
+            "type": "string"
+          },
+          "full_address": {
+            "type": "string"
+          },
+          "hour": {
+            "type": "string"
+          },
+          "date": {
+            "type": "text"
+          }
+        },
+        "descriptives": {},
+        "dates": {}
+      },
+      "id": 19,
+      "title": "Carro bloqueado",
+      "obs": "Vários carros de taxistas bloquearam o carro em que estava",
+      "position": [
+        -8.0503018,
+        -34.9010247
+      ],
+      "cpf": "000.000.000-00",
+      "license_plate": "TP 212",
+      "full_address": "R. Cardeal Arco-Verde, 315 - Graças, Recife - PE, 52011-240, Brazil",
+      "hour": "21:00",
+      "date": "12/03/2015"
+    },
+    {
+      "__metadata": {
+        "id": "37",
+        "fields": {
+          "id": {
+            "type": "int",
+            "unique": true
+          },
+          "title": {
+            "type": "string"
+          },
+          "obs": {
+            "type": "text"
+          },
+          "position": {
+            "type": "point"
+          },
+          "cpf": {
+            "type": "string"
+          },
+          "license_plate": {
+            "type": "string"
+          },
+          "full_address": {
+            "type": "string"
+          },
+          "hour": {
+            "type": "string"
+          },
+          "date": {
+            "type": "text"
+          }
+        },
+        "descriptives": {},
+        "dates": {}
+      },
+      "id": 37,
+      "title": "Taxista mal educado",
+      "obs": "Taxista muito mal educado",
+      "position": [
+        -23.5932453,
+        -46.683941300000015
+      ],
+      "cpf": "090.480.805-09",
+      "license_plate": "eeg 8989",
+      "full_address": "R. Ramos Batista - Vila Olimpia, São Paulo - SP, 04552-020, Brasil",
+      "hour": "22h",
+      "date": "26/04/2016"
+    },
+    {
+      "__metadata": {
+        "id": "54",
+        "fields": {
+          "id": {
+            "type": "int",
+            "unique": true
+          },
+          "title": {
+            "type": "string"
+          },
+          "obs": {
+            "type": "text"
+          },
+          "position": {
+            "type": "point"
+          },
+          "cpf": {
+            "type": "string"
+          },
+          "license_plate": {
+            "type": "string"
+          },
+          "full_address": {
+            "type": "string"
+          },
+          "hour": {
+            "type": "string"
+          },
+          "date": {
+            "type": "text"
+          }
+        },
+        "descriptives": {},
+        "dates": {}
+      },
+      "id": 54,
+      "title": "Má conduta do taxista",
+      "obs": "A chamada realizada pelo 99taxis o taxis com ponto no. Aeroporto se recusou a ir pelo trajeto desejado alegando segurança, porém segurança essa questionável pois trafegar pela Barreto de Menezes em prazeres não é perigoso, ameaçou parar o carro próximo a praça deserta do antigo aeroporto. Ainda tentou se explicar que já foi assaltado outras vezes, porém em região diferente da corrida, que como ele não era o proprietário do veículo teria que prestar conta  no dia e o APP só pagaria após dois dias. Se sabe das regras do app, por que utiliza se acha ruim? Tremendo de um motorista de má fé! Vale averiguar se realmente ele tem autorização para ser motorista, pois o carro pode ser, mas ele não! Espero que através desta denúncia os responsáveis tomassem medidas educativas e treinamento adequado e se necessário até uma boa multa sobre o taxista.",
+      "position": [
+        2.8441954,
+        -60.70572440000001
+      ],
+      "cpf": "013.354.764-74",
+      "license_plate": "Pdd1883",
+      "full_address": "Aeroporto Internacional do Recife/Guararapes - Gilberto Freyre (REC) - Praça Ministro Salgado Filho, s/n - Imbiribeira, Recife - PE, 51210-902, Brasil",
+      "hour": "00:40",
+      "date": "04/12/2015"
+    },
+    {
+      "__metadata": {
+        "id": "58",
+        "fields": {
+          "id": {
+            "type": "int",
+            "unique": true
+          },
+          "title": {
+            "type": "string"
+          },
+          "obs": {
+            "type": "text"
+          },
+          "position": {
+            "type": "point"
+          },
+          "cpf": {
+            "type": "string"
+          },
+          "license_plate": {
+            "type": "string"
+          },
+          "full_address": {
+            "type": "string"
+          },
+          "hour": {
+            "type": "string"
+          },
+          "date": {
+            "type": "text"
+          }
+        },
+        "descriptives": {},
+        "dates": {}
+      },
+      "id": 58,
+      "title": "Motorista me mandou tomar no cú",
+      "obs": "Hoje pedi um táxi pelo aplicativo e, ao se aproximar da minha residência, o motorista cancelou a corrida. Entrei em contato ligando para ele e ele, para minha surpresa, falou que tinha pego outro passageiro achando que era eu.\n\nPerguntei como que ele tinha feito isso, já que aparecia o meu nome no aplicativo e ele me mandou tomar no cú.\n\nPeço desculpas pelas palavras, não gostaria de passar essa mensagem a frente, mas foi assim que ele me tratou.\n\nA solicitação ocorrei via Easytaxi, o nome do taxista no aplicativo era José Mendes Torres, e o carro um Siena placa OYM-1765.",
+      "position": [
+        -8.0617115,
+        -34.89654710000002
+      ],
+      "cpf": "047.087.104-02",
+      "license_plate": "OYM-1765",
+      "full_address": "Condomínio do Edificio Parq. Residencial Paissandu Bl B e - R. Paissandú, 381 - Boa Vista, Recife - PE, Brasil",
+      "hour": "23:00",
+      "date": "06/02/2016"
+    }
+  ]
+}
