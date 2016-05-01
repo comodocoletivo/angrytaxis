@@ -14,13 +14,24 @@ angular.module('angryTaxiApp')
     var obj = {};
     var apiUrl = ApiConfig.API_URL;
 
-    obj.createData = function(data, callback) {
-      // $http.post(apiUrl + '/user/create', data, {headers: {'app_token': app_token}})
-      //   .then(function (data) {
-      //     callback(data);
-      //   }, function (error) {
-      //     callback(error);
-      //   });
+    obj.createComplaint = function(data, callback) {
+      $http.post(apiUrl + '/api/v1/complaint/', data)
+        .then(function (data) {
+          callback(data);
+        }, function (error) {
+          callback(error);
+        });
+    };
+
+    obj.checkComplaint = function(params, callback) {
+      return console.warn(params);
+
+      $http.post(apiUrl + '/api/v1/complaint/' + params)
+        .then(function (data) {
+          callback(data);
+        }, function (error) {
+          callback(error);
+        });
     };
 
     obj.getList = function(callback) {
@@ -33,10 +44,10 @@ angular.module('angryTaxiApp')
     };
 
     obj.sendFeedback = function(data, callback) {
-      // $http.post('https://formspree.io/taxisangry@gmail.com', data, {headers: {'Accept': 'application/json'}}).then(
-      //   function(data) { callback(data) },
-      //   function(error) { callback(error) }
-      // );
+      $http.post('https://formspree.io/taxisangry@gmail.com', data, {headers: {'Accept': 'application/json'}}).then(
+        function(data) { callback(data) },
+        function(error) { callback(error) }
+      );
     };
 
     return obj;

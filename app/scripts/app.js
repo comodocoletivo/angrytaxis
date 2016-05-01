@@ -37,6 +37,11 @@ angular
         controller: 'AboutCtrl',
         controllerAs: 'about'
       })
+      .when('/complaint/:id', {
+        templateUrl: 'views/main.html',
+        controller: 'ValidarCtrl',
+        controllerAs: 'validar'
+      })
       .otherwise({
         redirectTo: '/'
       });

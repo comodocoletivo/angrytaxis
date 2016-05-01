@@ -15,8 +15,8 @@
 <section class="col-xs-12 map" id="map"></section>
 
 <!-- Modal -->
-<div ng-include src="'views/modals/modal-denunciar.html'"></div>
-<div ng-include src="'views/modals/modal-feedback.html'"></div>
+<div ng-include ng-controller="GeneralCtrl" src="'views/modals/modal-denunciar.html'"></div>
+<div ng-include ng-controller="GeneralCtrl" src="'views/modals/modal-feedback.html'"></div>
 
 <!-- about section -->
 <div class="hidden-xs" ng-include src="'views/partials/about.html'"></div>

@@ -19,58 +19,6 @@ angular.module('angryTaxiApp')
 
 
     // ====
-    // Cria uma denúncia
-    $scope.complaint = {};
-
-    $scope.newComplaint = function() {
-      var params = $scope.complaint;
-
-      // {
-      //   "title": "A complaint",
-      //   "email": "juliocsmelo@gmail.com",
-      //   "complaintTime": "23:00",
-      //   "carID": "KJW-8065",
-      //   "lat": "-8.0000",
-      //   "lng": "-34.888999",
-      //   "reverseAddress": "Rua do teste e tal, PE, Brazil",
-      //   "complaintDate": "2016-04-28",
-      //   "complaintTime": "23-11"
-      // }
-
-      // botão de aconteceu agora
-      if (params.now == true) {
-        params.date = new Date().getTime();
-        delete params.now;
-      }
-
-      if (params.myLocation == true) {
-        params.full_address = $scope.full_address; // envia o endereço de onde está o usuário
-        params.position = $scope.userPosition; // enviar o lat/lng do usuário
-        delete params.myLocation;
-        delete params.address;
-      } else {
-        params.full_address = params.address; // envia o endereço digitado
-        params.position = $scope.addressPosition; // envia o lat/lng do endereço digitado
-        delete params.address;
-        delete params.myLocation;
-      }
-
-      return console.warn('PARAMS -> ', params);
-
-      // requestApi.createData(params, function(data) {
-      //   if (data.status == 200) {
-      //     _getData();
-      //     Notification.show('Denúncia realizada com sucesso!', 'Obrigado por contribuir.');
-      //   } else {
-      //     console.warn('Tivemos um problema para criar a sua denúncia. Por favor, tente novamente em instantes.');
-      //     Notification.show('Atenção', 'Tivemos um problema para criar a sua denúncia. Por favor, tente novamente em instantes.');
-      //   }
-      // });
-    };
-    // ====
-
-
-    // ====
     // Obtém todos os dados da api
     function _getData() {
       requestApi.getList(function(data) {
@@ -425,7 +373,7 @@ angular.module('angryTaxiApp')
     }
 
     function backMyLocation() {
-      $scope.map.setZoom(8);
+      $scope.map.setZoom(13);
       $scope.map.setCenter($scope.userMarker.getPosition());
     }
 
@@ -436,25 +384,6 @@ angular.module('angryTaxiApp')
     $scope.backMyLocation = function() {
       backMyLocation()
     }
-    // ====
-
-
-    // ====
-    // Envia um feedback / desktop
-    $scope.feedback = {};
-
-    $scope.submitFeedback = function() {
-      var params = $scope.feedback;
-
-      requestApi.sendFeedback(params, function(data) {
-        if (data.status == 200) {
-          Notification.show('Mensagem enviada', 'Obrigado pelo seu feedback.');
-        } else {
-          console.warn('Tivemos um problema no envio do feedback, tente novamente em alguns instantes.')
-          Notification.show('Atenção', 'Tivemos um problema no envio do feedback, tente novamente em alguns instantes.');
-        }
-      })
-    };
     // ====
 
 
