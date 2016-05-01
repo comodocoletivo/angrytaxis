@@ -494,7 +494,7 @@ angular.module('angryTaxiApp')
     $scope.sobreActive = false;
 
     $scope.putaMerda = function(args) {
-      console.log('hey', argsputaMerda);
+      console.log('hey', args);
       $scope.sobreActive = $scope.sobreActive === false ? true: false;
     };
     // ====
