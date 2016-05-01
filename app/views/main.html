@@ -5,13 +5,20 @@
 <div ng-hide="map" class="load-map"></div>
 
 <div ng-show="map" class="hidden-xs wrp-controls-map">
-  <button class="" ng-click="backMyLocation()" title="Voltar para minha localização"> Voltar para minha localização </button>
+  <button class="" ng-click="backMyLocation()" title="Voltar para minha localização">
+    Voltar para minha localização
+  </button>
+
+  <button class="markers" data-toggle="modal" data-target="#modal-elogiar">
+    Elogiar
+  </button>
 </div>
 
 <section class="col-xs-12 map" id="map"></section>
 
 <!-- Modal -->
 <div ng-include ng-controller="GeneralCtrl" src="'views/modals/modal-denunciar.html'"></div>
+<div ng-include ng-controller="GeneralCtrl" src="'views/modals/modal-elogiar.html'"></div>
 <div ng-include ng-controller="GeneralCtrl" src="'views/modals/modal-feedback.html'"></div>
 
 <!-- About -->
