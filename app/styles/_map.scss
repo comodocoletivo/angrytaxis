@@ -263,9 +263,9 @@
 
 .map {
   background-color: #2b2b2b;
-  height: calc(100% - 100px); // mostrar o zoom do mapa
+  height: 100%;
   width: 100%;
-  position: absolute;
+  position: fixed !important;
 }
 
 .btn-denunciar {
@@ -338,7 +338,14 @@
 
   .complaint-list { width: 220px; }
 
-  .map { height: 100%; }
+  // .map {
+  //   // height: 100%;
+
+  //   background-color: #2b2b2b;
+  //   height: calc(100% - 100px); // mostrar o zoom do mapa
+  //   width: 100%;
+  //   position: absolute;
+  // }
 
   .container-fluid { overflow: visible; }
 }

@@ -13,6 +13,7 @@ angular.module('angryTaxiApp')
 
     var obj = {};
     var cmp_storage = {};
+    var user_position = {};
 
     obj.getItem = function (key) {
       return JSON.parse(localStorage.getItem(key));
@@ -32,6 +33,14 @@ angular.module('angryTaxiApp')
       cmp_storage.complaintDate = obj.complaintDate;
 
       localStorage.setItem('ANGRY_TX', JSON.stringify(cmp_storage));
+    };
+
+    obj.saveUserPosition = function (obj) {
+      user_position.lat = obj.coords.latitude;
+      user_position.lng = obj.coords.longitude;
+      user_position.timestamp = obj.coords.timestamp;
+
+      localStorage.setItem('ANGRY_TX_POS', JSON.stringify(user_position));
     };
 
     return obj;

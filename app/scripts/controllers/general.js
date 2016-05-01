@@ -22,8 +22,6 @@ angular.module('angryTaxiApp')
     $rootScope.sobreActive = false;
 
     $scope.toggleSobre = function() {
-      console.log($rootScope.sobreActive);
-
       $rootScope.sobreActive = $rootScope.sobreActive === false ? true: false;
     };
     // ====
@@ -53,8 +51,8 @@ angular.module('angryTaxiApp')
         params.reverseAddress = $scope.full_address;
 
         // enviar o lat/lng do usuário
-        params.lat = $scope.userPositionObj.lat.toString();
-        params.lng = $scope.userPositionObj.lng.toString();
+        params.lat = $scope.userPosition[0].toString();
+        params.lng = $scope.userPosition[1].toString();
 
         delete params.myLocation;
         delete params.address;
