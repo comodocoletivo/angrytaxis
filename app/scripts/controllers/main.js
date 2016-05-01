@@ -25,8 +25,19 @@ angular.module('angryTaxiApp')
     $scope.newComplaint = function() {
       var params = $scope.complaint;
 
-      return console.warn('PARAMS -> ', params);
+      // {
+      //   "title": "A complaint",
+      //   "email": "juliocsmelo@gmail.com",
+      //   "complaintTime": "23:00",
+      //   "carID": "KJW-8065",
+      //   "lat": "-8.0000",
+      //   "lng": "-34.888999",
+      //   "reverseAddress": "Rua do teste e tal, PE, Brazil",
+      //   "complaintDate": "2016-04-28",
+      //   "complaintTime": "23-11"
+      // }
 
+      // botão de aconteceu agora
       if (params.now == true) {
         params.date = new Date().getTime();
         delete params.now;
@@ -43,6 +54,8 @@ angular.module('angryTaxiApp')
         delete params.address;
         delete params.myLocation;
       }
+
+      return console.warn('PARAMS -> ', params);
 
       // requestApi.createData(params, function(data) {
       //   if (data.status == 200) {
@@ -419,20 +432,7 @@ angular.module('angryTaxiApp')
     $scope.getLocation = getLocation();
     // ====
 
-
     // ====
-    // Faz o toggle das áreas perigosas
-    // $scope.toggleHeatmap = function() {
-    //   $scope.heatmap.setMap($scope.heatmap.getMap() ? null : $scope.map);
-    // };
-
-    // Botões do mapa
-    // $scope.showMarkers = function() {
-    //   console.log($scope.markers);
-    //   // $scope.arrayMarkers.setMap($scope.arrayMarkers.setMap() ? null : $scope.map);
-    // };
-
-    //
     $scope.backMyLocation = function() {
       backMyLocation()
     }
@@ -479,24 +479,6 @@ angular.module('angryTaxiApp')
     $scope.$on('formatted_address', function() {
       getLatLngByAddress($scope.formatted_address);
     })
-    // ====
-
-
-    // ====
-    // Ativa ou desativa o menu / mobile
-    $scope.mobileMenuActive = false;
-
-    $scope.toggleMobileMenu = function() {
-      $scope.mobileMenuActive = $scope.mobileMenuActive === false ? true: false;
-    };
-
-    // Ativa ou desativa o menu / sobre
-    $scope.sobreActive = false;
-
-    $scope.putaMerda = function(args) {
-      console.log('hey', args);
-      $scope.sobreActive = $scope.sobreActive === false ? true: false;
-    };
     // ====
 
 

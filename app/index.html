@@ -83,7 +83,7 @@
     <![endif]-->
 
     <!-- Tablet and Desktop -->
-    <header class="hidden-xs header-primary">
+    <header class="hidden-xs header-primary" ng-controller="GeneralCtrl">
       <h1 class="logo">Angrytaxis</h1>
 
       <nav class="pull-right">
@@ -110,7 +110,7 @@
     </header>
 
     <!-- Mobile -->
-    <header class="hidden-sm hidden-md hidden-lg header-secondary">
+    <header class="hidden-sm hidden-md hidden-lg header-secondary" ng-controller="GeneralCtrl">
       <h1 class="logo">Angrytaxis</h1>
 
       <span class="mobile-menu" ng-click="toggleMobileMenu()">
@@ -141,6 +141,7 @@
        ga('send', 'pageview');
     </script>
 
+    <!-- <script src="https://maps.googleapis.com/maps/api/js" async></script> -->
     <script src="https://maps.googleapis.com/maps/api/js?signed_in=true&key=AIzaSyD5k9agXULIehDwRDJPCzcxrJlNga7YHac&libraries=visualization" async></script>
 
     <!-- build:js(.) scripts/vendor.js -->
@@ -174,6 +175,7 @@
         <script src="scripts/controllers/about.js"></script>
         <script src="scripts/services/requestapi.js"></script>
         <script src="scripts/services/notification.js"></script>
+        <script src="scripts/controllers/general.js"></script>
         <!-- endbuild -->
 </body>
 </html>
