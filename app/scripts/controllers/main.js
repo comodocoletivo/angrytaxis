@@ -42,7 +42,7 @@ angular.module('angryTaxiApp')
 
             $scope.arr_markers = arr_markers;
 
-            // $scope.$emit('data_and_pins_ok');
+            $scope.$emit('data_and_pins_ok');
           } else {
             Notification.show('Atenção', 'Ainda não temos nenhuma denúncia.');
           }
@@ -475,7 +475,7 @@ angular.module('angryTaxiApp')
 
     $scope.$on('map_ok', function() {
       _getFullAddress();
-      _addMarkers()
+      _addMarkers();
     });
 
     $scope.$on('full_address_ok', function() {
