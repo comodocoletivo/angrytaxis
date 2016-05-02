@@ -31,5 +31,8 @@
   "MODAL_COMPLAINT_OBS": "Observações sobre a ocorrência",
   "MODAL_COMPLAINT_CREATE_COMPLAINT": "Criar denúncia",
 
-  "MODAL_PRAISE_TITLE": "Elogie aqui!"
+  "MODAL_PRAISE_TITLE": "Elogie aqui!",
+  "MODAL_PRISE_TEXT_TITLE": "Dê um título ao elogio",
+  "MODAL_COMPLAINT_PRAISE_OBS": "Alguma observação a fazer?",
+  "MODAL_COMPLAINT_CREATE_PRAISE": "Elogiar"
 }
