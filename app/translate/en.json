@@ -18,5 +18,18 @@
   "MODAL_INSTRUCTIONS_TEXT_1": "You will receive the link in your e-mail for finish the complaint.",
   "MODAL_INSTRUCTIONS_TEXT_2": "The confirmation was sent to:",
   "MODAL_COMPLAINT_TITLE": "Complaint here!",
+  "MODAL_COMPLAINT_INPUT_TITLE": "Set a title for the complaint",
+  "MODAL_COMPLAINT_MSG_DEFAULT": "This field is obligatory.",
+  "MODAL_COMPLAINT_MSG_EMAIL": "email is invalid.",
+  "MODAL_COMPLAINT_MSG_HOUR": "hour format is invalid HH:mm",
+  "MODAL_COMPLAINT_INPUT_DATE": "Date",
+  "MODAL_COMPLAINT_INPUT_HOUR": "Hour",
+  "MODAL_COMPLAINT_INPUT_CARID": "ID car number",
+  "MODAL_COMPLAINT_INPUT_EMAIL": "Tell us your e-mail",
+  "MODAL_COMPLAINT_INPUT_ADDRESS": "Address of complaint",
+  "MODAL_COMPLAINT_IM_HERE": "It happened here",
+  "MODAL_COMPLAINT_OBS": "Tell us more about your complaint",
+  "MODAL_COMPLAINT_CREATE_COMPLAINT": "Send",
+
   "MODAL_PRAISE_TITLE": "Praise here!"
 }
