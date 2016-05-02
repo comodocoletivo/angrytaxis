@@ -62,4 +62,26 @@ angular
     // remember language
     $translateProvider.useLocalStorage();
     // ====
-  });
+  })
+  .run(['$window', '$rootScope', function ($window, $rootScope) {
+
+    // ====
+    // Offline
+    $rootScope.online = navigator.onLine;
+
+    $window.addEventListener("offline", function () {
+      $rootScope.$apply(function() {
+        $rootScope.online = false;
+        $rootScope.$emit('network_changed');
+      });
+    }, false);
+
+    $window.addEventListener("online", function () {
+      $rootScope.$apply(function() {
+        $rootScope.online = true;
+        $rootScope.$emit('network_changed');
+      });
+    }, false);
+    // ====
+
+  }]);

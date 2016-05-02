@@ -144,7 +144,6 @@ angular.module('angryTaxiApp')
         $scope.isEnActive = false;
       }
     }
-
     // ====
 
     // ====
@@ -156,6 +155,16 @@ angular.module('angryTaxiApp')
 
       $('#modal-instructions').modal('show');
     });
+
+    $rootScope.$on('network_changed', function() {
+      var status = $rootScope.online;
+
+      if (status === true) {
+        Notification.show('UHUL!', 'Sua internet voltou a funcionar :)');
+      } else {
+        Notification.show('OPS!', 'Você parece está com problemas de internet :(');
+      }
+    })
 
     _changeLanguage();
     // ====
