@@ -21,13 +21,28 @@ angular.module('angryTaxiApp')
     // ====
     // Obtém todos os dados da api
     function _getAllData() {
+      var arr_markers;
+
+      arr_markers = [];
+
       requestApi.getList(function(data) {
         if (data.status === 200) {
           if (data.data.length > 0) {
             $scope.result = data.data;
-            LocalStorage.saveMarkers(data.data);
 
-            $scope.$emit('all_data_ok');
+            for (var i = 0; i < data.data.length; i++) {
+              arr_markers.push({
+                _id: data.data[i]._id,
+                title: data.data[i].title,
+                lat: data.data[i].lat,
+                lng: data.data[i].lng,
+                praise: data.data[i].praise,
+              })
+            }
+
+            $scope.arr_markers = arr_markers;
+
+            // $scope.$emit('data_and_pins_ok');
           } else {
             Notification.show('Atenção', 'Ainda não temos nenhuma denúncia.');
           }
@@ -324,6 +339,7 @@ angular.module('angryTaxiApp')
         if (status === 'OK') {
           if (results[0]) {
             $rootScope.full_address = results[0].formatted_address;
+            $scope.$emit('formatted_address_ok');
           } else {
             // console.warn('Não conseguimos localizar do seu endereço.');
             Notification.show('Atenção', 'Não conseguimos localizar o seu endereço.');
@@ -340,15 +356,9 @@ angular.module('angryTaxiApp')
     function _getLatLngByAddress() {
       var addressPosition;
 
-      // console.log('$rootScope.full_address', $rootScope.full_address);
-
       $scope.geocoder.geocode({'address': $rootScope.full_address}, function(results, status) {
-        console.log(results, status);
-
         if (status === 'OK') {
-          addressPosition = [results[0].geometry.location.lat(), results[0].geometry.location.lng()];
-
-          $scope.addressPosition = addressPosition;
+          $scope.addressPosition = [results[0].geometry.location.lat(), results[0].geometry.location.lng()];
         } else {
           console.warn('Tivemos um problema para localização do seu endereço', status);
           Notification.show('Atenção', 'Tivemos um problema para localização do seu endereço ' + status);
@@ -359,38 +369,41 @@ angular.module('angryTaxiApp')
     };
 
     function _addMarkers() {
-      var saved_markers, arrayHeatMarker, arrayMarkers, infoWindow, markers, heatMarker;
+      var arrayHeatMarker, arrayMarkers, infoWindow, marker, heatMarker;
 
-      saved_markers = LocalStorage.getItem('ANGRY_TX_PINS');
-
-      arrayHeatMarker = [];
       arrayMarkers = [];
+      arrayHeatMarker = [];
 
-      infoWindow = new google.maps.InfoWindow();
+      $scope.infowindow = new google.maps.InfoWindow();
 
-      for(var i = 0; i < saved_markers.length; i++ ) {
-        markers = new google.maps.Marker({
-          position: new google.maps.LatLng(saved_markers[i].position[0], saved_markers[i].position[1]),
-          icon: '../../images/complaint-icon.png',
+      arrayMarkers = $scope.arr_markers;
+
+      for(var i = 0; i < arrayMarkers.length; i++ ) {
+        marker = new google.maps.Marker({
+          position: new google.maps.LatLng(arrayMarkers[i].lat, arrayMarkers[i].lng),
           map: $scope.map,
           clickable: true,
+          title: arrayMarkers[i].title,
           zIndex: 90,
+          icon: '../../images/complaint-icon.png',
           animation: google.maps.Animation.DROP
         });
 
-        $scope.markers_array = arrayMarkers.push(markers);
-
         // agrupa os marcadores na view
-        $scope.bounds.extend(new google.maps.LatLng(saved_markers[i].position[0], saved_markers[i].position[1]));
+        $scope.bounds.extend(new google.maps.LatLng(arrayMarkers[i].lat, arrayMarkers[i].lng));
         $scope.map.fitBounds($scope.bounds);
 
-        // infowindow com o título da denúncia
-        // infoWindow.setContent(markers[i].title);
-        // infoWindow.open($scope.map, $scope.markers);
-
         // Heatmap mostrando as áreas perigosas
-        heatMarker = new google.maps.LatLng(saved_markers[i].position[0], saved_markers[i].position[1]);
+        heatMarker = new google.maps.LatLng(arrayMarkers[i].lat, arrayMarkers[i].lng);
         arrayHeatMarker.push(heatMarker)
+
+        // Infowindow com o título da denúncia
+        google.maps.event.addListener(marker, 'click', (function(marker, i) {
+          return function() {
+            $scope.infowindow.setContent(marker.title);
+            $scope.infowindow.open($scope.map, marker);
+          }
+        })(marker, i));
       }
 
       // Heatmap mostrando as áreas perigosas
@@ -408,21 +421,21 @@ angular.module('angryTaxiApp')
 
     // ====
     // Autocomplete do endereço
-    // $scope.autoComplete = function(address) {
-    //   return $http.get('//maps.googleapis.com/maps/api/geocode/json', {
-    //     params: {
-    //       address: address,
-    //       sensor: false,
-    //       language: 'pt-BR'
-    //     }
-    //   }).then(function(response){
-    //     return response.data.results.map(function(item){
-    //       $scope.formatted_address = item.formatted_address;
-    //       $scope.$emit('autoComplete_ok');
-    //       return item.formatted_address;
-    //     });
-    //   });
-    // };
+    $scope.autoComplete = function(address) {
+      return $http.get('//maps.googleapis.com/maps/api/geocode/json', {
+        params: {
+          address: address,
+          sensor: false,
+          language: 'pt-BR'
+        }
+      }).then(function(response){
+        return response.data.results.map(function(item){
+          $scope.formatted_address = item.formatted_address;
+          $scope.$emit('autoComplete_ok');
+          return item.formatted_address;
+        });
+      });
+    };
     // ====
 
     // ====
@@ -438,36 +451,32 @@ angular.module('angryTaxiApp')
     _getAllData();
 
     $scope.$on('position_ok', function() {
-      // console.log('position_ok');
       _initialize();
     });
 
     $scope.$on('position_off', function() {
-      console.log('position_off');
-
       _initialize('zoom');
     });
 
     $scope.$on('map_ok', function() {
       _getFullAddress();
-      // _addMarkers();
+      _addMarkers()
     });
 
     $scope.$on('full_address_ok', function() {
-      // _getLatLngByAddress();
+      var full_address = $rootScope.full_address;
+
+      if (full_address != undefined) {
+        _getLatLngByAddress();
+      }
+    });
+
+    $scope.$on('formatted_address_ok', function() {
+      _getLatLngByAddress();
     });
 
     $scope.$on('autoComplete_ok', function() {
-      console.log('autoComplete_ok');
-      // _getLatLngByAddress();
-    });
-
-    $scope.$on('address_latlng_ok', function() {
-      console.log('address_latlng_ok');
-    });
-
-    $scope.$on('all_data_ok', function() {
-      console.log('all_data_ok');
+      _getLatLngByAddress();
     });
     // ====
 

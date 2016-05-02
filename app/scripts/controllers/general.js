@@ -32,7 +32,11 @@ angular.module('angryTaxiApp')
     $scope.complaint = {};
 
     $scope.newComplaint = function(args) {
-      var params = $scope.complaint;
+      var params, ls_position;
+
+      params = $scope.complaint;
+
+      ls_position = LocalStorage.getItem('ANGRY_TX_POS');
 
       if (params.complaintDate) {
         params.complaintDate = params.complaintDate.split('/')[2] + '/' + params.complaintDate.split('/')[1] + '/' + params.complaintDate.split('/')[0];
@@ -43,8 +47,8 @@ angular.module('angryTaxiApp')
         params.reverseAddress = $scope.full_address;
 
         // enviar o lat/lng do usuário
-        params.lat = $scope.userPosition[0].toString();
-        params.lng = $scope.userPosition[1].toString();
+        params.lat = ls_position.lat.toString();
+        params.lng = ls_position.lng.toString();
 
         delete params.myLocation;
         delete params.address;
@@ -66,6 +70,8 @@ angular.module('angryTaxiApp')
       } else {
         $('#modal-denunciar').modal('hide');
       }
+
+      params.platform = 'web';
 
       requestApi.createComplaint(params, function(data) {
         if (data.status === 201) {

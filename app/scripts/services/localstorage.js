@@ -11,11 +11,10 @@ angular.module('angryTaxiApp')
   .service('LocalStorage', function ($rootScope) {
     // AngularJS will instantiate a singleton by calling "new" on this function
 
-    var obj = {};
-    var cmp_storage = {};
-    var user_position = {};
-    var fake_position = {};
-    var save_markers = {};
+    var obj = {},
+        cmp_storage = {},
+        user_position = {},
+        fake_position = {};
 
     obj.getItem = function (key) {
       return JSON.parse(localStorage.getItem(key));
@@ -52,16 +51,6 @@ angular.module('angryTaxiApp')
       fake_position.lng = obj.longitude;
 
       localStorage.setItem('ANGRY_TX_POS', JSON.stringify(fake_position));
-    };
-
-    obj.saveMarkers = function (obj) {
-      save_markers._id = obj._id;
-      save_markers.title = obj.title;
-      save_markers.lat = obj.lat;
-      save_markers.lng = obj.lng;
-      save_markers.praise = obj.praise;
-
-      localStorage.setItem('ANGRY_TX_PINS', JSON.stringify(save_markers));
     };
 
     return obj;
