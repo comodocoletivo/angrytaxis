@@ -81,6 +81,8 @@ angular.module('angryTaxiApp')
       if (ls_position != null) {
         $scope.$emit('position_ok');
       } else {
+        Notification.show('Atenção', 'É necessário alterar as configurações de privacidade do seu GPS.')
+
         fake_position = {
           'latitude': -13.569368,
           'longitude': -56.5357314
