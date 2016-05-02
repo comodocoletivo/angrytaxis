@@ -89,7 +89,7 @@ angular
       link = document.createElement('link');
       link.type = 'image/x-icon';
       link.rel = 'shortcut icon';
-      link.href = 'https://angrytaxis/favicon.ico';
+      link.href = 'https://angrytaxis.com/favicon.ico';
 
       document.getElementsByTagName('head')[0].appendChild(link);
     }
@@ -100,7 +100,7 @@ angular
       link = document.createElement('link');
       link.type = 'image/x-icon';
       link.rel = 'shortcut icon';
-      link.href = 'https://angrytaxis/favicon-off.ico';
+      link.href = 'https://angrytaxis.com/favicon-off.ico';
 
       document.getElementsByTagName('head')[0].appendChild(link);
     }
