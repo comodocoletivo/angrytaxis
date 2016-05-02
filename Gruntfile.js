@@ -414,6 +414,12 @@ module.exports = function (grunt) {
         cwd: '<%= yeoman.app %>/styles',
         dest: '.tmp/styles/',
         src: '{,*/}*.css'
+      },
+      files: {
+        cwd: '<%= yeoman.app %>/translate',  // set working folder / root to copy
+        src: '**/*',           // copy all files and subfolders
+        dest: '<%= yeoman.dist %>/translate',    // destination folder
+        expand: true           // required when using cwd
       }
     },
 
@@ -485,7 +491,8 @@ module.exports = function (grunt) {
     'cssmin',
     'uglify',
     'usemin',
-    'htmlmin'
+    'htmlmin',
+    'copy:files'
   ]);
 
   grunt.registerTask('default', [
