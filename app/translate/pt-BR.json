@@ -13,5 +13,8 @@
   "ABOUT_TXT_01": "Acreditamos no coletivo, acreditamos também que todos os passageiros tem o direito de receber um bom atendimento, por isso desenvolvemos o",
   "ANGRY_NAME": "Angrytaxis",
   "ABOUT_TXT_02": "Este serviço tem o intuito de sensibilizar as pessoas, quantificar e localizar de forma segura pontos de denúncias mais frequentes a má conduta por meio dos taxistas.",
-  "COMING_SOON": "Em breve"
+  "COMING_SOON": "Em breve",
+  "MODAL_INSTRUCTIONS_TITLE": "Denúncia recebida com sucesso !",
+  "MODAL_INSTRUCTIONS_TEXT_1": "Você receberá um link no seu e-mail para concluir sua denúncia.",
+  "MODAL_INSTRUCTIONS_TEXT_2": "A confirmação foi enviada para:"
 }

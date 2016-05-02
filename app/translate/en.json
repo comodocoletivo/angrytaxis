@@ -13,5 +13,8 @@
   "ABOUT_TXT_01": "We believe in the collective, we also believe that all passengers have the right to receive good care, so we developed the",
   "ANGRY_NAME": "Angrytaxis",
   "ABOUT_TXT_02": "This service is intended to raise awareness, quantify and locate securely points of most frequent complaints misconduct by taxi drivers.",
-  "COMING_SOON": "Coming soon"
+  "COMING_SOON": "Coming soon",
+  "MODAL_INSTRUCTIONS_TITLE": "Complaint received with success !",
+  "MODAL_INSTRUCTIONS_TEXT_1": "You will receive the link in your e-mail for finish the complaint.",
+  "MODAL_INSTRUCTIONS_TEXT_2": "The confirmation was sent to:"
 }

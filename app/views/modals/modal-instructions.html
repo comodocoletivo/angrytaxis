@@ -2,13 +2,13 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">Denúncia recebida com sucesso!</h4>
+        <h4 class="modal-title">{{ 'MODAL_INSTRUCTIONS_TITLE' | translate }}</h4>
       </div>
 
       <div class="row modal-body">
         <div class="col-xs-12">
-          <h3>Você receberá um link no seu e-mail para concluir sua denúncia.</h3>
-          <h5>A confirmação foi enviada para: <span>{{complaint_email}}</span></h5>
+          <h3>{{ 'MODAL_INSTRUCTIONS_TEXT_1' | translate }}</h3>
+          <h5>{{ 'MODAL_INSTRUCTIONS_TEXT_2' | translate }} <span>{{complaint_email}}</span></h5>
         </div>
       </div>
 
