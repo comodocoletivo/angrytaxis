@@ -360,8 +360,8 @@ angular.module('angryTaxiApp')
         if (status === 'OK') {
           $scope.addressPosition = [results[0].geometry.location.lat(), results[0].geometry.location.lng()];
         } else {
-          console.warn('Tivemos um problema para localização do seu endereço', status);
-          Notification.show('Atenção', 'Tivemos um problema para localização do seu endereço ' + status);
+          // console.warn('Tivemos um problema para localização do seu endereço', status);
+          // Notification.show('Atenção', 'Tivemos um problema para localização do seu endereço ' + status);
         }
       });
 
