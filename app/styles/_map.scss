@@ -89,18 +89,24 @@
     left: 0;
 
     button {
+      outline: none;
+      border: none;
+      height: 60px;
+      display: inline-block;
+      font-family: $ff-title;
+      font-size: 25px;
+      text-transform: uppercase;
+
       &.btn-denunciar {
         @extend %btn-denunciar;
-
-        width: 100% !important;
-        outline: none;
-        border: none;
-        height: 60px;
+        width: 49% !important;
         border-radius: 0;
+      }
 
-        font-family: $ff-title;
-        font-size: 25px;
-        text-transform: uppercase;
+      &.btn-elogiar {
+        @extend %btn-elogiar;
+        width: 50% !important;
+        border-radius: 0;
       }
     }
   }
