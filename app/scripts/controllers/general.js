@@ -144,7 +144,6 @@ angular.module('angryTaxiApp')
         $scope.isEnActive = false;
       }
     }
-
     // ====
 
     // ====
