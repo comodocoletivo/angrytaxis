@@ -23,17 +23,8 @@ angular.module('angryTaxiApp')
     obj.saveComplaint = function (obj) {
       cmp_storage._id = obj._id;
       cmp_storage.authorized = obj.authorized;
-
-      cmp_storage.title = obj.title;
       cmp_storage.email = obj.email;
-      cmp_storage.complaintTime = obj.complaintTime;
-      cmp_storage.carID = obj.carID;
-      cmp_storage.lat = obj.lat;
-      cmp_storage.lng = obj.lng;
-      cmp_storage.reverseAddress = obj.reverseAddress;
-      cmp_storage.complaintDate = obj.complaintDate;
       cmp_storage.praise = obj.praise;
-      cmp_storage.platform = obj.platform;
 
       localStorage.setItem('ANGRY_TX', JSON.stringify(cmp_storage));
     };

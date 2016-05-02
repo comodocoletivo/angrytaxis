@@ -84,15 +84,6 @@ angular.module('angryTaxiApp')
     };
     // ====
 
-
-    // ====
-    // Clicar em cima de uma denúncia
-    $scope.showMarker = function(id) {
-      console.log(id);
-    };
-    // ====
-
-
     // ====
     // Envia um feedback / desktop
     $scope.feedback = {};
@@ -110,7 +101,6 @@ angular.module('angryTaxiApp')
       })
     };
     // ====
-
 
      // ====
     // Internationalization
@@ -138,7 +128,11 @@ angular.module('angryTaxiApp')
     // ====
 
     $scope.$on('complaint_created', function() {
-      Notification.show('Atenção!', 'Enviamos um email para você confirmar a sua denúncia :)');
+      var ls = LocalStorage.getItem('ANGRY_TX');
+
+      $rootScope.complaint_email = ls.email;
+
+      $('#modal-instructions').modal('show');
     });
 
   });

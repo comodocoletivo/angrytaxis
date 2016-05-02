@@ -161,6 +161,36 @@ button {
 
 
 //
+// Modal de instruções
+//
+
+.modal-instructions {
+  font-size: 30px;
+  color: #2b2b2b;
+
+  h3 {
+    color: #9b9b9b;
+    font-family: $ff-title;
+    font-size: 30px;
+    text-align: left;
+  }
+
+  h5 {
+    font-size: 16px;
+    line-height: 1.9;
+    color: #2b2b2b;
+  }
+
+  span {
+    font-size: 16px;
+    line-height: 1.9;
+    color: #ffd300;
+    display: block;
+  }
+}
+
+
+//
 // Media queries
 //
 
