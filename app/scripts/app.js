@@ -83,11 +83,35 @@ angular
       });
     }, false);
 
+    function _setOnlineFavicon() {
+      var link;
+
+      link = document.createElement('link');
+      link.type = 'image/x-icon';
+      link.rel = 'shortcut icon';
+      link.href = 'https://angrytaxis/favicon.ico';
+
+      document.getElementsByTagName('head')[0].appendChild(link);
+    }
+
+    function _setOfflineFavicon() {
+      var link;
+
+      link = document.createElement('link');
+      link.type = 'image/x-icon';
+      link.rel = 'shortcut icon';
+      link.href = 'https://angrytaxis/favicon-off.ico';
+
+      document.getElementsByTagName('head')[0].appendChild(link);
+    }
+
     $rootScope.$on('network_changed', function() {
       if ($rootScope.online === true) {
         Notification.show('UHUL!', 'Sua internet voltou a funcionar :)');
+        _setOnlineFavicon();
       } else {
         Notification.show('OPS!', 'Você parece está com problemas de internet :(');
+        _setOfflineFavicon();
       }
     })
     // ====
