@@ -427,6 +427,7 @@ angular.module('angryTaxiApp')
     };
 
     function _backMyLocation() {
+      $scope.map.setZoom(8);
       $scope.map.setCenter($scope.userMarker.getPosition());
     };
     // ====
