@@ -2,7 +2,7 @@
   <section class="col-xs-12 box">
     <h3>{{ 'LAST_COMPLAINTS' | translate }}</h3>
 
-    <aside ng-repeat="m in result.slice().reverse() | limitTo: 3" class="complaint-list" ng-click="showMarker(m._id)">
+    <aside ng-repeat="m in result | limitTo: 3" class="complaint-list">
       <h5>{{m.title}}</h5>
 
       <p class="address" title="Endereço">{{m.reverseAddress}}</p>
