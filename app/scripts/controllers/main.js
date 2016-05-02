@@ -387,7 +387,7 @@ angular.module('angryTaxiApp')
           clickable: true,
           title: arrayMarkers[i].title,
           zIndex: 90,
-          icon: '../../images/complaint-icon.png',
+          icon: _checkIcon(arrayMarkers[i].praise),
           animation: google.maps.Animation.DROP
         });
 
@@ -415,6 +415,14 @@ angular.module('angryTaxiApp')
         data: arrayHeatMarker,
         map: $scope.map
       });
+    };
+
+    function _checkIcon(condition) {
+      if (condition === false) {
+        return '../../images/complaint-icon.png';
+      } else {
+        return '../../images/praise-icon.png';
+      }
     };
 
     function _backMyLocation() {
