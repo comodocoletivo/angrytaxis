@@ -1,9 +1,6 @@
 <!-- Denúncias -->
 <div ng-controller="GeneralCtrl" ng-include src="'views/partials/denuncias.html'"></div>
 
-<!-- Mapa -->
-<div ng-hide="map" class="load-map"></div>
-
 <!-- Controles no mapa -->
 <div ng-show="map" class="hidden-xs wrp-controls-map">
   <button class="my_location popup" data-popup="{{ 'SHOW_MY_LOCAL' | translate }}" ng-click="backMyLocation()" title="{{ 'SHOW_MY_LOCAL' | translate }}">

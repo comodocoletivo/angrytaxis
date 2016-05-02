@@ -324,6 +324,7 @@ angular.module('angryTaxiApp')
 
       // setando alguns métodos no $scope
       $scope.map = map;
+      $rootScope.map = map;
       $scope.userMarker = userMarker;
 
       $scope.$emit('map_ok');
