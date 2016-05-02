@@ -34,5 +34,11 @@
   "MODAL_PRAISE_TITLE": "Elogie aqui!",
   "MODAL_PRISE_TEXT_TITLE": "Dê um título ao elogio",
   "MODAL_COMPLAINT_PRAISE_OBS": "Alguma observação a fazer?",
-  "MODAL_COMPLAINT_CREATE_PRAISE": "Elogiar"
+  "MODAL_COMPLAINT_CREATE_PRAISE": "Elogiar",
+
+  "MODAL_FEEDBACK_TITLE": "Contato",
+  "MODAL_FEEDBACK_INPUT_NAME": "Seu nome",
+  "MODAL_FEEDBACK_INPUT_EMAIL": "Seu e-mail",
+  "MODAL_FEEDBACK_INPUT_MSG": "Digite sua mensagem",
+  "MODAL_FEEDBACK_CREATE_FEEDBACK": "Enviar"
 }
