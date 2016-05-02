@@ -345,6 +345,36 @@
         background-image: url('../images/icon-heatmap.svg');
       }
     }
+
+    &.popup {
+      &:before {
+        content: attr(data-popup);
+        position: absolute;
+        top: -50px;
+        left: 0;
+        z-index: 100;
+        right: 0;
+        width: auto;
+        height: 35px;
+        opacity: 0;
+        outline: none;
+        text-indent: 0px;
+        line-height: 37px;
+        border-radius: 5px;
+        color: #2b2b2b;
+        background-color: #ffd300;
+      }
+
+      &:hover {
+        &:before {
+          -webkit-transition: opacity, .25s, 0s, linear;
+          -o-transition: opacity, .25s, 0s, linear;
+          transition: opacity, .25s, 0s, linear;
+
+          opacity: 1;
+        }
+      }
+    }
   }
 }
 

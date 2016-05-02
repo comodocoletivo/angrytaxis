@@ -6,7 +6,7 @@
 
 <!-- Controles no mapa -->
 <div ng-show="map" class="hidden-xs wrp-controls-map">
-  <button class="my_location" ng-click="backMyLocation()" title="Voltar para minha localização">
+  <button class="my_location popup" data-popup="Mostrar meu local" ng-click="backMyLocation()" title="Mostrar meu local">
     Voltar para minha localização
   </button>
 
@@ -14,8 +14,8 @@
     Exibir apenas denúncias
   </button> -->
 
-  <button class="heatmap" ng-click="onlyHeatMap();" title="Exibir áreas de ataque">
-    Exibir apenas elogios
+  <button class="heatmap popup" ng-click="onlyHeatMap();" data-popup="Mapa de calor" title="Mapa de calor">
+    Mapa de calor
   </button>
 </div>
 
