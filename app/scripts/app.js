@@ -50,7 +50,7 @@ angular
     // Internationalization
     $translateProvider.useStaticFilesLoader({
       files: [ {
-        prefix: 'translate/',
+        prefix: '../../translate/',
         suffix: '.json'
       }]
     });
