@@ -58,14 +58,28 @@ angular.module('angryTaxiApp')
     }
 
     function savePosition(position) {
+      var fake_position, ls_position;
+
       LocalStorage.saveUserPosition(position);
-      $scope.$emit('position_ok');
+      ls_position = LocalStorage.getItem('ANGRY_TX_POS');
+
+      if (ls_position != null) {
+        $scope.$emit('position_ok');
+      } else {
+        fake_position = {
+          'latitude': -13.569368,
+          'longitude': -56.5357314
+        };
+
+        LocalStorage.saveFakePosition(fake_position);
+        $scope.$emit('position_off');
+      }
     }
     // ====
 
     // ====
     // Métodos do mapa
-    function _initialize() {
+    function _initialize(args) {
       var ls_position, userPosition, map, userMarker, userRadius, styles, styledMap;
 
       ls_position = LocalStorage.getItem('ANGRY_TX_POS');
@@ -284,6 +298,11 @@ angular.module('angryTaxiApp')
 
       userRadius.bindTo('center', userMarker, 'position');
 
+      if (args === 'zoom') {
+        map.setZoom(4);
+        userMarker.setMap(null);
+      };
+
       // Aplicando as configurações do mapa
       map.mapTypes.set('angry_map', styledMap);
       map.setMapTypeId('angry_map');
@@ -383,7 +402,6 @@ angular.module('angryTaxiApp')
     };
 
     function _backMyLocation() {
-      $scope.map.setZoom(13);
       $scope.map.setCenter($scope.userMarker.getPosition());
     };
     // ====
@@ -420,9 +438,15 @@ angular.module('angryTaxiApp')
     _getAllData();
 
     $scope.$on('position_ok', function() {
-      console.log('position_ok');
+      // console.log('position_ok');
       _initialize();
-    })
+    });
+
+    $scope.$on('position_off', function() {
+      console.log('position_off');
+
+      _initialize('zoom');
+    });
 
     $scope.$on('map_ok', function() {
       _getFullAddress();

@@ -17,8 +17,16 @@
   font-family: HelveticaNeue-Bold;
   font-size: 16px;
   color: #2b2b2b;
-  width: 100px;
+  width: 130px;
   height: 43px;
+  background-repeat: no-repeat;
+  background-size: 18px 18px;
+  background-position: 10px 13px;
+}
+
+%btn-elogiar {
+  @extend %btn-denunciar;
+  background-color: #ffffff !important;
 }
 
 .header-primary {
@@ -42,12 +50,18 @@
         cursor: pointer;
         background-color: transparent;
 
-        &.btn-default {
-          @extend %btn-default;
-        }
+        &.btn-default { @extend %btn-default; }
 
         &.btn-denunciar {
           @extend %btn-denunciar;
+          padding-left: 25px;
+          background-image: url('../images/icon-btn-denunciar.svg');
+        }
+
+        &.btn-elogiar {
+          @extend %btn-elogiar;
+          padding-left: 15px;
+          background-image: url('../images/icon-btn-elogiar.svg');
         }
       }
 
@@ -165,6 +179,7 @@
   margin: 0 0 10px 20px;
   padding: 5px 12px;
   z-index: 3;
+  cursor: pointer;
 
   h5 {
     font-size: 14px;
@@ -279,9 +294,10 @@
   bottom: 20px;
 
   button {
-    width: 60px;
-    height: 60px;
-    background-color: #4a4a4a;
+    width: 40px;
+    height: 40px;
+    background-color: #ffd300;
+    margin: 0 5px 10px;
     border-radius: 100%;
     outline: none;
     border: none;
@@ -293,25 +309,41 @@
     -o-transition: background .25s linear 0s;
     transition: background .25s linear 0s;
 
-    &:hover { background-color: #ffd300; }
+    &:hover { background-color: #4a4a4a; }
 
     &.markers {
-      margin-right: 20px;
-
-      background-size: 26px 30px;
-      background-image: url('../images/icon-marker.svg');
+      background-size: 20px 30px;
+      background-image: url('../images/icon-marker-hover.svg');
 
       &:hover {
-        background-image: url('../images/icon-marker-hover.svg');
+        background-image: url('../images/icon-marker.svg');
+      }
+    }
+
+    &.praise {
+      background-size: 20px 30px;
+      background-image: url('../images/icon-praise.svg');
+
+      &:hover {
+        background-image: url('../images/icon-praise-hover.svg');
+      }
+    }
+
+    &.my_location {
+      background-size: 16px 30px;
+      background-image: url('../images/icon-my-location.svg');
+
+      &:hover {
+        background-image: url('../images/icon-my-location-hover.svg');
       }
     }
 
     &.heatmap {
       background-size: 14px 30px;
-      background-image: url('../images/icon-heatmap.svg');
+      background-image: url('../images/icon-heatmap-hover.svg');
 
       &:hover {
-        background-image: url('../images/icon-heatmap-hover.svg');
+        background-image: url('../images/icon-heatmap.svg');
       }
     }
   }

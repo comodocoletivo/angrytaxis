@@ -6,12 +6,16 @@
 
 <!-- Controles no mapa -->
 <div ng-show="map" class="hidden-xs wrp-controls-map">
-  <button class="" ng-click="backMyLocation()" title="Voltar para minha localização">
+  <button class="my_location" ng-click="backMyLocation()" title="Voltar para minha localização">
     Voltar para minha localização
   </button>
 
-  <button class="markers" data-toggle="modal" data-target="#modal-elogiar">
-    Elogiar
+  <button class="markers" title="Exibir apenas denúncias">
+    Exibir apenas denúncias
+  </button>
+
+  <button class="praise" title="Exibir apenas elogios">
+    Exibir apenas elogios
   </button>
 </div>
 
@@ -36,17 +40,22 @@
 
       <p>{{'ABOUT_TXT_02' | translate}}</p>
 
-      <div>
-        <h5>{{'PASSENGERS' | translate}}</h5>
+      <div class="pull-left">
+        <h5>{{'SHARE' | translate}}</h5>
 
-        <div class="pull-left">
+        <div>
           <a href="#" class="btn btn-social" title="Compartilhe no Facebook">Facebook</a>
           <a href="#" class="btn btn-social" title="Compartilhe no Twitter">Twitter</a>
         </div>
+      </div>
 
-        <!-- <div class="pull-right">
-          <span>App Store</span> <span>Google Play</span>
-        </div> -->
+      <div class="pull-right">
+        <h5>{{'COMING_SOON' | translate}}</h5>
+
+        <div>
+          <a href="#" class="btn-download app-store" title="Em breve na App Store">App Store</a>
+          <a href="#" class="btn-download google-play" title="Em breve na Google Play">Google Play</a>
+        </div>
       </div>
     </aside>
   </article>

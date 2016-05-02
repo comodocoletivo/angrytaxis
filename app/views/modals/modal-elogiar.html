@@ -7,36 +7,31 @@
       </div>
 
       <div class="row modal-body">
-        <form name="complaintForm" ng-submit="newComplaint()">
-          <fieldset class="form-group col-xs-12" ng-class="{ 'has-error' : complaintForm.title.$invalid && !complaintForm.title.$pristine }">
-            <input type="text" name="title" placeholder="Dê um título à occorência" ng-model="complaint.title" class="form-control" required>
-            <p ng-show="complaintForm.title.$invalid && !complaintForm.title.$pristine" class="help-block">Este campo é obrigatório.</p>
+        <form name="praiseForm" ng-submit="newComplaint('praise')">
+          <fieldset class="form-group col-xs-12" ng-class="{ 'has-error' : praiseForm.title.$invalid && !praiseForm.title.$pristine }">
+            <input type="text" name="title" placeholder="Dê um título ao elogio" ng-model="complaint.title" class="form-control" required>
+            <p ng-show="praiseForm.title.$invalid && !praiseForm.title.$pristine" class="help-block">Este campo é obrigatório.</p>
           </fieldset>
 
-          <fieldset class="form-group col-xs-12 col-sm-4" ng-class="{ 'has-error' : complaintForm.date.$invalid && !complaintForm.date.$pristine }">
+          <fieldset class="form-group col-xs-12 col-sm-4" ng-class="{ 'has-error' : praiseForm.date.$invalid && !praiseForm.date.$pristine }">
             <input type="tel" name="date" placeholder="Data" ng-model="complaint.complaintDate" class="form-control icon date" mask="39/19/9999" required>
-            <p ng-show="complaintForm.date.$invalid && !complaintForm.date.$pristine" class="help-block">Este campo é obrigatório.</p>
+            <p ng-show="praiseForm.date.$invalid && !praiseForm.date.$pristine" class="help-block">Este campo é obrigatório.</p>
           </fieldset>
 
-          <fieldset class="form-group col-xs-12 col-sm-4" ng-class="{ 'has-error' : complaintForm.hour.$invalid && !complaintForm.hour.$pristine }">
+          <fieldset class="form-group col-xs-12 col-sm-4" ng-class="{ 'has-error' : praiseForm.hour.$invalid && !praiseForm.hour.$pristine }">
             <input type="tel" name="hour" ng-model="complaint.complaintTime" placeholder="Hora" ng-minlength="2" ng-maxlength="5" class="form-control icon hour" required>
-            <p ng-show="complaintForm.hour.$invalid && !complaintForm.hour.$pristine" class="help-block">Este campo é obrigatório.</p>
-            <p ng-show="complaintForm.hour.$error.maxlength && complaintForm.hour.$error.minlength" class="help-block">A hora precisa está no formato HH:mm</p>
+            <p ng-show="praiseForm.hour.$invalid && !praiseForm.hour.$pristine" class="help-block">Este campo é obrigatório.</p>
+            <p ng-show="praiseForm.hour.$error.maxlength && praiseForm.hour.$error.minlength" class="help-block">A hora precisa está no formato HH:mm</p>
           </fieldset>
 
-          <!-- <fieldset class="form-group col-xs-12 checkbox-wrapper">
-            <input id="cp-now" type="checkbox" ng-model="complaint.now">
-            <label for="cp-now">Aconteceu agora</label>
-          </fieldset> -->
-
-          <fieldset class="form-group col-xs-12 col-sm-4" ng-class="{ 'has-error' : complaintForm.carID.$invalid && !complaintForm.carID.$pristine }">
+          <fieldset class="form-group col-xs-12 col-sm-4" ng-class="{ 'has-error' : praiseForm.carID.$invalid && !praiseForm.carID.$pristine }">
             <input type="tel" name="carID" ng-model="complaint.carID" placeholder="Placa ou TP do veículo" class="form-control" required>
-            <p ng-show="complaintForm.carID.$invalid && !complaintForm.carID.$pristine" class="help-block">Este campo é obrigatório.</p>
+            <p ng-show="praiseForm.carID.$invalid && !praiseForm.carID.$pristine" class="help-block">Este campo é obrigatório.</p>
           </fieldset>
 
-          <fieldset class="form-group col-xs-12 col-sm-12" ng-class="{ 'has-error' : complaintForm.email.$invalid && !complaintForm.email.$pristine }">
+          <fieldset class="form-group col-xs-12 col-sm-12" ng-class="{ 'has-error' : praiseForm.email.$invalid && !praiseForm.email.$pristine }">
             <input type="email" name="email" ng-model="complaint.email" placeholder="insira seu email" class="form-control" required>
-            <p ng-show="complaintForm.email.$invalid && !complaintForm.email.$pristine" class="help-block">este email parece não ser válido.</p>
+            <p ng-show="praiseForm.email.$invalid && !praiseForm.email.$pristine" class="help-block">este email parece não ser válido.</p>
           </fieldset>
 
           <fieldset class="form-group col-xs-12">
@@ -44,12 +39,12 @@
           </fieldset>
 
           <fieldset class="form-group col-xs-12 wrp-label">
-            <label for="my-location">Aconteceu onde estou</label>
-            <input id="my-location" type="checkbox" ng-model="complaint.myLocation">
+            <label for="i-m-here">Aconteceu onde estou</label>
+            <input id="i-m-here" type="checkbox" ng-model="complaint.myLocation">
           </fieldset>
 
           <fieldset class="form-group col-xs-12">
-            <textarea placeholder="Observações sobre a ocorrência" cols="30" rows="10" ng-model="complaint.obs" class="form-control"></textarea>
+            <textarea placeholder="Observações sobre o elogio" cols="30" rows="10" ng-model="complaint.obs" class="form-control"></textarea>
           </fieldset>
 
           <div class="modal-footer">
@@ -57,7 +52,7 @@
               <p class="modal-address">{{full_address}}</p>
             </div>
 
-            <button ng-disabled="complaintForm.$invalid" class="btn btn-primary" type="submit">Criar denúncia</button>
+            <button ng-disabled="praiseForm.$invalid" class="btn btn-primary" type="submit">Elogiar</button>
           </div>
         </form>
       </div>

@@ -31,16 +31,8 @@ angular.module('angryTaxiApp')
     // Cria uma denúncia
     $scope.complaint = {};
 
-    $scope.newComplaint = function() {
-      // $scope.progressbar.start();
-
+    $scope.newComplaint = function(args) {
       var params = $scope.complaint;
-
-      // botão de aconteceu agora
-      if (params.now == true) {
-        params.date = new Date().getTime();
-        delete params.now;
-      }
 
       if (params.complaintDate) {
         params.complaintDate = params.complaintDate.split('/')[2] + '/' + params.complaintDate.split('/')[1] + '/' + params.complaintDate.split('/')[0];
@@ -68,21 +60,29 @@ angular.module('angryTaxiApp')
         delete params.myLocation;
       }
 
-      $('#modal-denunciar').modal('hide');
+      if (args === 'praise') {
+        params.praise = true;
+        $('#modal-elogiar').modal('hide');
+      } else {
+        $('#modal-denunciar').modal('hide');
+      }
 
       requestApi.createComplaint(params, function(data) {
         if (data.status === 201) {
-          $scope.$emit('complaint_created');
           LocalStorage.saveComplaint(data.data);
-
-          // $scope.progressbar.complete();
-          Notification.show('Denúncia criada com sucesso!', 'Enviamos um email para você confirmar a sua denúncia :)');
+          $scope.$emit('complaint_created');
         } else {
-          // $scope.progressbar.complete();
           Notification.show('Atenção', 'Tivemos um problema para criar a sua denúncia. Por favor, tente novamente em instantes.');
         }
-
       });
+    };
+    // ====
+
+
+    // ====
+    // Clicar em cima de uma denúncia
+    $scope.showMarker = function(id) {
+      console.log(id);
     };
     // ====
 
@@ -130,5 +130,9 @@ angular.module('angryTaxiApp')
       }
     }
     // ====
+
+    $scope.$on('complaint_created', function() {
+      Notification.show('Atenção!', 'Enviamos um email para você confirmar a sua denúncia :)');
+    });
 
   });

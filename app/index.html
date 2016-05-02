@@ -6,7 +6,7 @@
 
     <base href="/">
 
-    <title>Angrytaxis - Faça seu papel, denuncie!</title>
+    <title>Angrytaxis - Todos os direitos reservados aos passageiros!</title>
 
     <meta name="description" content="Web App para denunciar ataques de taxistas aos passageiros ou motoristas que não sejam taxistas.">
     <meta name="viewport" content="width=device-width, user-scalable=no">
@@ -101,6 +101,12 @@
           </li>
 
           <li>
+            <button class="btn-elogiar" data-toggle="modal" data-target="#modal-elogiar">
+              {{ 'PRAISE' | translate }}
+            </button>
+          </li>
+
+          <li>
             <button class="btn-denunciar" data-toggle="modal" data-target="#modal-denunciar">
               {{ 'DENOUNCE' | translate }}
             </button>
@@ -141,8 +147,7 @@
        ga('send', 'pageview');
     </script>
 
-    <script src="https://maps.googleapis.com/maps/api/js" async></script>
-    <!-- <script src="https://maps.googleapis.com/maps/api/js?signed_in=true&key=AIzaSyD5k9agXULIehDwRDJPCzcxrJlNga7YHac&libraries=visualization" async></script> -->
+    <script src="https://maps.googleapis.com/maps/api/js?signed_in=true&key=AIzaSyD5k9agXULIehDwRDJPCzcxrJlNga7YHac&libraries=visualization" async></script>
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->

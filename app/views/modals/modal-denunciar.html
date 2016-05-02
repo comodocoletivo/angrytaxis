@@ -24,11 +24,6 @@
             <p ng-show="complaintForm.hour.$error.maxlength && complaintForm.hour.$error.minlength" class="help-block">A hora precisa está no formato HH:mm</p>
           </fieldset>
 
-          <!-- <fieldset class="form-group col-xs-12 checkbox-wrapper">
-            <input id="cp-now" type="checkbox" ng-model="complaint.now">
-            <label for="cp-now">Aconteceu agora</label>
-          </fieldset> -->
-
           <fieldset class="form-group col-xs-12 col-sm-4" ng-class="{ 'has-error' : complaintForm.carID.$invalid && !complaintForm.carID.$pristine }">
             <input type="tel" name="carID" ng-model="complaint.carID" placeholder="Placa ou TP do veículo" class="form-control" required>
             <p ng-show="complaintForm.carID.$invalid && !complaintForm.carID.$pristine" class="help-block">Este campo é obrigatório.</p>

@@ -2,6 +2,7 @@
   "ABOUT": "about",
   "FEEDBACK": "feedback",
   "DENOUNCE": "denounce",
+  "PRAISE": "praise",
   "LAST_COMPLAINTS": "last complaints",
   "ALL_RIGHTS_RESERVED": "All rights reserved",
   "PASSENGERS": "for passengers",
@@ -11,5 +12,6 @@
   "SHARE": "Share",
   "ABOUT_TXT_01": "We believe in the collective, we also believe that all passengers have the right to receive good care, so we developed the",
   "ANGRY_NAME": "Angrytaxis",
-  "ABOUT_TXT_02": "This service is intended to raise awareness, quantify and locate securely points of most frequent complaints misconduct by taxi drivers."
+  "ABOUT_TXT_02": "This service is intended to raise awareness, quantify and locate securely points of most frequent complaints misconduct by taxi drivers.",
+  "COMING_SOON": "Coming soon"
 }

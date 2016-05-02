@@ -108,6 +108,26 @@
         color: #ffffff;
       }
     }
+
+    &.btn-download {
+      width: 120px;
+      height: 40px;
+      display: inline-block;
+      margin-right: 10px;
+      text-indent: -9999px;
+      text-decoration: none;
+      background-repeat: no-repeat;
+      background-size: 100%;
+      background-position: center center;
+
+      &.app-store {
+        background-image: url('../images/icon-app-store.svg')
+      }
+
+      &.google-play {
+        background-image: url('../images/icon-google-play.svg')
+      }
+    }
   }
 }
 
