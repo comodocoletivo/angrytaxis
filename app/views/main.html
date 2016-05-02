@@ -6,16 +6,16 @@
 
 <!-- Controles no mapa -->
 <div ng-show="map" class="hidden-xs wrp-controls-map">
-  <button class="my_location popup" data-popup="Mostrar meu local" ng-click="backMyLocation()" title="Mostrar meu local">
-    Voltar para minha localização
+  <button class="my_location popup" data-popup="{{ 'SHOW_MY_LOCAL' | translate }}" ng-click="backMyLocation()" title="{{ 'SHOW_MY_LOCAL' | translate }}">
+    {{ 'SHOW_MY_LOCAL' | translate }}
   </button>
 
   <!-- <button class="markers" ng-click="onlyComplaint()" title="Exibir apenas denúncias">
     Exibir apenas denúncias
   </button> -->
 
-  <button class="heatmap popup" ng-click="onlyHeatMap();" data-popup="Mapa de calor" title="Mapa de calor">
-    Mapa de calor
+  <button class="heatmap popup" ng-click="onlyHeatMap();" data-popup="{{ 'HEAT_MAP' | translate }}" title="{{ 'HEAT_MAP' | translate }}">
+    {{ 'HEAT_MAP' | translate }}
   </button>
 </div>
 
