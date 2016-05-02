@@ -60,7 +60,9 @@ body {
       }
     }
 
-    .tr-bt-active { color: #000000 !important; }
+    .tr-bt-active {
+      color: #000000 !important;
+    }
 
     .complaint-list {
       p {
@@ -80,6 +82,21 @@ body {
       p.hour {
         &::before { background-image: url('../images/hour-icon-placeholder.png'); }
       }
+    }
+
+    .wrp-sc-about, .sc-about {
+      @extend %offline-state;
+
+      .btn-social { color: #FFFFFF !important; }
+    }
+
+    .close {
+      @extend %offline-state;
+    }
+
+    .modal-footer .btn-primary, .btn-location {
+      @extend %offline-state;
+      color: #FFFFFF;
     }
   }
 }
