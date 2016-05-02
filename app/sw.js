@@ -10,8 +10,8 @@ self.addEventListener('install', function(event) {
 
   // Antes de fazer o fetch é indicado quais arquivos serão cacheados.
   preFetchUrls = [
-    "favicon-off.ico"
-    "favicon.ico"
+    "./favicon-off.ico",
+    "./favicon.ico",
 
     "images/address-icon-placeholder.png",
     "images/address-icon.svg",
