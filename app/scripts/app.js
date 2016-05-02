@@ -63,7 +63,7 @@ angular
     $translateProvider.useLocalStorage();
     // ====
   })
-  .run(['$window', '$rootScope', function ($window, $rootScope) {
+  .run(['$window', '$rootScope', 'Notification', function ($window, $rootScope, Notification) {
 
     // ====
     // Offline
@@ -82,6 +82,14 @@ angular
         $rootScope.$emit('network_changed');
       });
     }, false);
+
+    $rootScope.$on('network_changed', function() {
+      if ($rootScope.online === true) {
+        Notification.show('UHUL!', 'Sua internet voltou a funcionar :)');
+      } else {
+        Notification.show('OPS!', 'Você parece está com problemas de internet :(');
+      }
+    })
     // ====
 
   }]);
