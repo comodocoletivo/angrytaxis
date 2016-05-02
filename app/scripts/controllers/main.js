@@ -378,6 +378,8 @@ angular.module('angryTaxiApp')
 
       arrayMarkers = $scope.arr_markers;
 
+      $scope.mapsMarkers = [];
+
       for(var i = 0; i < arrayMarkers.length; i++ ) {
         marker = new google.maps.Marker({
           position: new google.maps.LatLng(arrayMarkers[i].lat, arrayMarkers[i].lng),
@@ -388,6 +390,8 @@ angular.module('angryTaxiApp')
           icon: '../../images/complaint-icon.png',
           animation: google.maps.Animation.DROP
         });
+
+        $scope.mapsMarkers.push(marker);
 
         // agrupa os marcadores na view
         $scope.bounds.extend(new google.maps.LatLng(arrayMarkers[i].lat, arrayMarkers[i].lng));
@@ -410,7 +414,6 @@ angular.module('angryTaxiApp')
       $scope.heatmap = new google.maps.visualization.HeatmapLayer({
         data: arrayHeatMarker,
         map: $scope.map
-        // ,radius: 20
       });
     };
 
@@ -439,9 +442,27 @@ angular.module('angryTaxiApp')
     // ====
 
     // ====
+    // Interações no mapa
     $scope.backMyLocation = function() {
       _backMyLocation();
     }
+
+    // oculta os marcadores e só exibe o heatmap
+    $scope.onlyHeatMap = function() {
+      angular.forEach($scope.mapsMarkers, function(i) {
+        if (i.visible === false) {
+          i.setVisible(true);
+        } else {
+          i.setVisible(false)
+        }
+      })
+
+      if ($scope.userMarker.visible === false) {
+        $scope.userMarker.setVisible(true)
+      } else {
+        $scope.userMarker.setVisible(false)
+      }
+    };
     // ====
 
 
