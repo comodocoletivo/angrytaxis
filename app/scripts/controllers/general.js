@@ -124,18 +124,19 @@ angular.module('angryTaxiApp')
     // Internationalization
     $scope.setPortugueseLanguage = function() {
       $translate.use('pt-BR');
+      _changeLanguage();
     }
 
     $scope.setEnglishLanguage = function() {
       $translate.use('en');
+      _changeLanguage();
     }
 
     // ativar botão
-    $scope.isEnActive = false;
-    $scope.isBrActive = false;
+    function _changeLanguage() {
+      var ls = localStorage.getItem('NG_TRANSLATE_LANG_KEY');
 
-    $scope.activeButton = function(args) {
-      if (args === 'en') {
+      if (ls === 'en') {
         $scope.isEnActive = !$scope.isEnActive;
         $scope.isBrActive = false;
       } else {
@@ -143,8 +144,11 @@ angular.module('angryTaxiApp')
         $scope.isEnActive = false;
       }
     }
+
     // ====
 
+    // ====
+    // Iniciando as funções
     $scope.$on('complaint_created', function() {
       var ls = LocalStorage.getItem('ANGRY_TX');
 
@@ -152,5 +156,8 @@ angular.module('angryTaxiApp')
 
       $('#modal-instructions').modal('show');
     });
+
+    _changeLanguage();
+    // ====
 
   });
