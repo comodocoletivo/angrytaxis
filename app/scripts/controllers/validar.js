@@ -8,13 +8,12 @@
  * Controller of the angryTaxiApp
  */
 angular.module('angryTaxiApp')
-  .controller('ValidarCtrl', function ($scope, LocalStorage, requestApi, $routeParams, Notification) {
+  .controller('ValidarCtrl', function ($scope, LocalStorage, requestApi, $routeParams, Notification, $timeout, $location) {
 
     var ls = LocalStorage.getItem('ANGRY_TX');
 
     if (ls === null) {
-      console.log('ls ', ls);
-      return;
+      Notification.show('Atenção!', 'Ocorreu um erro, tente novamente em alguns instantes.');
     } else {
       if ($routeParams.id === ls._id) {
         _checkComplaint(ls._id);
@@ -27,10 +26,13 @@ angular.module('angryTaxiApp')
       var params = id;
 
       requestApi.checkComplaint(params, function(data) {
-        console.warn(data);
-
-        if (dat.status === 200) {
+        if (data.status === 201) {
+          LocalStorage.saveComplaint(data.data);
           Notification.show('Denúncia confirmada com sucesso!', 'Obrigado :)');
+
+          $timeout(function() {
+            $location.path('/');
+          }, 3000);
         } else {
           Notification.show('Atenção!', 'Tivemos um problema, tente novamente em alguns instantes.');
         }

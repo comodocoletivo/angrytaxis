@@ -24,8 +24,6 @@ angular.module('angryTaxiApp')
     };
 
     obj.checkComplaint = function(params, callback) {
-      return console.warn(params);
-
       $http.post(apiUrl + '/api/v1/complaint/' + params)
         .then(function (data) {
           callback(data);
