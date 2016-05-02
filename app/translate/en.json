@@ -16,5 +16,7 @@
   "COMING_SOON": "Coming soon",
   "MODAL_INSTRUCTIONS_TITLE": "Complaint received with success !",
   "MODAL_INSTRUCTIONS_TEXT_1": "You will receive the link in your e-mail for finish the complaint.",
-  "MODAL_INSTRUCTIONS_TEXT_2": "The confirmation was sent to:"
+  "MODAL_INSTRUCTIONS_TEXT_2": "The confirmation was sent to:",
+  "MODAL_COMPLAINT_TITLE": "Complaint here!",
+  "MODAL_PRAISE_TITLE": "Praise here!"
 }
