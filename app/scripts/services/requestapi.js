@@ -35,8 +35,7 @@ angular.module('angryTaxiApp')
     };
 
     obj.getList = function(callback) {
-      // $http.get(apiUrl + '/api/v1/complaint/')
-      $http.get('../../scripts/markers.json')
+      $http.get(apiUrl + '/api/v1/complaint/')
         .then(function (result) {
           callback(result)
         }, function (error) {
