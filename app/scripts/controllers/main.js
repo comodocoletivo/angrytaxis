@@ -358,7 +358,8 @@ angular.module('angryTaxiApp')
 
       $scope.geocoder.geocode({'address': $rootScope.full_address}, function(results, status) {
         if (status === 'OK') {
-          $scope.addressPosition = [results[0].geometry.location.lat(), results[0].geometry.location.lng()];
+          $rootScope.addressPosition = [results[0].geometry.location.lat(), results[0].geometry.location.lng()];
+          // $rootScope.addressPosition = $scope.addressPosition;
         } else {
           // console.warn('Tivemos um problema para localização do seu endereço', status);
           // Notification.show('Atenção', 'Tivemos um problema para localização do seu endereço ' + status);
@@ -431,25 +432,6 @@ angular.module('angryTaxiApp')
     // ====
 
     // ====
-    // Autocomplete do endereço
-    $scope.autoComplete = function(address) {
-      return $http.get('//maps.googleapis.com/maps/api/geocode/json', {
-        params: {
-          address: address,
-          sensor: false,
-          language: 'pt-BR'
-        }
-      }).then(function(response){
-        return response.data.results.map(function(item){
-          $scope.formatted_address = item.formatted_address;
-          $scope.$emit('autoComplete_ok');
-          return item.formatted_address;
-        });
-      });
-    };
-    // ====
-
-    // ====
     // Interações no mapa
     $scope.backMyLocation = function() {
       _backMyLocation();
@@ -501,10 +483,6 @@ angular.module('angryTaxiApp')
     });
 
     $scope.$on('formatted_address_ok', function() {
-      _getLatLngByAddress();
-    });
-
-    $scope.$on('autoComplete_ok', function() {
       _getLatLngByAddress();
     });
     // ====

@@ -8,7 +8,7 @@
  * Controller of the angryTaxiApp
  */
 angular.module('angryTaxiApp')
-  .controller('GeneralCtrl', function ($rootScope, $scope, requestApi, Notification, LocalStorage, $translate) {
+  .controller('GeneralCtrl', function ($rootScope, $scope, requestApi, Notification, LocalStorage, $translate, $http) {
 
     // ====
     // Ativa ou desativa o menu / mobile
@@ -26,6 +26,24 @@ angular.module('angryTaxiApp')
     };
     // ====
 
+    // ====
+    // Autocomplete do endereço
+    $scope.autoComplete = function(address) {
+      return $http.get('//maps.googleapis.com/maps/api/geocode/json', {
+        params: {
+          address: address,
+          sensor: false,
+          language: 'pt-BR'
+        }
+      }).then(function(response){
+        return response.data.results.map(function(item){
+          $scope.formatted_address = item.formatted_address;
+          $scope.formatted_address_location = item.geometry.location;
+          return item.formatted_address;
+        });
+      });
+    };
+    // ====
 
     // ====
     // Cria uma denúncia
@@ -42,7 +60,7 @@ angular.module('angryTaxiApp')
         params.complaintDate = params.complaintDate.split('/')[2] + '/' + params.complaintDate.split('/')[1] + '/' + params.complaintDate.split('/')[0];
       }
 
-      if (params.myLocation === true || params.myLocation === undefined) {
+      if (params.myLocation === true) {
         // envia o endereço de onde está o usuário
         params.reverseAddress = $scope.full_address;
 
@@ -54,11 +72,11 @@ angular.module('angryTaxiApp')
         delete params.address;
       } else {
         // envia o endereço digitado
-        params.reverseAddress = params.address;
+        params.reverseAddress = $scope.formatted_address;
 
         // envia o lat/lng do endereço digitado
-        params.lat = $scope.addressPosition[0].toString();
-        params.lng = $scope.addressPosition[1].toString();
+        params.lat = $scope.formatted_address_location.lat.toString();
+        params.lng = $scope.formatted_address_location.lng.toString();
 
         delete params.address;
         delete params.myLocation;
