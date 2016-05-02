@@ -8,7 +8,7 @@
  * Controller of the angryTaxiApp
  */
 angular.module('angryTaxiApp')
-  .controller('MainCtrl', function ($scope, requestApi, ngProgressFactory, Notification, $rootScope, $http) {
+  .controller('MainCtrl', function ($scope, requestApi, ngProgressFactory, Notification, $rootScope, $http, LocalStorage) {
 
     // ====
     // Cria instância da barra de progresso
@@ -19,129 +19,91 @@ angular.module('angryTaxiApp')
 
 
     // ====
-    // Cria uma denúncia
-    $scope.complaint = {};
-
-    $scope.newComplaint = function() {
-      var params = $scope.complaint;
-
-      if (params.now == true) {
-        params.date = new Date().getTime();
-        delete params.now;
-      }
-
-      if (params.myLocation == true) {
-        params.full_address = $scope.full_address; // envia o endereço de onde está o usuário
-        params.position = $scope.userPosition; // enviar o lat/lng do usuário
-        delete params.myLocation;
-        delete params.address;
-      } else {
-        params.full_address = params.address; // envia o endereço digitado
-        params.position = $scope.addressPosition; // envia o lat/lng do endereço digitado
-        delete params.address;
-        delete params.myLocation;
-      }
-
-      requestApi.createData(params, function(data) {
-        if (data.status == 200) {
-          _getData();
-          Notification.show('Denúncia realizada com sucesso!', 'Obrigado por contribuir.');
-        } else {
-          console.warn('Tivemos um problema para criar a sua denúncia. Por favor, tente novamente em instantes.');
-          Notification.show('Atenção', 'Tivemos um problema para criar a sua denúncia. Por favor, tente novamente em instantes.');
-        }
-      });
-    };
-    // ====
-
-
-    // ====
-    // Instância do socket para reports em realtime
-    function socket() {
-      requestApi.socket(function(data) {
-         //  var reformattedArray = data.map(function(obj){
-         //   var rObj = {
-         //    [obj.Key]: obj.Value
-         //   };
-
-         //   return rObj;
-         // });
-
-         // addMarkers(reformattedArray);
-         // console.warn('reformattedArray', reformattedArray);
-      })
-    }
-
-    // socket();
-    // ====
-
-
-    // ====
     // Obtém todos os dados da api
-    function _getData() {
+    function _getAllData() {
+      var arr_markers;
+
+      arr_markers = [];
+
       requestApi.getList(function(data) {
-        if (data.status == 200) {
-          $scope.result = data.data.data;
+        if (data.status === 200) {
+          if (data.data.length > 0) {
+            $scope.result = data.data;
 
-          if ($scope.map) {
-            addMarkers(data.data.data);
-            $scope.progressbar.complete();
+            for (var i = 0; i < data.data.length; i++) {
+              arr_markers.push({
+                _id: data.data[i]._id,
+                title: data.data[i].title,
+                lat: data.data[i].lat,
+                lng: data.data[i].lng,
+                praise: data.data[i].praise,
+              })
+            }
+
+            $scope.arr_markers = arr_markers;
+
+            // $scope.$emit('data_and_pins_ok');
           } else {
-            $scope.$on('map_ok', function() {
-              addMarkers(data.data.data);
-              $scope.progressbar.complete();
-            })
+            Notification.show('Atenção', 'Ainda não temos nenhuma denúncia.');
           }
-
         } else {
-          console.warn('Tivemos um problema para listar as denúncias. Por favor, tente novamente em instantes.');
-          Notification.show('Atenção', 'Tivemos um problema para listar as denúncias. Por favor, tente novamente em instantes.');
+          console.warn('Problema no retorno dos dados.')
+          Notification.show('Atenção', 'Tivemos um problema no nosso servidor, tente em instantes.');
         }
       });
     }
-
-    _getData();
     // ====
 
-
     // ====
-    // Monta o mapa com a localização do usuário e adiciona os marcadores
+    // Métodos de localização
     function getLocation() {
       $scope.progressbar.start();
 
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(savePosition, error);
       } else {
-        console.warn('Geolocalização não é suportado pelo seu navegador.')
+        // console.warn('Geolocalização não é suportado pelo seu navegador.')
         Notification.show('Atenção', 'Geolocalização não é suportado pelo seu navegador.');
       }
     }
 
     function error(error) {
-      console.warn('Error', error);
+      // console.warn('Error', error);
       Notification.show('Atenção', error);
     }
 
     function savePosition(position) {
-      initialize(position);
+      var fake_position, ls_position;
 
-      $scope.userPosition = [position.coords.latitude, position.coords.longitude];
+      LocalStorage.saveUserPosition(position);
+      ls_position = LocalStorage.getItem('ANGRY_TX_POS');
 
-      localStorage.setItem('userPosition_AT', JSON.stringify({
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
-      }));
+      if (ls_position != null) {
+        $scope.$emit('position_ok');
+      } else {
+        Notification.show('Atenção', 'É necessário alterar as configurações de privacidade do seu GPS.')
+
+        fake_position = {
+          'latitude': -13.569368,
+          'longitude': -56.5357314
+        };
+
+        LocalStorage.saveFakePosition(fake_position);
+        $scope.$emit('position_off');
+      }
     }
+    // ====
 
-    function initialize(position) {
-      getFullAddress(position);
+    // ====
+    // Métodos do mapa
+    function _initialize(args) {
+      var ls_position, userPosition, map, userMarker, userRadius, styles, styledMap;
 
-      var userPosition = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
-      };
+      ls_position = LocalStorage.getItem('ANGRY_TX_POS');
 
-      var map = new google.maps.Map(document.getElementById('map'), {
+      userPosition = new google.maps.LatLng(ls_position.lat, ls_position.lng);
+
+      map = new google.maps.Map(document.getElementById('map'), {
         center: userPosition,
         zoom: 15,
         panControl: false,
@@ -154,22 +116,22 @@ angular.module('angryTaxiApp')
         title: 'Você está aqui',
         mapTypeControl: false,
         zoomControlOptions: {
-          style: google.maps.ZoomControlStyle.SMALL
-        }
+          style: google.maps.ZoomControlStyle.SMALL,
+          position: google.maps.ControlPosition.RIGHT_BOTTOM
+        },
       });
 
-      $scope.map = map;
+      $scope.bounds = new google.maps.LatLngBounds();
 
-      var bounds = new google.maps.LatLngBounds();
-      $scope.bounds = bounds;
+      $scope.geocoder = new google.maps.Geocoder();
 
-      var marker = new google.maps.Marker({
+      userMarker = new google.maps.Marker({
         position: userPosition,
         map: map,
         icon: '../../images/user-icon.png'
       });
 
-      var userRadius = new google.maps.Circle({
+      userRadius = new google.maps.Circle({
         map: map,
         radius: 200,
         fillColor: '#FED300',
@@ -179,9 +141,7 @@ angular.module('angryTaxiApp')
         strokeWeight: 1
       });
 
-      userRadius.bindTo('center', marker, 'position');
-
-      var styles = [
+      styles = [
           {
               "featureType": "all",
               "elementType": "labels.text.fill",
@@ -349,27 +309,42 @@ angular.module('angryTaxiApp')
           }
       ];
 
-      var styledMap = new google.maps.StyledMapType(styles, {
+      styledMap = new google.maps.StyledMapType(styles, {
         name: "Angry Map"
       });
 
+      userRadius.bindTo('center', userMarker, 'position');
+
+      if (args === 'zoom') {
+        map.setZoom(4);
+        userMarker.setMap(null);
+      };
+
       // Aplicando as configurações do mapa
-      $scope.map.mapTypes.set('angry_map', styledMap);
-      $scope.map.setMapTypeId('angry_map');
+      map.mapTypes.set('angry_map', styledMap);
+      map.setMapTypeId('angry_map');
+
+      // setando alguns métodos no $scope
+      $scope.map = map;
+      $rootScope.map = map;
+      $scope.userMarker = userMarker;
 
       $scope.$emit('map_ok');
-    }
+      $scope.progressbar.complete();
+    };
 
-    function getFullAddress(position) {
-      var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-      var geocoder = new google.maps.Geocoder();
+    function _getFullAddress() {
+      var full_address, ls_position;
 
-      geocoder.geocode({'latLng': latlng}, function(results, status) {
-        if (status == google.maps.GeocoderStatus.OK) {
+      ls_position = LocalStorage.getItem('ANGRY_TX_POS');
+
+      $scope.geocoder.geocode({'latLng': ls_position}, function(results, status) {
+        if (status === 'OK') {
           if (results[0]) {
-            $scope.full_address = results[0].formatted_address;
+            $rootScope.full_address = results[0].formatted_address;
+            $scope.$emit('formatted_address_ok');
           } else {
-            console.warn('Não conseguimos localizar do seu endereço.');
+            // console.warn('Não conseguimos localizar do seu endereço.');
             Notification.show('Atenção', 'Não conseguimos localizar o seu endereço.');
           }
         } else {
@@ -377,118 +352,143 @@ angular.module('angryTaxiApp')
           Notification.show('Atenção', 'Tivemos um problema para localização do seu endereço ' + status);
         }
       });
+
+      $scope.$broadcast('full_address_ok');
     };
 
-    function getLatLngByAddress(address) {
-      var geocoder = new google.maps.Geocoder();
+    function _getLatLngByAddress() {
+      var addressPosition;
 
-      geocoder.geocode({'address': address}, function(results, status) {
-        if (status == google.maps.GeocoderStatus.OK) {
-          $scope.addressPosition = [results[0].geometry.location.lat(), results[0].geometry.location.lng()]
+      $scope.geocoder.geocode({'address': $rootScope.full_address}, function(results, status) {
+        if (status === 'OK') {
+          $rootScope.addressPosition = [results[0].geometry.location.lat(), results[0].geometry.location.lng()];
+          // $rootScope.addressPosition = $scope.addressPosition;
         } else {
           // console.warn('Tivemos um problema para localização do seu endereço', status);
           // Notification.show('Atenção', 'Tivemos um problema para localização do seu endereço ' + status);
         }
       });
+
+      $scope.$emit('address_latlng_ok');
     };
 
-    function addMarkers(markers) {
-      var arrayMarkers = [];
-      var infoWindow = new google.maps.InfoWindow();
+    function _addMarkers() {
+      var arrayHeatMarker, arrayMarkers, infoWindow, marker, heatMarker;
 
-      for(var i = 0; i < markers.length; i++ ) {
-        $scope.markers = new google.maps.Marker({
-          position: new google.maps.LatLng(markers[i].position[0], markers[i].position[1]),
+      arrayMarkers = [];
+      arrayHeatMarker = [];
+
+      $scope.infowindow = new google.maps.InfoWindow();
+
+      arrayMarkers = $scope.arr_markers;
+
+      $scope.mapsMarkers = [];
+
+      for(var i = 0; i < arrayMarkers.length; i++ ) {
+        marker = new google.maps.Marker({
+          position: new google.maps.LatLng(arrayMarkers[i].lat, arrayMarkers[i].lng),
           map: $scope.map,
-          icon: '../../images/complaint-icon.png',
           clickable: true,
+          title: arrayMarkers[i].title,
           zIndex: 90,
+          icon: _checkIcon(arrayMarkers[i].praise),
           animation: google.maps.Animation.DROP
         });
 
-        // agrupa os marcadores na view
-        // $scope.bounds.extend(new google.maps.LatLng(markers[i].position[0], markers[i].position[1]));
-        // $scope.map.fitBounds($scope.bounds);
+        $scope.mapsMarkers.push(marker);
 
-        // infowindow com o título da denúncia
-        infoWindow.setContent(markers[i].title);
-        // infoWindow.open($scope.map, $scope.markers);
+        // agrupa os marcadores na view
+        $scope.bounds.extend(new google.maps.LatLng(arrayMarkers[i].lat, arrayMarkers[i].lng));
+        $scope.map.fitBounds($scope.bounds);
 
         // Heatmap mostrando as áreas perigosas
-        var heatMarker = new google.maps.LatLng(markers[i].position[0], markers[i].position[1]);
-        arrayMarkers.push(heatMarker)
+        heatMarker = new google.maps.LatLng(arrayMarkers[i].lat, arrayMarkers[i].lng);
+        arrayHeatMarker.push(heatMarker)
+
+        // Infowindow com o título da denúncia
+        google.maps.event.addListener(marker, 'click', (function(marker, i) {
+          return function() {
+            $scope.infowindow.setContent(marker.title);
+            $scope.infowindow.open($scope.map, marker);
+          }
+        })(marker, i));
       }
 
       // Heatmap mostrando as áreas perigosas
       $scope.heatmap = new google.maps.visualization.HeatmapLayer({
-        data: arrayMarkers,
+        data: arrayHeatMarker,
         map: $scope.map
       });
+    };
 
-      // $scope.heatmap.set('radius', 20);
+    function _checkIcon(condition) {
+      if (condition === false) {
+        return '../../images/complaint-icon.png';
+      } else {
+        return '../../images/praise-icon.png';
+      }
+    };
+
+    function _backMyLocation() {
+      $scope.map.setZoom(8);
+      $scope.map.setCenter($scope.userMarker.getPosition());
+    };
+    // ====
+
+    // ====
+    // Interações no mapa
+    $scope.backMyLocation = function() {
+      _backMyLocation();
     }
 
-    $scope.getLocation = getLocation();
-    // ====
-
-
-    // ====
-    // Faz o toggle das áreas perigosas
-    $scope.toggleHeatmap = function() {
-      $scope.heatmap.setMap($scope.heatmap.getMap() ? null : $scope.map);
-    };
-    // ====
-
-
-    // ====
-    // Envia um feedback / desktop
-    $scope.feedback = {};
-
-    $scope.submitFeedback = function() {
-      var params = $scope.feedback;
-
-      requestApi.sendFeedback(params, function(data) {
-        if (data.status == 200) {
-          Notification.show('Mensagem enviada', 'Obrigado pelo seu feedback.');
+    // oculta os marcadores e só exibe o heatmap
+    $scope.onlyHeatMap = function() {
+      angular.forEach($scope.mapsMarkers, function(i) {
+        if (i.visible === false) {
+          i.setVisible(true);
         } else {
-          console.warn('Tivemos um problema no envio do feedback, tente novamente em alguns instantes.')
-          Notification.show('Atenção', 'Tivemos um problema no envio do feedback, tente novamente em alguns instantes.');
+          i.setVisible(false)
         }
       })
+
+      if ($scope.userMarker.visible === false) {
+        $scope.userMarker.setVisible(true)
+      } else {
+        $scope.userMarker.setVisible(false)
+      }
     };
     // ====
 
 
-    // ====
-    // Autocomplete do endereço
-    $scope.autoComplete = function(address) {
-      return $http.get('//maps.googleapis.com/maps/api/geocode/json', {
-        params: {
-          address: address,
-          sensor: false,
-          language: 'pt-BR'
-        }
-      }).then(function(response){
-        return response.data.results.map(function(item){
-          $scope.formatted_address = item.formatted_address;
-          $scope.$emit('formatted_address');
-          return item.formatted_address;
-        });
-      });
-    };
+    // Declarando as funções
+    $scope.getLocation = getLocation();
 
-    $scope.$on('formatted_address', function() {
-      getLatLngByAddress($scope.formatted_address);
-    })
+    _getAllData();
+
+    $scope.$on('position_ok', function() {
+      _initialize();
+    });
+
+    $scope.$on('position_off', function() {
+      _initialize('zoom');
+    });
+
+    $scope.$on('map_ok', function() {
+      _getFullAddress();
+      _addMarkers()
+    });
+
+    $scope.$on('full_address_ok', function() {
+      var full_address = $rootScope.full_address;
+
+      if (full_address != undefined) {
+        _getLatLngByAddress();
+      }
+    });
+
+    $scope.$on('formatted_address_ok', function() {
+      _getLatLngByAddress();
+    });
     // ====
 
-
-    // ====
-    // Ativa ou desativa o menu / mobile
-    $rootScope.mobileMenuActive = false;
-
-    $scope.toggleMobileMenu = function() {
-      $rootScope.mobileMenuActive = $rootScope.mobileMenuActive === false ? true: false;
-    };
-    // ====
   });

@@ -20,13 +20,11 @@ angular
     'backand',
     'ngMask',
     'ngProgress',
-    'ui.bootstrap'
+    'ui.bootstrap',
+    'ngAnimate',
+    'pascalprecht.translate'
   ])
-  .config(function ($routeProvider, BackandProvider, $locationProvider) {
-      BackandProvider.setAppName('angrytaxi');
-      BackandProvider.setSignUpToken('2a1c2dcb-704b-4702-ba00-1aca118dede2');
-      BackandProvider.setAnonymousToken('502f185a-4fa3-4d8a-82cb-6c7dc35300ce');
-      BackandProvider.runSocket(true);
+  .config(function ($routeProvider, $locationProvider, $translateProvider) {
 
     $routeProvider
       .when('/', {
@@ -34,10 +32,10 @@ angular
         controller: 'MainCtrl',
         controllerAs: 'main'
       })
-      .when('/about', {
-        templateUrl: 'views/about.html',
-        controller: 'AboutCtrl',
-        controllerAs: 'about'
+      .when('/complaint/:id', {
+        templateUrl: 'views/main.html',
+        controller: 'ValidarCtrl',
+        controllerAs: 'validar'
       })
       .otherwise({
         redirectTo: '/'
@@ -47,4 +45,21 @@ angular
       enabled: true,
       requireBase: false
     });
+
+    // ====
+    // Internationalization
+    $translateProvider.useStaticFilesLoader({
+      files: [ {
+        prefix: 'translate/',
+        suffix: '.json'
+      }]
+    });
+
+    // set preferred language
+    $translateProvider.preferredLanguage('pt-BR');
+    $translateProvider.forceAsyncReload(true);
+
+    // remember language
+    $translateProvider.useLocalStorage();
+    // ====
   });

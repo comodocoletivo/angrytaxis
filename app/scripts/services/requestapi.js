@@ -8,49 +8,37 @@
  * Service in the angryTaxiApp.
  */
 angular.module('angryTaxiApp')
-  .service('requestApi', function ($http, Backand) {
+  .service('requestApi', function ($http, ApiConfig) {
     // AngularJS will instantiate a singleton by calling "new" on this function
 
     var obj = {};
+    var apiUrl = ApiConfig.API_URL;
 
-    obj.createData = function(data, callback) {
-      var url = $http ({
-        method: 'POST',
-        url: Backand.getApiUrl() + '/1/objects/request?returnObject=true',
-        data: data // object
-      });
+    obj.createComplaint = function(data, callback) {
+      $http.post(apiUrl + '/api/v1/complaint/', data)
+        .then(function (data) {
+          callback(data);
+        }, function (error) {
+          callback(error);
+        });
+    };
 
-      url.then(function(value) {
-        callback(value);
-      }, function(reason) {
-        callback(reason);
-      });
+    obj.checkComplaint = function(params, callback) {
+      $http.post(apiUrl + '/api/v1/complaint/' + params)
+        .then(function (data) {
+          callback(data);
+        }, function (error) {
+          callback(error);
+        });
     };
 
     obj.getList = function(callback) {
-      var url =  $http({
-        method: 'GET',
-        url: Backand.getApiUrl() + '/1/objects/request',
-        params: {
-          pageSize: 20,
-          pageNumber: 1,
-          filter: [],
-          sort: ''
-        }
-      });
-
-      url.then(function(value) {
-        callback(value);
-      }, function(reason) {
-        callback(reason);
-      });
-    };
-
-    obj.socket = function(callback) {
-      Backand.on('items_updated', function (data) {
-        //Get the 'items' object that have changed
-        callback(data);
-      });
+      $http.get(apiUrl + '/api/v1/complaint/')
+        .then(function (result) {
+          callback(result)
+        }, function (error) {
+          callback(error);
+        });
     };
 
     obj.sendFeedback = function(data, callback) {

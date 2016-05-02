@@ -1,27 +1,61 @@
-<div class="wrapper-section" ng-class="{ 'active': mobileMenuActive == true }">
-  <!-- denuncias -->
-  <section class="col-xs-12 box">
-    <h3>últimas denúncias</h3>
+<!-- Denúncias -->
+<div ng-controller="GeneralCtrl" ng-include src="'views/partials/denuncias.html'"></div>
 
-    <aside ng-repeat="m in result.slice().reverse() | limitTo: 3" class="complaint-list">
-      <h5>{{m.title}}</h5>
+<!-- Controles no mapa -->
+<div ng-show="map" class="hidden-xs wrp-controls-map">
+  <button class="my_location popup" data-popup="{{ 'SHOW_MY_LOCAL' | translate }}" ng-click="backMyLocation()" title="{{ 'SHOW_MY_LOCAL' | translate }}">
+    {{ 'SHOW_MY_LOCAL' | translate }}
+  </button>
 
-      <p class="address" title="Endereço">{{m.full_address}}</p>
-      <p class="date" title="Data">{{m.date}}</p>
-      <p class="hour" title="Hora">{{m.hour}}</p>
-    </aside>
-  </section>
+  <!-- <button class="markers" ng-click="onlyComplaint()" title="Exibir apenas denúncias">
+    Exibir apenas denúncias
+  </button> -->
 
-  <footer class="footer-primary">
-    <span>2016</span>
-    <p>todos os direitos reservados <br> aos passageiros.</p>
-  </footer>
+  <button class="heatmap popup" ng-click="onlyHeatMap();" data-popup="{{ 'HEAT_MAP' | translate }}" title="{{ 'HEAT_MAP' | translate }}">
+    {{ 'HEAT_MAP' | translate }}
+  </button>
 </div>
 
-<!-- Mapa -->
-<div ng-hide="map" class="load-map"></div>
 <section class="col-xs-12 map" id="map"></section>
 
 <!-- Modal -->
-<div ng-include src="'views/modals/modal-denunciar.html'"></div>
-<div ng-include src="'views/modals/modal-feedback.html'"></div>
+<div ng-include ng-controller="GeneralCtrl" src="'views/modals/modal-denunciar.html'"></div>
+<div ng-include ng-controller="GeneralCtrl" src="'views/modals/modal-elogiar.html'"></div>
+<div ng-include ng-controller="GeneralCtrl" src="'views/modals/modal-instructions.html'"></div>
+
+<div ng-include ng-controller="GeneralCtrl" src="'views/modals/modal-feedback.html'"></div>
+
+<!-- About -->
+<section ng-controller="GeneralCtrl" class="hidden-xs col-sm-12 wrp-sc-about" ng-class="{ 'active': sobreActive == true }">
+  <article class="sc-about">
+    <h2 class="comodo-logo">Cômodo Coletivo</h2>
+
+    <span class="btn-close-about" ng-click="toggleSobre()">x</span>
+
+    <h3>{{ 'ALL_RIGHTS_RESERVED_COMPLETE' | translate }}</h3>
+
+    <aside class="text">
+      <p>{{'ABOUT_TXT_01' | translate }} <b>{{'ANGRY_NAME' | translate }}</b>.</p>
+
+      <p>{{'ABOUT_TXT_02' | translate}}</p>
+
+      <div class="pull-left">
+        <h5>{{'SHARE' | translate}}</h5>
+
+        <div>
+          <a href="https://www.facebook.com/sharer/sharer.php?u=https://angrytaxis.com?share=1&cup=blue&bowl=red&spoon=green" class="btn btn-social" title="Compartilhe no Facebook">Facebook</a>
+          <a href="http://twitter.com/share?text=Todos+os+direitos+reservados+aos+passageiros!&url=https://angrytaxis.com&hashtags=angrytaxis," class="btn btn-social" title="Compartilhe no Twitter">Twitter</a>
+        </div>
+      </div>
+
+      <div class="pull-right">
+        <h5>{{'COMING_SOON' | translate}}</h5>
+
+        <div>
+          <a href="#" class="btn-download app-store" title="Em breve na App Store">App Store</a>
+          <a href="#" class="btn-download google-play" title="Em breve na Google Play">Google Play</a>
+        </div>
+      </div>
+    </aside>
+  </article>
+</section>

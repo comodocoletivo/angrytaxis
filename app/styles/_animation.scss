@@ -1,6 +1,6 @@
 .load-map {
   position: absolute;
-  z-index: 100;
+  z-index: 1000;
   width: 100%;
   height: 100%;
   background: #2b2b2b;
@@ -8,20 +8,39 @@
 
   &:before {
     content: '';
-    width: 200px;
-    height: 200px;
-    background-image: url('../images/logo.png');
-    background-size: 390px;
-    background-position: -90px 10px;
-    background-repeat: no-repeat;
-    position: absolute;
+    width: 205px;
+    height: 240px;
+    margin-top: -120px;
+    margin-left: -102.5px;
     top: 50%;
     left: 50%;
-    margin-top: -100px;
-    margin-left: -100px;
     z-index: 101;
+    position: absolute;
 
-    -webkit-animation: loading 6s ease-in-out infinite;
+    background-image: url('../images/logo-animated.png');
+    background-position: 0 0;
+    background-repeat: no-repeat;
+
+    -webkit-animation: loading 5s linear infinite alternate-reverse;
+    -moz-animation: loading 5s linear infinite alternate-reverse;
+    animation: loading 5s linear infinite alternate-reverse;
+  }
+
+  &:after {
+    content: '';
+    width: 165px;
+    height: 40px;
+    margin-top: -20px;
+    margin-left: -82.5px;
+    top: 67%;
+    left: 50%;
+    z-index: 102;
+    position: absolute;
+
+    background-image: url('../images/logo-animated-shadow.png');
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    // background-color: red;
   }
 }
 
@@ -36,4 +55,72 @@
   80%{ top: 51%;}
   90%{ top: 50%;}
   100%{ top: 51%;}
+}
+
+@-moz-keyframes loading {
+  0%{ top: 50%;}
+  10%{ top: 51%;}
+  20%{ top: 50%;}
+  30%{ top: 51%;}
+  40%{ top: 50%;}
+  50%{ top: 51%;}
+  60%{ top: 50%;}
+  80%{ top: 51%;}
+  90%{ top: 50%;}
+  100%{ top: 51%;}
+}
+
+@keyframes loading {
+  0%{ top: 50%;}
+  10%{ top: 51%;}
+  20%{ top: 50%;}
+  30%{ top: 51%;}
+  40%{ top: 50%;}
+  50%{ top: 51%;}
+  60%{ top: 50%;}
+  80%{ top: 51%;}
+  90%{ top: 50%;}
+  100%{ top: 51%;}
+}
+
+
+/* ANIMATIONS
+============================================================================= */
+
+/* leaving animations ----------------------------------------- */
+/* rotate and fall */
+@keyframes rotateFall {
+    0%      { transform: rotateZ(0deg); }
+    20%     { transform: rotateZ(10deg); animation-timing-function: ease-out; }
+    40%     { transform: rotateZ(17deg); }
+    60%     { transform: rotateZ(16deg); }
+    100%    { transform: translateY(100%) rotateZ(17deg); }
+}
+
+/* slide in from the bottom */
+@keyframes slideOutLeft {
+    to      { transform: translateX(-100%); }
+}
+
+/* rotate out newspaper */
+@keyframes rotateOutNewspaper {
+    to      { transform: translateZ(-3000px) rotateZ(360deg); opacity: 0; }
+}
+
+/* entering animations --------------------------------------- */
+/* scale up */
+@keyframes scaleUp {
+    from    { opacity: 0.3; -webkit-transform: scale(0.8); }
+}
+
+/* slide in from the right */
+@keyframes slideInRight {
+    from    { transform:translateX(100%); }
+    to      { transform: translateX(0); }
+}
+
+/* slide in from the bottom */
+@keyframes slideInUp {
+    from    { transform:translateY(100%); }
+    to      { transform: translateY(0); }
 }

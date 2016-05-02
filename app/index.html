@@ -6,7 +6,7 @@
 
     <base href="/">
 
-    <title>Angrytaxis - Faça seu papel, denuncie!</title>
+    <title>Angrytaxis - Todos os direitos reservados aos passageiros!</title>
 
     <meta name="description" content="Web App para denunciar ataques de taxistas aos passageiros ou motoristas que não sejam taxistas.">
     <meta name="viewport" content="width=device-width, user-scalable=no">
@@ -82,29 +82,58 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
+    <!-- Animation -->
+    <div ng-hide="map" class="load-map"></div>
+
     <!-- Tablet and Desktop -->
-    <header class="hidden-xs header-primary">
-      <h1 class="logo">Angrytaxi</h1>
+    <header class="hidden-xs header-primary" ng-controller="GeneralCtrl">
+      <h1 class="logo">Angrytaxis</h1>
 
       <nav class="pull-right">
         <ul>
           <li>
-          <button class="btn-default" data-toggle="modal" data-target="#modal-feedback">feedback</button>
+            <button ng-click="toggleSobre()" class="btn-default">
+              {{ 'ABOUT' | translate }}
+            </button>
           </li>
+
           <li>
-            <button class="btn-denunciar" data-toggle="modal" data-target="#modal-denunciar">denunciar</button>
+            <button class="btn-default" data-toggle="modal" data-target="#modal-feedback">
+              {{ 'FEEDBACK' | translate }}
+            </button>
+          </li>
+
+          <li>
+            <button class="btn-elogiar" data-toggle="modal" data-target="#modal-elogiar">
+              {{ 'PRAISE' | translate }}
+            </button>
+          </li>
+
+          <li>
+            <button class="btn-denunciar" data-toggle="modal" data-target="#modal-denunciar">
+              {{ 'DENOUNCE' | translate }}
+            </button>
           </li>
         </ul>
       </nav>
     </header>
 
     <!-- Mobile -->
-    <header class="hidden-sm hidden-md hidden-lg header-secondary" ng-controller="MainCtrl">
-      <h1 class="logo">Angrytaxi</h1>
-      <span class="mobile-menu" ng-click="toggleMobileMenu()">Últimas denuncias</span>
+    <header class="hidden-sm hidden-md hidden-lg header-secondary" ng-controller="GeneralCtrl">
+      <h1 class="logo">Angrytaxis</h1>
+
+      <span class="mobile-menu" ng-click="toggleMobileMenu()">
+        {{ 'LAST_COMPLAINTS' | translate }}
+      </span>
 
       <nav>
-        <button class="btn-denunciar" data-toggle="modal" data-target="#modal-denunciar">denunciar</button>
+        <button class="btn-denunciar" data-toggle="modal" data-target="#modal-denunciar">
+          {{ 'DENOUNCE' | translate }}
+        </button>
+
+        <button class="btn-elogiar" data-toggle="modal" data-target="#modal-elogiar">
+          {{ 'PRAISE' | translate }}
+        </button>
       </nav>
     </header>
 
@@ -126,7 +155,6 @@
     </script>
 
     <script src="https://maps.googleapis.com/maps/api/js?signed_in=true&key=AIzaSyD5k9agXULIehDwRDJPCzcxrJlNga7YHac&libraries=visualization" async></script>
-    <script src="https://api.backand.com:4000/socket.io/socket.io.js"></script>
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
@@ -145,15 +173,24 @@
     <script src="bower_components/ngMask/dist/ngMask.js"></script>
     <script src="bower_components/ngprogress/build/ngprogress.min.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="bower_components/angular-translate/angular-translate.js"></script>
+    <script src="bower_components/angular-translate-storage-cookie/angular-translate-storage-cookie.js"></script>
+    <script src="bower_components/angular-translate-storage-local/angular-translate-storage-local.js"></script>
+    <script src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
+        <script src="scripts/app.config.js"></script>
         <script src="scripts/controllers/main.js"></script>
         <script src="scripts/controllers/about.js"></script>
         <script src="scripts/services/requestapi.js"></script>
         <script src="scripts/services/notification.js"></script>
+        <script src="scripts/controllers/general.js"></script>
+        <script src="scripts/controllers/validar.js"></script>
+        <script src="scripts/services/localstorage.js"></script>
+        <!-- <script src="scripts/directives/angrymaps.js"></script> -->
         <!-- endbuild -->
 </body>
 </html>

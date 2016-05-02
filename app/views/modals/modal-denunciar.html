@@ -3,57 +3,64 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" title="Fechar" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Denuncie aqui!</h4>
+        <h4 class="modal-title">{{ 'MODAL_COMPLAINT_TITLE' | translate }}</h4>
       </div>
 
       <div class="row modal-body">
-        <form name="form">
-          <fieldset class="form-group col-xs-12">
-            <input type="text" placeholder="Dê um título à occorência" ng-model="complaint.title" class="form-control" required>
+        <form name="complaintForm" ng-submit="newComplaint()">
+          <fieldset class="form-group col-xs-12" ng-class="{ 'has-error' : complaintForm.title.$invalid && !complaintForm.title.$pristine }">
+            <input type="text" name="title" placeholder="{{ 'MODAL_COMPLAINT_INPUT_TITLE' | translate }}" ng-model="complaint.title" class="form-control" required>
+            <p ng-show="complaintForm.title.$invalid && !complaintForm.title.$pristine" class="help-block">
+            {{ 'MODAL_COMPLAINT_MSG_DEFAULT' | translate }}</p>
           </fieldset>
 
-          <fieldset class="form-group col-xs-12 col-sm-6">
-            <input type="tel" placeholder="Data da ocorrência dd/mm/aaaa" ng-model="complaint.date" class="form-control icon date" mask="39/19/9999">
+          <fieldset class="form-group col-xs-12 col-sm-4" ng-class="{ 'has-error' : complaintForm.date.$invalid && !complaintForm.date.$pristine }">
+            <input type="tel" name="date" placeholder="{{ 'MODAL_COMPLAINT_INPUT_DATE' | translate }}" ng-model="complaint.complaintDate" class="form-control icon date" mask="39/19/9999" required>
+            <p ng-show="complaintForm.date.$invalid && !complaintForm.date.$pristine" class="help-block">{{ 'MODAL_COMPLAINT_MSG_DEFAULT' | translate }}</p>
           </fieldset>
 
-          <fieldset class="form-group col-xs-12 col-sm-6">
-            <input type="tel" ng-model="complaint.hour" placeholder="Hora da ocorrência" class="form-control icon hour">
+          <fieldset class="form-group col-xs-12 col-sm-4" ng-class="{ 'has-error' : complaintForm.hour.$invalid && !complaintForm.hour.$pristine }">
+            <input type="tel" name="hour" ng-model="complaint.complaintTime" placeholder="{{ 'MODAL_COMPLAINT_INPUT_HOUR' | translate }}" ng-minlength="2" ng-maxlength="5" class="form-control icon hour" required>
+            <p ng-show="complaintForm.hour.$invalid && !complaintForm.hour.$pristine" class="help-block">{{ 'MODAL_COMPLAINT_MSG_DEFAULT' | translate }}</p>
+            <p ng-show="complaintForm.hour.$error.maxlength && complaintForm.hour.$error.minlength" class="help-block">{{ 'MODAL_COMPLAINT_MSG_HOUR' | translate }}</p>
           </fieldset>
 
-          <!-- <fieldset class="form-group col-xs-12 checkbox-wrapper">
-            <input id="cp-now" type="checkbox" ng-model="complaint.now">
-            <label for="cp-now">Aconteceu agora</label>
-          </fieldset> -->
-
-          <fieldset class="form-group col-xs-12 col-sm-6">
-            <input type="tel" ng-model="complaint.license_plate" placeholder="Placa ou Nº de ident. do veículo" class="form-control" required>
+          <fieldset class="form-group col-xs-12 col-sm-4" ng-class="{ 'has-error' : complaintForm.carID.$invalid && !complaintForm.carID.$pristine }">
+            <input type="tel" name="carID" ng-model="complaint.carID" placeholder="{{ 'MODAL_COMPLAINT_INPUT_CARID' | translate }}" class="form-control" required>
+            <p ng-show="complaintForm.carID.$invalid && !complaintForm.carID.$pristine" class="help-block">{{ 'MODAL_COMPLAINT_MSG_DEFAULT' | translate }}</p>
           </fieldset>
 
-          <fieldset class="form-group col-xs-12 col-sm-6">
-            <input type="tel" ng-model="complaint.cpf" placeholder="Insira o número do seu CPF" class="form-control" mask="999.999.999-99" required>
-          </fieldset>
-
-          <fieldset class="form-group col-xs-12">
-            <input type="text" ng-model="complaint.address" placeholder="Endereço do ocorrido" class="form-control" autocomplete="off" uib-typeahead="address for address in autoComplete($viewValue)">
+          <fieldset class="form-group col-xs-12 col-sm-12" ng-class="{ 'has-error' : complaintForm.email.$invalid && !complaintForm.email.$pristine }">
+            <input type="email" name="email" ng-model="complaint.email" placeholder="{{ 'MODAL_COMPLAINT_INPUT_EMAIL' | translate }}" class="form-control" required>
+            <p ng-show="complaintForm.email.$invalid && !complaintForm.email.$pristine" class="help-block">{{ 'MODAL_COMPLAINT_MSG_EMAIL' | translate }}</p>
           </fieldset>
 
           <fieldset class="form-group col-xs-12">
-            <label for="my-location">Obter a minha localização</label>
+            <input type="text" ng-model="complaint.reverseAddress" placeholder="{{ 'MODAL_COMPLAINT_INPUT_ADDRESS' | translate }}" class="form-control" autocomplete="off" uib-typeahead="address for address in autoComplete($viewValue)">
+          </fieldset>
+
+          <fieldset class="form-group col-xs-12 wrp-label">
+            <label for="my-location">{{ 'MODAL_COMPLAINT_IM_HERE' | translate }}</label>
             <input id="my-location" type="checkbox" ng-model="complaint.myLocation">
           </fieldset>
 
           <fieldset class="form-group col-xs-12">
-            <textarea placeholder="Observações sobre a ocorrência" cols="30" rows="10" ng-model="complaint.obs" class="form-control"></textarea>
+            <textarea placeholder="{{ 'MODAL_COMPLAINT_OBS' | translate }}" cols="30" rows="10" ng-model="complaint.observation" class="form-control"></textarea>
           </fieldset>
+
+          <div class="modal-footer">
+            <div class="pull-left col-sm-6" ng-if="full_address">
+              <p class="modal-address">{{full_address}}</p>
+            </div>
+
+            <div class="pull-right">
+              <button ng-disabled="complaintForm.$invalid" class="btn btn-primary" type="submit">
+                {{ 'MODAL_COMPLAINT_CREATE_COMPLAINT' | translate }}
+              </button>
+            </div>
+
+          </div>
         </form>
-      </div>
-
-      <div class="modal-footer">
-        <div class="pull-left col-sm-6" ng-if="full_address">
-          <p class="modal-address">{{full_address}}</p>
-        </div>
-
-        <button type="button" class="btn btn-primary" type="submit" ng-click="newComplaint()" data-dismiss="modal">Criar denúncia</button>
       </div>
     </div>
   </div>
