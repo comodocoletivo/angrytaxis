@@ -1,3 +1,5 @@
+'use strict';
+
 // Via https://github.com/coonsta/cache-polyfill/blob/master/dist/serviceworker-cache-polyfill.js
 // Adds in some functionality missing in Chrome 40.
 
@@ -21,7 +23,7 @@ if (!Cache.prototype.addAll) {
 
     return Promise.resolve().then(function() {
       if (arguments.length < 1) throw new TypeError();
-      
+
       // Simulate sequence<(Request or USVString)> binding:
       var sequence = [];
 

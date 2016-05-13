@@ -91,6 +91,8 @@ angular.module('angryTaxiApp')
 
       params.platform = 'web';
 
+      return console.warn(params);
+
       requestApi.createComplaint(params, function(data) {
         if (data.status === 201) {
           LocalStorage.saveComplaint(data.data);

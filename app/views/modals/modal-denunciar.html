@@ -20,9 +20,8 @@
           </fieldset>
 
           <fieldset class="form-group col-xs-12 col-sm-4" ng-class="{ 'has-error' : complaintForm.hour.$invalid && !complaintForm.hour.$pristine }">
-            <input type="tel" name="hour" ng-model="complaint.complaintTime" placeholder="{{ 'MODAL_COMPLAINT_INPUT_HOUR' | translate }}" ng-minlength="2" ng-maxlength="5" class="form-control icon hour" required>
+            <input type="tel" name="hour" ng-model="complaint.complaintTime" placeholder="{{ 'MODAL_COMPLAINT_INPUT_HOUR' | translate }}" class="form-control icon hour" mask="99-99" required>
             <p ng-show="complaintForm.hour.$invalid && !complaintForm.hour.$pristine" class="help-block">{{ 'MODAL_COMPLAINT_MSG_DEFAULT' | translate }}</p>
-            <p ng-show="complaintForm.hour.$error.maxlength && complaintForm.hour.$error.minlength" class="help-block">{{ 'MODAL_COMPLAINT_MSG_HOUR' | translate }}</p>
           </fieldset>
 
           <fieldset class="form-group col-xs-12 col-sm-4" ng-class="{ 'has-error' : complaintForm.carID.$invalid && !complaintForm.carID.$pristine }">
