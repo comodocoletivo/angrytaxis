@@ -33,7 +33,7 @@ angular.module('angryTaxiApp')
     };
 
     obj.getList = function(callback) {
-      $http.get(apiUrl + '/api/v1/complaint/')
+      $http.get(apiUrl)
         .then(function (result) {
           callback(result)
         }, function (error) {
