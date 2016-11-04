@@ -1,82 +1,91 @@
-'use strict';
+(function() {
 
-/**
- * @ngdoc function
- * @name angryTaxiApp.controller:GeneralCtrl
- * @description
- * # GeneralCtrl
- * Controller of the angryTaxiApp
- */
-angular.module('angryTaxiApp')
-  .controller('GeneralCtrl', function ($rootScope, $scope, requestApi, Notification, LocalStorage, $translate, $http) {
+  'use strict';
+
+  function GeneralCtrl($rootScope, requestApi, Notification, LocalStorage, $translate, $http) {
+
+    var vm;
 
     // ====
-    // Ativa ou desativa o menu / mobile
-    $rootScope.mobileMenuActive = false;
 
-    $scope.toggleMobileMenu = function() {
-      $rootScope.mobileMenuActive = $rootScope.mobileMenuActive === false ? true: false;
-    };
+    vm = this;
+    vm.mobileMenuActive = false;
+    vm.sobreActive = false;
 
-    // Ativa ou desativa o menu / sobre
-    $rootScope.sobreActive = false;
+    vm.toggleMobileMenu = _toggleMobileMenu;
+    vm.toggleSobre = _toggleSobre;
+    vm.autoComplete = _autoComplete;
 
-    $scope.toggleSobre = function() {
-      $rootScope.sobreActive = $rootScope.sobreActive === false ? true: false;
-    };
+    vm.complaint = {};
+    vm.newComplaint = _newComplaint;
+
+    vm.feedback = {};
+    vm.submitFeedback = _submitFeedback;
+
+    vm.setPortugueseLanguage = _ptBR;
+    vm.setEnglishLanguage = _enUS;
+    vm.changeLanguage = _changeLanguage;
+
+    vm.listeners = _listeners;
+
     // ====
 
-    // ====
+    // menu mobile
+    function _toggleMobileMenu() {
+      vm.mobileMenuActive = vm.mobileMenuActive === false ? true: false;
+    }
+
+    // menu sobre
+    function _toggleSobre() {
+      vm.sobreActive = vm.sobreActive === false ? true: false;
+    }
+
     // Autocomplete do endereço
-    $scope.autoComplete = function(address) {
+    function _autoComplete(address) {
       return $http.get('//maps.googleapis.com/maps/api/geocode/json', {
         params: {
           address: address,
           sensor: false,
           language: 'pt-BR'
         }
-      }).then(function(response){
+      }).then(function(response) {
         return response.data.results.map(function(item){
-          $scope.formatted_address = item.formatted_address;
-          $scope.formatted_address_location = item.geometry.location;
+          vm.formatted_address = item.formatted_address;
+          vm.formatted_address_location = item.geometry.location;
           return item.formatted_address;
         });
       });
-    };
-    // ====
+    }
 
-    // ====
-    // Cria uma denúncia
-    $scope.complaint = {};
-
-    $scope.newComplaint = function(args) {
+    // cria uma denúncia
+    function _newComplaint(args) {
       var params, ls_position;
 
-      params = $scope.complaint;
+      params = vm.complaint;
 
       ls_position = LocalStorage.getItem('ANGRY_TX_POS');
 
-      if (params.complaintDate) {
-        params.complaintDate = params.complaintDate.split('/')[2] + '/' + params.complaintDate.split('/')[1] + '/' + params.complaintDate.split('/')[0];
+      if (params.date) {
+        params.date = params.date.split('/')[2] + '/' + params.date.split('/')[1] + '/' + params.date.split('/')[0];
       }
 
       if (params.myLocation === true) {
         // envia o endereço de onde está o usuário
-        params.reverseAddress = $scope.full_address;
+        params.reverseAddress = vm.full_address;
 
         // enviar o lat/lng do usuário
-        params.lat = ls_position.lat.toString();
-        params.lng = ls_position.lng.toString();
+        params.lat = ls_position.lat;
+        params.lng = ls_position.lng;
 
         delete params.myLocation;
         delete params.address;
       } else {
         // envia o endereço digitado
-        params.reverseAddress = $scope.formatted_address;
+        params.reverseAddress = vm.formatted_address;
 
         // envia o lat/lng do endereço digitado
-        params.lat = $scope.formatted_address_location.lat.toString();
-        params.lng = $scope.formatted_address_location.lng.toString();
+        params.lat = vm.formatted_address_location.lat;
+        params.lng = vm.formatted_address_location.lng;
 
         delete params.address;
         delete params.myLocation;
@@ -84,6 +93,7 @@ angular.module('angryTaxiApp')
 
       if (args === 'praise') {
         params.praise = true;
+
         $('#modal-elogiar').modal('hide');
       } else {
         $('#modal-denunciar').modal('hide');
@@ -91,72 +101,87 @@ angular.module('angryTaxiApp')
 
       params.platform = 'web';
 
+      return console.warn(params);
+
       requestApi.createComplaint(params, function(data) {
         if (data.status === 201) {
           LocalStorage.saveComplaint(data.data);
-          $scope.$emit('complaint_created');
+          $rootScope.$emit('complaint_created');
         } else {
           Notification.show('Atenção', 'Tivemos um problema para criar a sua denúncia. Por favor, tente novamente em instantes.');
         }
       });
-    };
-    // ====
+    }
 
-    // ====
-    // Envia um feedback / desktop
-    $scope.feedback = {};
+    // envia um feedback
+    function _submitFeedback() {
+      var params;
 
-    $scope.submitFeedback = function() {
-      var params = $scope.feedback;
+      params = vm.feedback;
 
       requestApi.sendFeedback(params, function(data) {
-        if (data.status == 200) {
+        if (data.status === 200) {
           Notification.show('Mensagem enviada', 'Obrigado pelo seu feedback.');
         } else {
-          console.warn('Tivemos um problema no envio do feedback, tente novamente em alguns instantes.')
           Notification.show('Atenção', 'Tivemos um problema no envio do feedback, tente novamente em alguns instantes.');
         }
       })
-    };
-    // ====
+    }
 
-     // ====
-    // Internationalization
-    $scope.setPortugueseLanguage = function() {
+    // internacionalização
+    function _ptBR() {
       $translate.use('pt-BR');
-      _changeLanguage();
+      vm.changeLanguage();
     }
 
-    $scope.setEnglishLanguage = function() {
+    function _enUS() {
       $translate.use('en');
-      _changeLanguage();
+      vm.changeLanguage();
     }
 
-    // ativar botão
     function _changeLanguage() {
       var ls = localStorage.getItem('NG_TRANSLATE_LANG_KEY');
 
       if (ls === 'en') {
-        $scope.isEnActive = !$scope.isEnActive;
-        $scope.isBrActive = false;
+        vm.isEnActive = !vm.isEnActive;
+        vm.isBrActive = false;
       } else {
-        $scope.isBrActive = !$scope.isBrActive;
-        $scope.isEnActive = false;
+        vm.isBrActive = !vm.isBrActive;
+        vm.isEnActive = false;
       }
     }
-    // ====
+
+    // listeners
+    function _listeners() {
+      // denúncia criada
+      $rootScope.$on('complaint_created', function() {
+        var ls;
+
+        ls = LocalStorage.getItem('ANGRY_TX');
+
+        $rootScope.complaint_email = ls.email;
+
+        $('#modal-instructions').modal('show');
+      });
+    }
 
     // ====
-    // Iniciando as funções
-    $scope.$on('complaint_created', function() {
-      var ls = LocalStorage.getItem('ANGRY_TX');
 
-      $rootScope.complaint_email = ls.email;
+    vm.listeners();
 
-      $('#modal-instructions').modal('show');
-    });
+  }
 
-    _changeLanguage();
-    // ====
+  GeneralCtrl.$inject = [
+    '$rootScope',
+    'requestApi',
+    'Notification',
+    'LocalStorage',
+    '$translate',
+    '$http'
+  ];
 
-  });
+  angular
+  .module('angryTaxiApp')
+  .controller('GeneralCtrl', GeneralCtrl);
+
+})();
