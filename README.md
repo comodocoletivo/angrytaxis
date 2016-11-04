@@ -4,7 +4,7 @@
 
 [![NPM version][shield-npm]](#)
 [![Node.js][shield-node]](#)
-[![Build status][shield-build]](#)
+[![Build Status](https://travis-ci.org/thulioph/angrytaxis.svg?branch=master)](https://travis-ci.org/thulioph/angrytaxis)
 [![Dependencies][shield-dependencies]](#)
 [![MIT licensed][shield-license]](#)
 

@@ -1,20 +1,25 @@
-'use strict';
+(function() {
 
-/**
- * @ngdoc function
- * @name angryTaxiApp.controller:AboutCtrl
- * @description
- * # AboutCtrl
- * Controller of the angryTaxiApp
- */
-angular.module('angryTaxiApp')
-  .controller('AboutCtrl', function ($scope) {
+  'use strict';
 
-    // seta uma clase para a transição das páginas.
-    // $scope.pageClass = 'page-about';
+  function AboutCtrl() {
+    var vm;
 
-    $scope.comeBack = function() {
+    // ====
+
+    vm = this;
+
+    vm.comeBack = _comeBack;
+
+    // ====
+
+    function _comeBack() {
       window.history.back();
-    };
+    }
+  }
 
-  });
+  angular
+  .module('angryTaxiApp')
+  .controller('AboutCtrl', AboutCtrl);
+
+})();
